@@ -13,4 +13,6 @@
     <string name="last_name_title">Last Name</string>
     <string name="country_title">Country</string>
     <string name="city_title">City</string>
+
+    <string name="error_not_all_fields_are_filled">Not all fields are filled</string>
 </resources>

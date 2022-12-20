@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,26 +17,44 @@ public class LoginFragment extends Fragment
     private FragmentLoginBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        binding = FragmentLoginBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        this.binding = FragmentLoginBinding.inflate(inflater, container, false);
+        return this.binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.loginButton.setOnClickListener(new View.OnClickListener()
+        this.binding.authSigninButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                // TODO: Authenticate
+                if (!areAllInputFilled())
+                {
+                    Toast toast = Toast.makeText(getContext(), R.string.error_not_all_fields_are_filled, Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                else
+                {
+                    new Thread(new Runnable()
+                    {
+                        public void run()
+                        {
+                            // TODO: Авторизация
+                            /*
+                            Database database = new Database();
+                            database.executeQuery();
+                            */
+                        }
+                    }).start();
+                }
             }
         });
 
-        binding.registerButton.setOnClickListener(new View.OnClickListener()
+        this.binding.authSignupButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -50,6 +69,11 @@ public class LoginFragment extends Fragment
     public void onDestroyView()
     {
         super.onDestroyView();
-        binding = null;
+        this.binding = null;
+    }
+
+    private boolean areAllInputFilled()
+    {
+        return this.binding.authLoginInput.getText().length() != 0 && this.binding.authPasswordInput.getText().length() != 0;
     }
 }
