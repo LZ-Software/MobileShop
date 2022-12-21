@@ -100,3 +100,17 @@ BEGIN
     JOIN country c2 on c2.id = c.country_id WHERE c2.name = %L', title);
 END
 $func$;
+
+CREATE OR REPLACE FUNCTION get_role_by_login(title VARCHAR)
+RETURNS VARCHAR
+LANGUAGE plpgsql AS
+$func$
+DECLARE ret VARCHAR;
+BEGIN
+    SELECT r.name INTO ret FROM user_login ul
+    JOIN user_role ur ON ul.id = ur.person_id
+    JOIN role r ON r.id = ur.role_id
+    WHERE ul.username = title;
+    RETURN ret;
+END
+$func$;
