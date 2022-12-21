@@ -8,12 +8,12 @@ BEGIN
     IF (SELECT COUNT(*) FROM user_login WHERE username = login) THEN
         RAISE EXCEPTION 'Такой пользователь уже существует';
     ELSE
-        INSERT INTO user_login(username, password) VALUES (login, crypt(password_text, gen_salt('md5'))) RETURNING id_login = id;
+        INSERT INTO user_login(username, password) VALUES (login, crypt(password_text, gen_salt('md5'))) RETURNING id INTO id_login;
         INSERT INTO user_info(user_id, first_name, last_name, country_id, city_id, image_id)
-        VALUES (get_user_id_by_login(login), first_name_text, last_name_text, get_county_id(country), get_city_id(city), 1) RETURNING id_info = id;
+        VALUES (get_user_id_by_login(login), first_name_text, last_name_text, get_county_id(country), get_city_id(city), 1) RETURNING id INTO id_info;
         EXECUTE format('CREATE USER %I WITH PASSWORD %L', LOWER(login), password_text::VARCHAR);
         EXECUTE format('GRANT user to %I', LOWER(login));
-        INSERT INTO user_role(person_id, role_id) VALUES (get_user_id_by_login(login), get_role_id(LOWER(login))) RETURNING id_role = id;
+        INSERT INTO user_role(person_id, role_id) VALUES (get_user_id_by_login(login), get_role_id(LOWER(login))) RETURNING id INTO id_role;
         COMMIT;
         IF (id_info IS NOT NULL OR id_login IS NOT NULL OR id_role IS NOT NULL) THEN
             RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
