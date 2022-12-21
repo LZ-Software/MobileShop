@@ -30,12 +30,12 @@ VALUES ('Приключения'),
        ('Экшн'),
        ('Ужасы');
 
+INSERT INTO game(name, description, price, publisher_id, dt_release, image_id)
+VALUES('Dota 2', 'Cool game', 1000, get_publisher_id_by_title('valve'), '12.05.2015', 1);
+
 INSERT INTO game_genre(game_id, genre_id)
 VALUES (get_game_id_by_title('dota 2'), get_genre_id_by_title('Приключения')),
        (get_game_id_by_title('dota 2'), get_genre_id_by_title('Ужасы'));
-
-INSERT INTO game(name, description, price, publisher_id, dt_release, image_id)
-VALUES('Dota 2', 'Cool game', 1000, get_publisher_id_by_title('valve'), '12.05.2015', 1);
 
 INSERT INTO user_library(user_id, game_id)
 VALUES (get_user_id_by_login('Xboct'), get_game_id_by_title('dota 2'));
