@@ -92,13 +92,11 @@ END
 $func$;
 
 CREATE OR REPLACE FUNCTION get_cities_by_country(title VARCHAR)
-RETURNS VARCHAR
+RETURNS TABLE(name_city VARCHAR)
 LANGUAGE plpgsql AS
 $func$
-DECLARE ret VARCHAR;
 BEGIN
-    SELECT c.name INTO ret FROM city c
-    JOIN country c2 on c2.id = c.id WHERE c2.name = title;
-    RETURN ret;
+    RETURN QUERY EXECUTE FORMAT('SELECT c.name FROM city c
+    JOIN country c2 on c2.id = c.country_id WHERE c2.name = %L', title);
 END
 $func$;
