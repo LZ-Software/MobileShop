@@ -90,3 +90,15 @@ BEGIN
     END IF;
 END
 $func$;
+
+CREATE OR REPLACE FUNCTION get_cities_by_country(title VARCHAR)
+RETURNS VARCHAR
+LANGUAGE plpgsql AS
+$func$
+DECLARE ret VARCHAR;
+BEGIN
+    SELECT c.name INTO ret FROM city c
+    JOIN country c2 on LOWER(c2.name) = LOWER(title);
+    RETURN ret;
+END
+$func$;
