@@ -15,7 +15,7 @@ BEGIN
         EXECUTE format('GRANT user to %I', LOWER(login));
         INSERT INTO user_role(person_id, role_id) VALUES (get_user_id_by_login(login), get_role_id(LOWER(login))) RETURNING id_role = id;
         COMMIT;
-        IF(id_info IS NOT NULL OR id_login IS NOT NULL OR id_role IS NOT NULL ) THEN
+        IF (id_info IS NOT NULL OR id_login IS NOT NULL OR id_role IS NOT NULL ) THEN
             RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
         END IF;
     END IF;
