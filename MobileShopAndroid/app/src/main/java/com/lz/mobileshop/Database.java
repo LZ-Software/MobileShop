@@ -9,10 +9,10 @@ import java.sql.Statement;
 public class Database
 {
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://10.0.2.2:5432/";
+    static final String DB_URL = "jdbc:postgresql://10.0.2.2:5432/mirea";
 
-    static final String USER = "";
-    static final String PASS = "";
+    static final String USER = "postgres";
+    static final String PASS = "keker227";
 
     public ResultSet executeQuery(String query)
     {
