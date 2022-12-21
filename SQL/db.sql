@@ -5,7 +5,7 @@ CREATE DATABASE mobile_shop;
 CREATE TABLE IF NOT EXISTS images
 (
     id SERIAL PRIMARY KEY NOT NULL UNIQUE,
-    image bytea DEFAULT bytea_import('/Users/macbook/Desktop/MobileShop/scripts/default_image.png')
+    image TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS country
@@ -59,6 +59,12 @@ CREATE TABLE IF NOT EXISTS publisher
     country_id INTEGER REFERENCES country(id) ON DELETE NO ACTION
 );
 
+CREATE TABLE IF NOT EXISTS genre
+(
+    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    name VARCHAR(128) NOT NULL UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS game
 (
     id SERIAL PRIMARY KEY NOT NULL UNIQUE,
@@ -67,7 +73,14 @@ CREATE TABLE IF NOT EXISTS game
     price MONEY NOT NULL,
     publisher_id INTEGER REFERENCES publisher(id) ON DELETE CASCADE NOT NULL,
     dt_release TIMESTAMP NOT NULL,
-    image_id INTEGER REFERENCES images(id) ON DELETE CASCADE NOT NULL
+    image_id INTEGER REFERENCES images(id) ON DELETE NO ACTION NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS game_genre
+(
+    id SERIAL PRIMARY KEY NOT NULL UNIQUE,
+    game_id INTEGER REFERENCES game(id) ON DELETE CASCADE NOT NULL,
+    genre_id INTEGER REFERENCES genre(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS game_purchase
@@ -86,5 +99,3 @@ CREATE TABLE IF NOT EXISTS user_library
 );
 
 CREATE EXTENSION pgcrypto;
-
-
