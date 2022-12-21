@@ -98,7 +98,7 @@ $func$
 DECLARE ret VARCHAR;
 BEGIN
     SELECT c.name INTO ret FROM city c
-    JOIN country c2 on LOWER(c2.name) = LOWER(title);
+    JOIN country c2 on c2.id = c.id WHERE c2.name = title;
     RETURN ret;
 END
 $func$;
