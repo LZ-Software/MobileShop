@@ -74,3 +74,19 @@ BEGIN
     RETURN ret;
 END
 $func$;
+
+CREATE OR REPLACE FUNCTION auth_user_get_id(login_text VARCHAR, password_text VARCHAR)
+RETURNS INTEGER
+LANGUAGE plpgsql AS
+$func$
+DECLARE
+    ret INTEGER;
+BEGIN
+    SELECT id INTO ret FROM user_login WHERE username = login_text AND password = crypt(password_text, password);
+    IF (ret = 0) THEN
+    RAISE EXCEPTION 'Неверные данные';
+    ELSE
+        RETURN ret;
+    END IF;
+END
+$func$;
