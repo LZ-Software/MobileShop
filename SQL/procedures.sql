@@ -14,9 +14,11 @@ BEGIN
         INSERT INTO user_role(person_id, role_id) VALUES (get_user_id_by_login(login), get_role_id('user')) RETURNING id INTO id_role;
         EXECUTE format('CREATE USER %I WITH PASSWORD %L', LOWER(login), password_text::VARCHAR);
         EXECUTE format('GRANT "user" to %I', LOWER(login));
-        COMMIT;
         IF (id_info IS NULL OR id_login IS NULL OR id_role IS NULL) THEN
+            ROLLBACK;
             RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
+        ELSE
+           COMMIT;
         END IF;
     END IF;
 END
@@ -31,8 +33,25 @@ BEGIN
         RAISE EXCEPTION 'Такой издатель уже существует';
     ELSE
         INSERT INTO publisher(name, country_id) VALUES (title, get_county_id(country)) RETURNING id INTO id_publisher;
-        COMMIT;
         IF (id_publisher IS NULL) THEN
+            RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
+        END IF;
+    END IF;
+END
+$$LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE create_game(name_text VARCHAR(128), description_text VARCHAR(2048), price_text MONEY, publisher_text VARCHAR(128), date_release TIMESTAMP, image_base64 TEXT, genres TEXT[])
+AS $$
+DECLARE
+    image_id_ret INTEGER;
+    game_id_ret INTEGER;
+BEGIN
+    IF (SELECT COUNT(*) FROM game WHERE name = name_text) THEN
+        RAISE EXCEPTION 'Такой игра уже существует';
+    ELSE
+        INSERT INTO images(image) VALUES (image_base64) RETURNING id INTO image_id_ret;
+        INSERT INTO game(name, description, price, publisher_id, dt_release, image_id) VALUES (name_text, description_text, price_text, get_publisher_id_by_title(publisher_text), date_release, image_id_ret) RETURNING id into game_id_ret;
+        IF (image_id_ret IS NULL OR game_id_ret IS NULL) THEN
             RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
         END IF;
     END IF;
