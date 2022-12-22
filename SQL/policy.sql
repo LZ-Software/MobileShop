@@ -17,21 +17,30 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA public to admin;
 GRANT SELECT ON user_login TO "user";
 GRANT SELECT ON user_info TO "user";
 GRANT UPDATE ON user_info TO "user";
+GRANT INSERT ON user_role TO "user";
+GRANT SELECT ON user_library TO "user";
+GRANT SELECT ON role TO "user";
 GRANT SELECT ON images TO "user";
 GRANT UPDATE ON images TO "user";
 GRANT SELECT ON game TO "user";
 GRANT SELECT ON publisher TO "user";
 GRANT SELECT ON genre TO "user";
 GRANT SELECT ON game_genre TO "user";
+GRANT SELECT ON country TO "user";
+GRANT SELECT ON city TO "user";
 
 ALTER TABLE user_login ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_info ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_role ENABLE ROW LEVEL SECURITY;
+ALTER TABLE role ENABLE ROW LEVEL SECURITY;
 ALTER TABLE images ENABLE ROW LEVEL SECURITY;
 ALTER TABLE game ENABLE ROW LEVEL SECURITY;
 ALTER TABLE publisher ENABLE ROW LEVEL SECURITY;
 ALTER TABLE genre ENABLE ROW LEVEL SECURITY;
 ALTER TABLE game_genre ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user_library ENABLE ROW LEVEL SECURITY;
+ALTER TABLE country ENABLE ROW LEVEL SECURITY;
+ALTER TABLE city ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY adminAll ON user_login FOR All TO admin
 USING (true);
@@ -40,6 +49,12 @@ CREATE POLICY adminAll ON user_info FOR ALL TO admin
 USING (true);
 
 CREATE POLICY adminAll ON user_role FOR ALL TO admin
+USING (true);
+
+CREATE POLICY adminAll ON user_library FOR ALL TO admin
+USING (true);
+
+CREATE POLICY adminAll ON role FOR ALL TO admin
 USING (true);
 
 CREATE POLICY adminAll ON images FOR ALL TO admin
@@ -55,6 +70,12 @@ CREATE POLICY adminAll ON genre FOR ALL TO admin
 USING (true);
 
 CREATE POLICY adminAll ON game_genre FOR ALL TO admin
+USING (true);
+
+CREATE POLICY adminAll ON country FOR ALL TO admin
+USING (true);
+
+CREATE POLICY adminAll ON city FOR ALL TO admin
 USING (true);
 
 CREATE POLICY select_id ON user_login FOR SELECT TO "user"
@@ -73,6 +94,18 @@ CREATE POLICY update_user_info ON user_info FOR UPDATE TO "user"
 USING
 (
     (SELECT LOWER(username) FROM user_login  WHERE  user_login.id = user_info.user_id) = current_user
+);
+
+CREATE POLICY select_user_library ON user_library FOR SELECT TO "user"
+USING
+(
+    (SELECT LOWER(username) FROM user_login WHERE user_login.id = user_library.user_id) = current_user
+);
+
+CREATE POLICY select_role ON role FOR SELECT TO "user"
+USING
+(
+  name = 'user'
 );
 
 CREATE POLICY insert_user_role ON user_role FOR INSERT TO "user"
@@ -94,4 +127,10 @@ CREATE POLICY select_genre ON genre FOR SELECT TO "user"
 USING (true);
 
 CREATE POLICY select_game_genre ON game_genre FOR SELECT TO "user"
+USING (true);
+
+CREATE POLICY select_game_genre ON country FOR SELECT TO "user"
+USING (true);
+
+CREATE POLICY select_game_genre ON city FOR SELECT TO "user"
 USING (true);
