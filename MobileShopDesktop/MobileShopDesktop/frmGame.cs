@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -119,14 +120,25 @@ namespace MobileShopDesktop
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue(nameText.Text);
                     cmd.Parameters.AddWithValue(descriptionText.Text);
-                    cmd.Parameters.AddWithValue(priceText.Text);
+                    cmd.Parameters.AddWithValue(float.Parse(priceText.Text, CultureInfo.InvariantCulture.NumberFormat));
                     cmd.Parameters.AddWithValue(publisherComboBox.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue(dateReleasePicker.SelectedText);
                     cmd.Parameters.AddWithValue(base64Image);
 
-                    cmd.CommandText = "CALL create_game($1, $2, $3::MONEY, $4, $5::DATE, $6);";
+                    cmd.CommandText = "CALL create_game($1, $2, $3, $4, $5::DATE, $6);";
 
                     var rowAffected = cmd.ExecuteNonQuery();
+
+                    NpgsqlBatch batch = new NpgsqlBatch(connection);
+
+                    foreach(var genre in genreListBox.CheckedItems)
+                    {
+                        NpgsqlBatchCommand batch_cmd = new NpgsqlBatchCommand();
+                        batch_cmd.Parameters.AddWithValue(genre.ToString());
+                        batch_cmd.CommandText = $"INSERT INTO game_genre(game_id, genre_id) VALUES(get_game_id_by_title('{nameText.Text}'), get_genre_id_by_title($1))";
+                        batch.BatchCommands.Add(batch_cmd);
+                        batch.ExecuteNonQuery();
+                    }
 
                     if (rowAffected != 0)
                     {

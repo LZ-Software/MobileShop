@@ -40,7 +40,7 @@ BEGIN
 END
 $$LANGUAGE plpgsql;
 
-CREATE OR REPLACE PROCEDURE create_game(name_text VARCHAR(128), description_text VARCHAR(2048), price_text MONEY, publisher_text VARCHAR(128), date_release TIMESTAMP, image_base64 TEXT)
+CREATE OR REPLACE PROCEDURE create_game(name_text VARCHAR(128), description_text VARCHAR(2048), price_text FLOAT, publisher_text VARCHAR(128), date_release TIMESTAMP, image_base64 TEXT)
 AS $$
 DECLARE
     image_id_ret INTEGER;
