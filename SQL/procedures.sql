@@ -17,8 +17,6 @@ BEGIN
         COMMIT;
         IF (id_info IS NULL OR id_login IS NULL OR id_role IS NULL) THEN
             RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
-        ELSE
-            RETURN;
         END IF;
     END IF;
 END
