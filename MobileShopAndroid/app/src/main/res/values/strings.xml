@@ -5,6 +5,9 @@
     <string name="login_fragment_label">Authorization</string>
     <string name="register_fragment_label">Registration</string>
 
+    <string name="user_id_value_name">userId</string>
+    <string name="shared_preferences_name">appPref</string>
+
     <string name="auth_title">Sign In</string>
     <string name="register_title">Sign Up</string>
     <string name="username_title">Username</string>

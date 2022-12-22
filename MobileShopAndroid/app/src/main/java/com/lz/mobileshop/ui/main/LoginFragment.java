@@ -1,6 +1,10 @@
 package com.lz.mobileshop.ui.main;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +14,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.lz.mobileshop.MainActivity;
+import com.lz.mobileshop.MenuActivity;
 import com.lz.mobileshop.R;
 import com.lz.mobileshop.databinding.FragmentLoginBinding;
 import com.lz.mobileshop.db.Database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class LoginFragment extends Fragment
 {
@@ -97,7 +104,13 @@ public class LoginFragment extends Fragment
                         }
                         else
                         {
-                            // TODO: Success
+                            SharedPreferences sharedPref = requireActivity().getSharedPreferences(getString(R.string.shared_preferences_name), Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putInt(getString(R.string.user_id_value_name), userId);
+                            editor.apply();
+
+                            Intent intent = new Intent(getContext(), MenuActivity.class);
+                            startActivity(intent);
                         }
                     }
                     catch (InterruptedException e)
