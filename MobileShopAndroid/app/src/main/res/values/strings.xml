@@ -28,8 +28,8 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">USERNAME</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_username">USERNAME</string>
+    <string name="nav_header_name">NAME</string>
 
     <string name="menu_shop">Shop</string>
     <string name="menu_profile">Profile</string>
