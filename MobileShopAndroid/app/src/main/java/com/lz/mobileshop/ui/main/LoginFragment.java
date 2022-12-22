@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.lz.mobileshop.MainActivity;
 import com.lz.mobileshop.MenuActivity;
 import com.lz.mobileshop.R;
 import com.lz.mobileshop.databinding.FragmentLoginBinding;
@@ -22,7 +20,6 @@ import com.lz.mobileshop.db.Database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 
 public class LoginFragment extends Fragment
 {
@@ -58,7 +55,7 @@ public class LoginFragment extends Fragment
                     {
                         public void run()
                         {
-                            Database database = new Database();
+                            Database database = new Database(login, password);
                             ResultSet resultSet = database.executeQuery("SELECT * FROM auth_user_get_id(?, ?)", getActivity(), login, password);
 
                             while (true)
@@ -74,7 +71,7 @@ public class LoginFragment extends Fragment
                                         break;
                                     }
                                 }
-                                catch (SQLException e)
+                                catch (SQLException | NullPointerException e)
                                 {
                                     requireActivity().runOnUiThread(new Runnable()
                                     {

@@ -1,4 +1,4 @@
-package com.lz.mobileshop.ui.menu.slideshow;
+package com.lz.mobileshop.ui.menu.shop;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,24 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.lz.mobileshop.databinding.FragmentSlideshowBinding;
+import com.lz.mobileshop.databinding.FragmentShopBinding;
 
-public class SlideshowFragment extends Fragment
+public class ShopFragment extends Fragment
 {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentShopBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
     {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        ShopViewModel shopViewModel =
+                new ViewModelProvider(this).get(ShopViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentShopBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textHome;
+        shopViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

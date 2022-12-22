@@ -76,7 +76,7 @@ public class RegisterFragment extends Fragment
                     {
                         public void run()
                         {
-                            Database database = new Database();
+                            Database database = new Database("postgres", "keker227");
                             boolean result = database.callStatement("CALL create_user(?, ?, ?, ?, ?, ?)",
                                     getActivity(), username, password, firstName, lastName, country, city);
 

@@ -15,8 +15,8 @@ public class Database
     static final String JDBC_DRIVER = "org.postgresql.Driver";
     static final String DB_URL = "jdbc:postgresql://10.0.2.2:5432/mobile_shop";
 
-    static final String USER = "postgres";
-    static final String PASS = "keker227";
+    static String USER = "";
+    static String PASS = "";
 
     private Connection connection = null;
     private PreparedStatement preparedStatement = null;
@@ -24,6 +24,17 @@ public class Database
     private ResultSet resultSet = null;
 
     private Activity activity = null;
+
+    public Database(String user, String pass)
+    {
+        USER = user;
+        PASS = pass;
+    }
+
+    public Database()
+    {
+
+    }
 
     public ResultSet executeQuery(String query, Activity act, String... parameters)
     {
