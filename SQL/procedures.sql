@@ -47,12 +47,28 @@ DECLARE
     game_id_ret INTEGER;
 BEGIN
     IF (SELECT COUNT(*) FROM game WHERE name = name_text) THEN
-        RAISE EXCEPTION 'Такой игра уже существует';
+        RAISE EXCEPTION 'Такая игра уже существует';
     ELSE
         INSERT INTO images(image) VALUES (image_base64) RETURNING id INTO image_id_ret;
         INSERT INTO game(name, description, price, publisher_id, dt_release, image_id) VALUES (name_text, description_text, price_text, get_publisher_id_by_title(publisher_text), date_release, image_id_ret) RETURNING id into game_id_ret;
         IF (image_id_ret IS NULL OR game_id_ret IS NULL) THEN
             RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
+        END IF;
+    END IF;
+END
+$$LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE create_genre(title VARCHAR(128))
+AS $$
+DECLARE
+    genre_id_ret INTEGER;
+BEGIN
+    IF (SELECT COUNT(*) FROM genre WHERE name = title) THEN
+        RAISE EXCEPTION 'Такая игра уже существует';
+    ELSE
+        INSERT INTO genre(name) VALUES (title) RETURNING id INTO genre_id_ret;
+        IF(genre_id_ret IS NULL) THEN
+            RAISE EXCEPTION 'Что-то пошло не так';
         END IF;
     END IF;
 END
