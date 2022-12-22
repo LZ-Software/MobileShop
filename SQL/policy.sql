@@ -15,9 +15,9 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA public to admin;
 
 ALTER TABLE user_login ENABLE ROW LEVEL SECURITY;
 
-GRANT SELECT ON user_login TO player;
+GRANT SELECT ON user_login TO "user";
 
-CREATE POLICY select_id ON user_login FOR SELECT TO player
+CREATE POLICY select_id ON user_login FOR SELECT TO "user"
 USING
 (
   LOWER(username) = current_user
