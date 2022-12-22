@@ -12,9 +12,13 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.lz.mobileshop.databinding.FragmentLoginBinding;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class LoginFragment extends Fragment
 {
     private FragmentLoginBinding binding;
+    volatile int userId = 0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -34,17 +38,48 @@ public class LoginFragment extends Fragment
             {
                 if (!areAllInputFilled())
                 {
-                    Toast toast = Toast.makeText(getContext(), R.string.error_not_all_fields_are_filled, Toast.LENGTH_LONG);
-                    toast.show();
+                    Toast.makeText(getContext(), R.string.error_not_all_fields_are_filled, Toast.LENGTH_LONG).show();
                 }
                 else
                 {
+                    String login = binding.authLoginInput.getText().toString();
+                    String password = binding.authPasswordInput.getText().toString();
+
                     Thread auth = new Thread(new Runnable()
                     {
                         public void run()
                         {
                             Database database = new Database();
-                            database.executeQuery("", getActivity());
+                            ResultSet resultSet = database.executeQuery("SELECT * FROM auth_user_get_id(?, ?)", getActivity(), login, password);
+
+                            while (true)
+                            {
+                                try
+                                {
+                                    if (resultSet.next())
+                                    {
+                                        userId = resultSet.getInt("auth_user_get_id");
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                catch (SQLException e)
+                                {
+                                    requireActivity().runOnUiThread(new Runnable()
+                                    {
+                                        public void run()
+                                        {
+                                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                                    break;
+                                }
+                            }
+
+                            database.close();
                         }
                     });
 
@@ -53,11 +88,19 @@ public class LoginFragment extends Fragment
                     try
                     {
                         auth.join();
+
+                        if (userId == 0)
+                        {
+                            Toast.makeText(getContext(), R.string.error_cant_auth, Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            // TODO: Success
+                        }
                     }
                     catch (InterruptedException e)
                     {
-                        Toast toast = Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG);
-                        toast.show();
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             }

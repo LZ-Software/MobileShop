@@ -18,6 +18,7 @@
     <string name="error_cant_get_countries">Can\'t get countries</string>
     <string name="error_cant_get_cities">Can\'t get cities</string>
     <string name="error_cant_register_user">Can\'t register user</string>
+    <string name="error_cant_auth">Auth failed</string>
 
     <string name="success_register_user">User successfully registered</string>
 

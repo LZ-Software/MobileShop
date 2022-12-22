@@ -6,9 +6,9 @@ import android.widget.Toast;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Database
 {
@@ -19,22 +19,29 @@ public class Database
     static final String PASS = "keker227";
 
     private Connection connection = null;
-    private Statement statement = null;
+    private PreparedStatement preparedStatement = null;
     private CallableStatement callableStatement = null;
     private ResultSet resultSet = null;
 
     private Activity activity = null;
 
-    public ResultSet executeQuery(String query, Activity act)
+    public ResultSet executeQuery(String query, Activity act, String... parameters)
     {
         activity = act;
+        int i = 1;
 
         try
         {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
+            preparedStatement = connection.prepareStatement(query);
+
+            for (String parameter : parameters)
+            {
+                preparedStatement.setString(i++, parameter);
+            }
+
+            resultSet = preparedStatement.executeQuery();
         }
         catch (SQLException | ClassNotFoundException e)
         {
@@ -88,7 +95,7 @@ public class Database
         try
         {
             resultSet.close();
-            statement.close();
+            preparedStatement.close();
             callableStatement.close();
             connection.close();
         }
