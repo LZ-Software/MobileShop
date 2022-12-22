@@ -16,6 +16,10 @@ GRANT ALL ON ALL SEQUENCES IN SCHEMA public to admin;
 
 GRANT SELECT ON user_login TO "user";
 GRANT SELECT ON user_info TO "user";
+GRANT UPDATE ON user_info TO "user";
+GRANT SELECT ON images TO "user";
+GRANT UPDATE ON images TO "user";
+GRANT SELECT ON game TO "user";
 
 ALTER TABLE user_login ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_info ENABLE ROW LEVEL SECURITY;
@@ -39,3 +43,18 @@ USING
 (
   (SELECT LOWER(username) FROM user_login  WHERE  user_login.id = user_info.user_id) = current_user
 );
+
+CREATE POLICY update_user_info ON user_info FOR UPDATE TO "user"
+USING
+(
+    (SELECT LOWER(username) FROM user_login  WHERE  user_login.id = user_info.user_id) = current_user
+);
+
+CREATE POLICY select_image ON images FOR SELECT TO "user"
+USING (true);
+
+CREATE POLICY update_image ON images FOR UPDATE TO "user"
+USING (true);
+
+CREATE POLICY select_game ON game FOR SELECT TO "user"
+USING (true);
