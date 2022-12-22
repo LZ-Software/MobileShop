@@ -21,3 +21,20 @@ BEGIN
     END IF;
 END
 $$LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE create_publisher(title VARCHAR(128), country TEXT)
+AS $$
+DECLARE
+    id_publisher INTEGER;
+BEGIN
+    IF (SELECT COUNT(*) FROM publisher WHERE name = title) THEN
+        RAISE EXCEPTION 'Такой издатель уже существует';
+    ELSE
+        INSERT INTO publisher(name, country_id) VALUES (title, get_county_id(country)) RETURNING id INTO id_publisher;
+        COMMIT;
+        IF (id_publisher IS NULL) THEN
+            RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
+        END IF;
+    END IF;
+END
+$$LANGUAGE plpgsql;
