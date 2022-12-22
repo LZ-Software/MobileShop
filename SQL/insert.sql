@@ -11,7 +11,10 @@ VALUES ('Россия'),
        ('США');
 
 INSERT INTO city(name, country_id)
-VALUES ('Москва', get_county_id('Россия'));
+VALUES ('Москва', get_county_id('Россия')),
+       ('Санкт-Петербург', get_county_id('Россия')),
+       ('Вашингтон', get_county_id('США')),
+       ('Нью-Йорк', get_county_id('США'));
 
 INSERT INTO user_login(username, password)
 VALUES ('Xboct', crypt('123456q', gen_salt('md5')));
