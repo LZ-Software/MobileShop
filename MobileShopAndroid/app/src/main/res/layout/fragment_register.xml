@@ -70,13 +70,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/register_country_input"
+            <Spinner
+                android:id="@+id/register_country_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/country_title"
-                android:inputType="textPersonName" />
+                android:layout_height="wrap_content" />
 
         </TableRow>
 
@@ -84,13 +81,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/register_city_input"
+            <Spinner
+                android:id="@+id/register_city_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/city_title"
-                android:inputType="textPersonName" />
+                android:layout_height="wrap_content" />
         </TableRow>
 
         <TableRow

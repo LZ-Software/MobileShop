@@ -39,17 +39,26 @@ public class LoginFragment extends Fragment
                 }
                 else
                 {
-                    new Thread(new Runnable()
+                    Thread auth = new Thread(new Runnable()
                     {
                         public void run()
                         {
-                            // TODO: Авторизация
-                            /*
                             Database database = new Database();
-                            database.executeQuery();
-                            */
+                            database.executeQuery("", getActivity());
                         }
-                    }).start();
+                    });
+
+                    auth.start();
+
+                    try
+                    {
+                        auth.join();
+                    }
+                    catch (InterruptedException e)
+                    {
+                        Toast toast = Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
             }
         });
@@ -74,6 +83,7 @@ public class LoginFragment extends Fragment
 
     private boolean areAllInputFilled()
     {
-        return this.binding.authLoginInput.getText().length() != 0 && this.binding.authPasswordInput.getText().length() != 0;
+        return this.binding.authLoginInput.getText().toString().length() != 0
+                && this.binding.authPasswordInput.getText().toString().length() != 0;
     }
 }

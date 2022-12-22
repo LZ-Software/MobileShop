@@ -15,6 +15,12 @@
     <string name="city_title">City</string>
 
     <string name="error_not_all_fields_are_filled">Not all fields are filled</string>
+    <string name="error_cant_get_countries">Can\'t get countries</string>
+    <string name="error_cant_get_cities">Can\'t get cities</string>
+    <string name="error_cant_register_user">Can\'t register user</string>
+
+    <string name="success_register_user">User successfully registered</string>
+
     <string name="title_activity_menu">MenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
