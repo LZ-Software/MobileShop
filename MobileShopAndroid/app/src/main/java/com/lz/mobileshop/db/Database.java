@@ -68,6 +68,53 @@ public class Database
         return resultSet;
     }
 
+    public ResultSet executeQuery(String query, Activity act, Object parameter)
+    {
+        activity = act;
+
+        try
+        {
+            Class.forName(JDBC_DRIVER);
+            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            preparedStatement = connection.prepareStatement(query);
+
+            if (parameter instanceof String)
+            {
+                preparedStatement.setString(1, (String) parameter);
+            }
+            else if (parameter instanceof Integer)
+            {
+                preparedStatement.setInt(1, (int) parameter);
+            }
+            else if (parameter instanceof Float)
+            {
+                preparedStatement.setFloat(1, (float) parameter);
+            }
+            else if (parameter instanceof Double)
+            {
+                preparedStatement.setDouble(1, (double) parameter);
+            }
+            else if (parameter instanceof Boolean)
+            {
+                preparedStatement.setBoolean(1, (boolean) parameter);
+            }
+
+            resultSet = preparedStatement.executeQuery();
+        }
+        catch (SQLException | ClassNotFoundException e)
+        {
+            activity.runOnUiThread(new Runnable()
+            {
+                public void run()
+                {
+                    Toast.makeText(activity.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        return resultSet;
+    }
+
     public boolean callStatement(String query, Activity act, String... parameters)
     {
         activity = act;
