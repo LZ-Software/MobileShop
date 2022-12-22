@@ -8,5 +8,8 @@ CREATE VIEW get_publishers AS
     SELECT name FROM publisher;
 
 CREATE VIEW get_games AS
-    SELECT g.name, g.price, i.image FROM game g
-    JOIN images i on g.image_id = i.id;
+    SELECT g.name AS game, p.name as publisher, g.price, string_agg(gn.name, ',') AS Genres, i.image FROM game g
+    JOIN publisher p ON g.publisher_id = p.id
+    JOIN game_genre gr ON g.id = gr.game_id
+    JOIN genre gn ON gr.genre_id = gn.id
+    JOIN images i ON g.image_id = i.id GROUP BY g.name, p.name, g.price, i.image;
