@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using DevExpress.XtraEditors;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,20 +33,26 @@ namespace MobileShopDesktop
             cmd_name.Parameters.AddWithValue(login);
 
             cmd_name.CommandText = "SELECT * FROM get_role_by_login($1);";
-
-            using (NpgsqlDataReader reader_name = cmd_name.ExecuteReader())
+            try
             {
-                if (reader_name.HasRows)
+                using (NpgsqlDataReader reader_name = cmd_name.ExecuteReader())
                 {
-                    while (reader_name.Read())
+                    if (reader_name.HasRows)
                     {
-                        roleLabel.Text = $"{reader_name.GetString(reader_name.GetOrdinal("get_role_by_login"))}";
+                        while (reader_name.Read())
+                        {
+                            roleLabel.Text = $"{reader_name.GetString(reader_name.GetOrdinal("get_role_by_login"))}";
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Отрыгнуло.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Отрыгнуло.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (NpgsqlException ex)
+            {
+                XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
             }
         }
 

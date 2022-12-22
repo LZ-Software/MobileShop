@@ -29,52 +29,52 @@ namespace MobileShopDesktop
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.TableLayout.ItemTemplateBase itemTemplateBase3 = new DevExpress.XtraEditors.TableLayout.ItemTemplateBase();
-            DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition3 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
-            DevExpress.XtraEditors.TableLayout.TemplatedItemElement templatedItemElement3 = new DevExpress.XtraEditors.TableLayout.TemplatedItemElement();
-            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition3 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
+            DevExpress.XtraEditors.TableLayout.ItemTemplateBase itemTemplateBase2 = new DevExpress.XtraEditors.TableLayout.ItemTemplateBase();
+            DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition2 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
+            DevExpress.XtraEditors.TableLayout.TemplatedItemElement templatedItemElement2 = new DevExpress.XtraEditors.TableLayout.TemplatedItemElement();
+            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition2 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.dateReleaseLabel = new DevExpress.XtraEditors.LabelControl();
+            this.publisherLabel = new DevExpress.XtraEditors.LabelControl();
+            this.priceText = new DevExpress.XtraEditors.TextEdit();
+            this.priceLabel = new DevExpress.XtraEditors.LabelControl();
+            this.nameLabel = new DevExpress.XtraEditors.LabelControl();
+            this.nameText = new DevExpress.XtraEditors.TextEdit();
+            this.dateReleasePicker = new DevExpress.XtraEditors.DateEdit();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox = new DevExpress.XtraEditors.PictureEdit();
             this.descriptionText = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.descriptionLabel = new DevExpress.XtraEditors.LabelControl();
-            this.nameLabel = new DevExpress.XtraEditors.LabelControl();
-            this.nameText = new DevExpress.XtraEditors.TextEdit();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.priceLabel = new DevExpress.XtraEditors.LabelControl();
-            this.priceText = new DevExpress.XtraEditors.TextEdit();
-            this.publisherLabel = new DevExpress.XtraEditors.LabelControl();
-            this.publisherText = new DevExpress.XtraEditors.TextEdit();
-            this.dateReleaseLabel = new DevExpress.XtraEditors.LabelControl();
-            this.dateReleasePicker = new DevExpress.XtraEditors.DateEdit();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.imageButton = new DevExpress.XtraEditors.SimpleButton();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.addButton = new DevExpress.XtraEditors.SimpleButton();
-            this.pictureBox = new DevExpress.XtraEditors.PictureEdit();
             this.panel4 = new System.Windows.Forms.Panel();
             this.genreListBox = new DevExpress.XtraEditors.CheckedListBoxControl();
             this.genreSearch = new DevExpress.XtraEditors.SearchControl();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.genreLabel = new DevExpress.XtraEditors.LabelControl();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.publisherComboBox = new DevExpress.XtraEditors.ComboBoxEdit();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nameText.Properties)).BeginInit();
-            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.priceText.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.publisherText.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nameText.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateReleasePicker.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateReleasePicker.Properties)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox.Properties)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox.Properties)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.genreListBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.genreSearch.Properties)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.publisherComboBox.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -88,8 +88,8 @@ namespace MobileShopDesktop
             this.tableLayoutPanel1.Controls.Add(this.priceLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.nameLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.nameText, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.publisherText, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.dateReleasePicker, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.publisherComboBox, 1, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(30, 168);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 4;
@@ -101,6 +101,98 @@ namespace MobileShopDesktop
             this.tableLayoutPanel1.Size = new System.Drawing.Size(309, 184);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // dateReleaseLabel
+            // 
+            this.dateReleaseLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateReleaseLabel.Appearance.Options.UseFont = true;
+            this.dateReleaseLabel.Appearance.Options.UseTextOptions = true;
+            this.dateReleaseLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.dateReleaseLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateReleaseLabel.Location = new System.Drawing.Point(3, 141);
+            this.dateReleaseLabel.Name = "dateReleaseLabel";
+            this.dateReleaseLabel.Size = new System.Drawing.Size(78, 40);
+            this.dateReleaseLabel.TabIndex = 6;
+            this.dateReleaseLabel.Text = "Дата";
+            // 
+            // publisherLabel
+            // 
+            this.publisherLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.publisherLabel.Appearance.Options.UseFont = true;
+            this.publisherLabel.Appearance.Options.UseTextOptions = true;
+            this.publisherLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.publisherLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.publisherLabel.Location = new System.Drawing.Point(3, 95);
+            this.publisherLabel.Name = "publisherLabel";
+            this.publisherLabel.Size = new System.Drawing.Size(78, 40);
+            this.publisherLabel.TabIndex = 4;
+            this.publisherLabel.Text = "Издатель";
+            // 
+            // priceText
+            // 
+            this.priceText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.priceText.Location = new System.Drawing.Point(87, 49);
+            this.priceText.Name = "priceText";
+            this.priceText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.priceText.Properties.Appearance.Options.UseFont = true;
+            this.priceText.Properties.AutoHeight = false;
+            this.priceText.Properties.Mask.EditMask = "([0-9]*[.])?[0-9]+";
+            this.priceText.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
+            this.priceText.Size = new System.Drawing.Size(219, 40);
+            this.priceText.TabIndex = 3;
+            // 
+            // priceLabel
+            // 
+            this.priceLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.priceLabel.Appearance.Options.UseFont = true;
+            this.priceLabel.Appearance.Options.UseTextOptions = true;
+            this.priceLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.priceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.priceLabel.Location = new System.Drawing.Point(3, 49);
+            this.priceLabel.Name = "priceLabel";
+            this.priceLabel.Size = new System.Drawing.Size(78, 40);
+            this.priceLabel.TabIndex = 2;
+            this.priceLabel.Text = "Стоимость";
+            // 
+            // nameLabel
+            // 
+            this.nameLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nameLabel.Appearance.Options.UseFont = true;
+            this.nameLabel.Appearance.Options.UseTextOptions = true;
+            this.nameLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.nameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nameLabel.Location = new System.Drawing.Point(3, 3);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(78, 40);
+            this.nameLabel.TabIndex = 0;
+            this.nameLabel.Text = "Название";
+            // 
+            // nameText
+            // 
+            this.nameText.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.nameText.Location = new System.Drawing.Point(87, 3);
+            this.nameText.Name = "nameText";
+            this.nameText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.nameText.Properties.Appearance.Options.UseFont = true;
+            this.nameText.Properties.AutoHeight = false;
+            this.nameText.Size = new System.Drawing.Size(219, 40);
+            this.nameText.TabIndex = 1;
+            // 
+            // dateReleasePicker
+            // 
+            this.dateReleasePicker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateReleasePicker.EditValue = null;
+            this.dateReleasePicker.Location = new System.Drawing.Point(87, 141);
+            this.dateReleasePicker.Name = "dateReleasePicker";
+            this.dateReleasePicker.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateReleasePicker.Properties.Appearance.Options.UseFont = true;
+            this.dateReleasePicker.Properties.AutoHeight = false;
+            this.dateReleasePicker.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dateReleasePicker.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.dateReleasePicker.Size = new System.Drawing.Size(219, 40);
+            this.dateReleasePicker.TabIndex = 7;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.pictureBox);
@@ -108,6 +200,15 @@ namespace MobileShopDesktop
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(150, 150);
             this.panel1.TabIndex = 1;
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureBox.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox.TabIndex = 0;
             // 
             // descriptionText
             // 
@@ -152,30 +253,6 @@ namespace MobileShopDesktop
             this.descriptionLabel.TabIndex = 3;
             this.descriptionLabel.Text = "Описание";
             // 
-            // nameLabel
-            // 
-            this.nameLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nameLabel.Appearance.Options.UseFont = true;
-            this.nameLabel.Appearance.Options.UseTextOptions = true;
-            this.nameLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.nameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nameLabel.Location = new System.Drawing.Point(3, 3);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(78, 40);
-            this.nameLabel.TabIndex = 0;
-            this.nameLabel.Text = "Название";
-            // 
-            // nameText
-            // 
-            this.nameText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.nameText.Location = new System.Drawing.Point(87, 3);
-            this.nameText.Name = "nameText";
-            this.nameText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nameText.Properties.Appearance.Options.UseFont = true;
-            this.nameText.Properties.AutoHeight = false;
-            this.nameText.Size = new System.Drawing.Size(219, 40);
-            this.nameText.TabIndex = 1;
-            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
@@ -190,85 +267,6 @@ namespace MobileShopDesktop
             this.tableLayoutPanel3.Size = new System.Drawing.Size(106, 46);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
-            // priceLabel
-            // 
-            this.priceLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.priceLabel.Appearance.Options.UseFont = true;
-            this.priceLabel.Appearance.Options.UseTextOptions = true;
-            this.priceLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.priceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.priceLabel.Location = new System.Drawing.Point(3, 49);
-            this.priceLabel.Name = "priceLabel";
-            this.priceLabel.Size = new System.Drawing.Size(78, 40);
-            this.priceLabel.TabIndex = 2;
-            this.priceLabel.Text = "Стоимость";
-            // 
-            // priceText
-            // 
-            this.priceText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.priceText.Location = new System.Drawing.Point(87, 49);
-            this.priceText.Name = "priceText";
-            this.priceText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.priceText.Properties.Appearance.Options.UseFont = true;
-            this.priceText.Properties.AutoHeight = false;
-            this.priceText.Properties.Mask.EditMask = "([0-9]*[.])?[0-9]+";
-            this.priceText.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
-            this.priceText.Size = new System.Drawing.Size(219, 40);
-            this.priceText.TabIndex = 3;
-            // 
-            // publisherLabel
-            // 
-            this.publisherLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.publisherLabel.Appearance.Options.UseFont = true;
-            this.publisherLabel.Appearance.Options.UseTextOptions = true;
-            this.publisherLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.publisherLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.publisherLabel.Location = new System.Drawing.Point(3, 95);
-            this.publisherLabel.Name = "publisherLabel";
-            this.publisherLabel.Size = new System.Drawing.Size(78, 40);
-            this.publisherLabel.TabIndex = 4;
-            this.publisherLabel.Text = "Издатель";
-            // 
-            // publisherText
-            // 
-            this.publisherText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.publisherText.Location = new System.Drawing.Point(87, 95);
-            this.publisherText.Name = "publisherText";
-            this.publisherText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.publisherText.Properties.Appearance.Options.UseFont = true;
-            this.publisherText.Properties.AutoHeight = false;
-            this.publisherText.Size = new System.Drawing.Size(219, 40);
-            this.publisherText.TabIndex = 5;
-            // 
-            // dateReleaseLabel
-            // 
-            this.dateReleaseLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateReleaseLabel.Appearance.Options.UseFont = true;
-            this.dateReleaseLabel.Appearance.Options.UseTextOptions = true;
-            this.dateReleaseLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.dateReleaseLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateReleaseLabel.Location = new System.Drawing.Point(3, 141);
-            this.dateReleaseLabel.Name = "dateReleaseLabel";
-            this.dateReleaseLabel.Size = new System.Drawing.Size(78, 40);
-            this.dateReleaseLabel.TabIndex = 6;
-            this.dateReleaseLabel.Text = "Дата";
-            // 
-            // dateReleasePicker
-            // 
-            this.dateReleasePicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateReleasePicker.EditValue = null;
-            this.dateReleasePicker.Location = new System.Drawing.Point(87, 141);
-            this.dateReleasePicker.Name = "dateReleasePicker";
-            this.dateReleasePicker.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateReleasePicker.Properties.Appearance.Options.UseFont = true;
-            this.dateReleasePicker.Properties.AutoHeight = false;
-            this.dateReleasePicker.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dateReleasePicker.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dateReleasePicker.Size = new System.Drawing.Size(219, 40);
-            this.dateReleasePicker.TabIndex = 7;
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.imageButton);
@@ -276,14 +274,6 @@ namespace MobileShopDesktop
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(225, 46);
             this.panel2.TabIndex = 5;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.addButton);
-            this.panel3.Location = new System.Drawing.Point(114, 545);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(225, 46);
-            this.panel3.TabIndex = 6;
             // 
             // imageButton
             // 
@@ -297,6 +287,14 @@ namespace MobileShopDesktop
             this.imageButton.Text = "Добавить изображение";
             this.imageButton.Click += new System.EventHandler(this.imageButton_Click);
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.addButton);
+            this.panel3.Location = new System.Drawing.Point(114, 545);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(225, 46);
+            this.panel3.TabIndex = 6;
+            // 
             // addButton
             // 
             this.addButton.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -308,15 +306,6 @@ namespace MobileShopDesktop
             this.addButton.TabIndex = 0;
             this.addButton.Text = "Добавить игру";
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureBox.Size = new System.Drawing.Size(150, 150);
-            this.pictureBox.TabIndex = 0;
             // 
             // panel4
             // 
@@ -337,24 +326,24 @@ namespace MobileShopDesktop
             this.genreListBox.Name = "genreListBox";
             this.genreListBox.Size = new System.Drawing.Size(223, 83);
             this.genreListBox.TabIndex = 0;
-            itemTemplateBase3.Columns.Add(tableColumnDefinition3);
-            templatedItemElement3.Appearance.Hovered.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            templatedItemElement3.Appearance.Hovered.Options.UseFont = true;
-            templatedItemElement3.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            templatedItemElement3.Appearance.Normal.Options.UseFont = true;
-            templatedItemElement3.Appearance.Pressed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            templatedItemElement3.Appearance.Pressed.Options.UseFont = true;
-            templatedItemElement3.Appearance.Selected.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            templatedItemElement3.Appearance.Selected.Options.UseFont = true;
-            templatedItemElement3.FieldName = "DisplayMember";
-            templatedItemElement3.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            templatedItemElement3.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            templatedItemElement3.Text = "DisplayMember";
-            templatedItemElement3.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            itemTemplateBase3.Elements.Add(templatedItemElement3);
-            itemTemplateBase3.Name = "template1";
-            itemTemplateBase3.Rows.Add(tableRowDefinition3);
-            this.genreListBox.Templates.Add(itemTemplateBase3);
+            itemTemplateBase2.Columns.Add(tableColumnDefinition2);
+            templatedItemElement2.Appearance.Hovered.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            templatedItemElement2.Appearance.Hovered.Options.UseFont = true;
+            templatedItemElement2.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            templatedItemElement2.Appearance.Normal.Options.UseFont = true;
+            templatedItemElement2.Appearance.Pressed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            templatedItemElement2.Appearance.Pressed.Options.UseFont = true;
+            templatedItemElement2.Appearance.Selected.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            templatedItemElement2.Appearance.Selected.Options.UseFont = true;
+            templatedItemElement2.FieldName = "DisplayMember";
+            templatedItemElement2.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            templatedItemElement2.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
+            templatedItemElement2.Text = "DisplayMember";
+            templatedItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            itemTemplateBase2.Elements.Add(templatedItemElement2);
+            itemTemplateBase2.Name = "template1";
+            itemTemplateBase2.Rows.Add(tableRowDefinition2);
+            this.genreListBox.Templates.Add(itemTemplateBase2);
             // 
             // genreSearch
             // 
@@ -378,14 +367,6 @@ namespace MobileShopDesktop
             this.panel5.Size = new System.Drawing.Size(81, 46);
             this.panel5.TabIndex = 9;
             // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.genreSearch);
-            this.panel6.Location = new System.Drawing.Point(116, 355);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(223, 46);
-            this.panel6.TabIndex = 10;
-            // 
             // genreLabel
             // 
             this.genreLabel.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -399,6 +380,27 @@ namespace MobileShopDesktop
             this.genreLabel.Size = new System.Drawing.Size(81, 46);
             this.genreLabel.TabIndex = 0;
             this.genreLabel.Text = "Жанр";
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.genreSearch);
+            this.panel6.Location = new System.Drawing.Point(116, 355);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(223, 46);
+            this.panel6.TabIndex = 10;
+            // 
+            // publisherComboBox
+            // 
+            this.publisherComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.publisherComboBox.Location = new System.Drawing.Point(87, 95);
+            this.publisherComboBox.Name = "publisherComboBox";
+            this.publisherComboBox.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.publisherComboBox.Properties.Appearance.Options.UseFont = true;
+            this.publisherComboBox.Properties.AutoHeight = false;
+            this.publisherComboBox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.publisherComboBox.Size = new System.Drawing.Size(219, 40);
+            this.publisherComboBox.TabIndex = 8;
             // 
             // frmGame
             // 
@@ -422,24 +424,24 @@ namespace MobileShopDesktop
             this.Load += new System.EventHandler(this.frmGame_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nameText.Properties)).EndInit();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.priceText.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.publisherText.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nameText.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateReleasePicker.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateReleasePicker.Properties)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox.Properties)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox.Properties)).EndInit();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.genreListBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.genreSearch.Properties)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.publisherComboBox.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -456,7 +458,6 @@ namespace MobileShopDesktop
         private DevExpress.XtraEditors.LabelControl publisherLabel;
         private DevExpress.XtraEditors.TextEdit priceText;
         private DevExpress.XtraEditors.LabelControl priceLabel;
-        private DevExpress.XtraEditors.TextEdit publisherText;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private DevExpress.XtraEditors.LabelControl dateReleaseLabel;
         private DevExpress.XtraEditors.DateEdit dateReleasePicker;
@@ -471,5 +472,6 @@ namespace MobileShopDesktop
         private System.Windows.Forms.Panel panel5;
         private DevExpress.XtraEditors.LabelControl genreLabel;
         private System.Windows.Forms.Panel panel6;
+        private DevExpress.XtraEditors.ComboBoxEdit publisherComboBox;
     }
 }

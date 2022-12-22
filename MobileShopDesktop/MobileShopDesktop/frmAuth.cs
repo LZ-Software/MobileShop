@@ -39,18 +39,21 @@ namespace MobileShopDesktop
 
             cmd.CommandText = "SELECT * FROM auth_user_get_id($1, $2);";
 
-            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            try
             {
-                if (reader.HasRows)
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 {
-                    frmMain main = new frmMain(login);
-                    main.Show();
-                    this.Hide();
+                    if (reader.HasRows)
+                    {
+                        frmMain main = new frmMain(login);
+                        main.Show();
+                        this.Hide();
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Пользователь не найден.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (NpgsqlException ex)
+            {
+                XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
             }
         }
     }

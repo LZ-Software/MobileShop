@@ -33,12 +33,15 @@ namespace MobileShopDesktop
 
             NpgsqlConnection connection = DBUtils.GetDBConnection();
 
-            NpgsqlCommand cmd = new NpgsqlCommand();
-            cmd.Connection = connection;
+            NpgsqlCommand cmd_genres = new NpgsqlCommand();
+            cmd_genres.Connection = connection;
+            NpgsqlCommand cmd_publishers = new NpgsqlCommand();
+            cmd_publishers.Connection = connection;
 
-            cmd.CommandText = "SELECT * FROM get_genres;";
+            cmd_genres.CommandText = "SELECT * FROM get_genres;";
+            cmd_publishers.CommandText = "SELECT * FROM get_publishers;";
 
-            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            using (NpgsqlDataReader reader = cmd_genres.ExecuteReader())
             {
                 if (reader.HasRows)
                 {
@@ -46,6 +49,22 @@ namespace MobileShopDesktop
                     {
                         string name = reader.GetString(reader.GetOrdinal("name"));
                         genreListBox.Items.Add(name);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Отрыгнуло.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            using (NpgsqlDataReader reader = cmd_publishers.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string name = reader.GetString(reader.GetOrdinal("name"));
+                        publisherComboBox.Properties.Items.Add(name);
                     }
                 }
                 else
@@ -90,9 +109,34 @@ namespace MobileShopDesktop
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            if(!String.IsNullOrEmpty(base64Image) && !String.IsNullOrEmpty(nameText.Text) && !String.IsNullOrEmpty(priceText.Text) && !String.IsNullOrEmpty(publisherText.Text) && dateReleasePicker.SelectedText != null && !String.IsNullOrEmpty(descriptionText.Text) && genreListBox.CheckedItemsCount != 0)
+            if (!String.IsNullOrEmpty(base64Image) && !String.IsNullOrEmpty(nameText.Text) && !String.IsNullOrEmpty(priceText.Text) && publisherComboBox.SelectedItem != null && dateReleasePicker.SelectedText != null && !String.IsNullOrEmpty(descriptionText.Text) && genreListBox.CheckedItemsCount != 0)
             {
+                try
+                {
+                    NpgsqlConnection connection = DBUtils.GetDBConnection();
 
+                    NpgsqlCommand cmd = new NpgsqlCommand();
+                    cmd.Connection = connection;
+                    cmd.Parameters.AddWithValue(nameText.Text);
+                    cmd.Parameters.AddWithValue(descriptionText.Text);
+                    cmd.Parameters.AddWithValue(priceText.Text);
+                    cmd.Parameters.AddWithValue(publisherComboBox.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue(dateReleasePicker.SelectedText);
+                    cmd.Parameters.AddWithValue(base64Image);
+
+                    cmd.CommandText = "CALL create_game($1, $2, $3::MONEY, $4, $5::DATE, $6);";
+
+                    var rowAffected = cmd.ExecuteNonQuery();
+
+                    if (rowAffected != 0)
+                    {
+                        XtraMessageBox.Show("Игра добавлена", "Успех", MessageBoxButtons.OK);
+                    }
+                }
+                catch (NpgsqlException ex)
+                {
+                    XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
+                }
             }
         }
     }
