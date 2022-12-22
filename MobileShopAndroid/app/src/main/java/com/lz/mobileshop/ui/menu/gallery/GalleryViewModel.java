@@ -1,4 +1,4 @@
-package com.lz.mobileshop.ui.gallery;
+package com.lz.mobileshop.ui.menu.gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

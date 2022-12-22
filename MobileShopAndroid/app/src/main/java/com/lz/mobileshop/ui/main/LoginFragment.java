@@ -1,4 +1,4 @@
-package com.lz.mobileshop;
+package com.lz.mobileshop.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.lz.mobileshop.R;
 import com.lz.mobileshop.databinding.FragmentLoginBinding;
+import com.lz.mobileshop.db.Database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package com.lz.mobileshop.ui.home;
+package com.lz.mobileshop.ui.menu.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
