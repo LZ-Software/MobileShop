@@ -89,6 +89,7 @@ public class Database
         {
             resultSet.close();
             statement.close();
+            callableStatement.close();
             connection.close();
         }
         catch (SQLException e)
