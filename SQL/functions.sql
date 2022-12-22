@@ -114,3 +114,16 @@ BEGIN
     RETURN ret;
 END
 $func$;
+
+CREATE OR REPLACE FUNCTION get_user_info_by_id(user_id INTEGER)
+RETURNS TABLE(username_text VARCHAR, name_text VARCHAR, last_name_text VARCHAR, image_base64 TEXT)
+LANGUAGE plpgsql AS
+$func$
+DECLARE
+BEGIN
+    RETURN QUERY EXECUTE FORMAT('SELECT ul.username, ui.first_name, ui.last_name, i.image FROM user_login ul
+    JOIN user_info ui on ul.id = ui.user_id
+    JOIN images i on i.id = ui.image_id
+    WHERE ul.id = %L', user_id);
+END
+$func$;
