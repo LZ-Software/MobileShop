@@ -143,16 +143,19 @@ BEGIN
 END
 $$LANGUAGE plpgsql;
 
-CREATE OR REPLACE PROCEDURE update_image(image_base64 TEXT)
+CREATE OR REPLACE PROCEDURE update_image(user_id_in INTEGER, image_base64 TEXT)
 AS $$
 DECLARE
     count INTEGER;
 BEGIN
     UPDATE images
     SET image = image_base64
-    WHERE image = image_base64;
+    WHERE id = (SELECT i.id FROM user_login ul
+                       JOIN user_info ui ON ul.id = ui.user_id
+                       JOIN images i ON i.id = ui.image_id
+                       WHERE ul.id = user_id_in);
     GET DIAGNOSTICS count = row_count;
-    IF(count = 0) THEN
+    IF (count = 0) THEN
         RAISE EXCEPTION 'Что-то пошло не так';
     END IF;
 END
