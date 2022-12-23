@@ -30,11 +30,14 @@ GRANT SELECT ON game_genre TO "user";
 GRANT SELECT ON country TO "user";
 GRANT SELECT ON city TO "user";
 
+GRANT SELECT ON get_countries TO reg_master;
 GRANT SELECT ON user_login TO reg_master;
 GRANT INSERT ON user_login TO reg_master;
 GRANT INSERT ON user_info TO reg_master;
 GRANT INSERT ON user_role TO reg_master;
 GRANT SELECT ON role TO reg_master;
+GRANT SELECT ON country TO reg_master;
+GRANT SELECT ON city TO reg_master;
 
 ALTER TABLE user_login ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_info ENABLE ROW LEVEL SECURITY;
@@ -136,10 +139,10 @@ USING (true);
 CREATE POLICY select_game_genre ON game_genre FOR SELECT TO "user"
 USING (true);
 
-CREATE POLICY select_game_genre ON country FOR SELECT TO "user"
+CREATE POLICY select_country ON country FOR SELECT TO "user", reg_master
 USING (true);
 
-CREATE POLICY select_game_genre ON city FOR SELECT TO "user"
+CREATE POLICY select_city ON city FOR SELECT TO "user", reg_master
 USING (true);
 
 CREATE POLICY select_user_login ON user_login FOR SELECT TO reg_master
