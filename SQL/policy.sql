@@ -15,6 +15,7 @@ GRANT ALL ON ALL PROCEDURES IN SCHEMA public TO admin;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public to admin;
 
 GRANT SELECT ON get_games TO "user";
+GRANT SELECT ON get_user_info TO "user";
 GRANT SELECT ON user_login TO "user";
 GRANT SELECT ON user_info TO "user";
 GRANT UPDATE ON user_info TO "user";
@@ -34,6 +35,9 @@ GRANT SELECT ON user_library TO "user";
 GRANT USAGE ON SEQUENCE user_login_id_seq TO reg_master;
 GRANT USAGE ON SEQUENCE user_info_id_seq TO reg_master;
 GRANT usage ON SEQUENCE  user_role_id_seq TO reg_master;
+GRANT USAGE ON SEQUENCE game_purchase_id_seq TO reg_master;
+GRANT USAGE ON SEQUENCE user_library_id_seq TO reg_master;
+GRANT SELECT ON get_games TO reg_master;
 GRANT SELECT ON get_countries TO reg_master;
 GRANT SELECT ON user_login TO reg_master;
 GRANT INSERT ON user_login TO reg_master;
@@ -186,9 +190,8 @@ USING (true);
 CREATE POLICY insert_user_library_reg_master ON user_library FOR UPDATE TO reg_master
 WITH CHECK (true);
 
-CREATE POLICY select_game_purchase_reg_master ON user_library FOR SELECT TO reg_master
+CREATE POLICY select_game_purchase_reg_master ON game_purchase FOR SELECT TO reg_master
 USING (true);
 
-CREATE POLICY insert_game_purchase_reg_master ON user_library FOR UPDATE TO reg_master
+CREATE POLICY insert_game_purchase_reg_master ON game_purchase FOR INSERT TO reg_master
 WITH CHECK (true);
-

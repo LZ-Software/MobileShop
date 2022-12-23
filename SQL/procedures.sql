@@ -83,7 +83,7 @@ BEGIN
 END
 $$LANGUAGE plpgsql;
 
-CREATE OR REPLACE PROCEDURE game_purchase(g_id INTEGER, u_id INTEGER)
+CREATE OR REPLACE PROCEDURE game_purchase(u_id INTEGER, g_id INTEGER)
 AS $$
 DECLARE
     id_p INTEGER;
@@ -93,6 +93,26 @@ BEGIN
         RAISE EXCEPTION 'Покупка не прошла';
     ELSE
         INSERT INTO user_library(user_id, game_id) VALUES (u_id, g_id);
+    END IF;
+END
+$$LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE update_publisher(p_name VARCHAR, c_name VARCHAR, p_name_original VARCHAR)
+AS $$
+DECLARE
+    count INTEGER;
+BEGIN
+    IF (SELECT COUNT(*) FROM publisher WHERE name = p_name) THEN
+        RAISE EXCEPTION 'Такой издатель уже существует';
+    ELSE
+        UPDATE publisher
+        SET name = p_name,
+            country_id = get_county_id(c_name)
+        WHERE name = p_name_original;
+        GET DIAGNOSTICS count = row_count;
+        IF(count = 0) THEN
+            RAISE EXCEPTION 'Что-то пошло не так';
+        END IF;
     END IF;
 END
 $$LANGUAGE plpgsql;

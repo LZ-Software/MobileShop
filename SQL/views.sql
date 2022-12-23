@@ -17,3 +17,10 @@ CREATE VIEW get_games AS
     JOIN game_genre gr ON g.id = gr.game_id
     JOIN genre gn ON gr.genre_id = gn.id
     JOIN images i ON g.image_id = i.id GROUP BY g.id, g.name,g.description, p.name, g.price, i.image;
+
+CREATE VIEW get_user_info AS
+    SELECT ul.username AS username, ui.first_name AS name, ui.last_name AS last_name, c.name AS country, c2.name AS city, i.image AS image FROM user_login ul
+    JOIN user_info ui ON ul.id = ui.user_id
+    JOIN country c ON ui.country_id = c.id
+    JOIN city c2 ON c2.id = ui.city_id
+    JOIN images i ON i.id = ui.image_id;
