@@ -8,10 +8,7 @@ CREATE VIEW get_genres AS
     SELECT name FROM genre;
 
 CREATE VIEW get_publishers AS
-    SELECT name FROM publisher;
-
-CREATE VIEW get_publisher_with_country AS
-    SELECT p.name AS publisher, c.name AS country FROM publisher p
+    SELECT p.name AS p_name, c.name AS c_name FROM publisher p
     JOIN country c on c.id = p.country_id;
 
 CREATE VIEW get_games AS
