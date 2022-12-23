@@ -49,8 +49,8 @@ public class LoginFragment extends Fragment
                 }
                 else
                 {
-                    String login = binding.authLoginInput.getText().toString();
-                    String password = binding.authPasswordInput.getText().toString();
+                    String login = binding.authLoginInput.getText().toString().trim();
+                    String password = binding.authPasswordInput.getText().toString().trim();
 
                     Thread auth = new Thread(new Runnable()
                     {
@@ -139,7 +139,7 @@ public class LoginFragment extends Fragment
 
     private boolean areAllInputFilled()
     {
-        return this.binding.authLoginInput.getText().toString().length() != 0
-                && this.binding.authPasswordInput.getText().toString().length() != 0;
+        return this.binding.authLoginInput.getText().toString().trim().length() != 0
+                && this.binding.authPasswordInput.getText().toString().trim().length() != 0;
     }
 }

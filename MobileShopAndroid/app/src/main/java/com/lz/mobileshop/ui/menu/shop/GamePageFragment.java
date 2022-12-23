@@ -1,5 +1,6 @@
 package com.lz.mobileshop.ui.menu.shop;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -10,57 +11,40 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.lz.mobileshop.R;
-import com.lz.mobileshop.databinding.FragmentShopBinding;
+import com.lz.mobileshop.databinding.FragmentGamePageBinding;
 import com.lz.mobileshop.db.Database;
-import com.lz.mobileshop.ui.main.LoginFragment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-public class ShopFragment extends Fragment
+public class GamePageFragment extends Fragment
 {
-    private FragmentShopBinding binding;
-    private ArrayList<Game> games = new ArrayList<Game>();
+    private FragmentGamePageBinding binding;
 
-    private volatile String title;
-    private volatile String publisher;
-    private volatile String genres;
-    private volatile String image;
-    private volatile float price;
+    String title;
+    String description;
+    String publisher;
+    String genres;
+    String image;
+    float price;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        this.binding = FragmentShopBinding.inflate(inflater, container, false);
+        this.binding = FragmentGamePageBinding.inflate(inflater, container, false);
+
+        try
+        {
+            fillGame(getArguments().getString("gameTitle"));
+        }
+        catch (NullPointerException e)
+        {
+            Toast.makeText(requireActivity(), R.string.error_cant_get_game, Toast.LENGTH_LONG).show();
+        }
 
         return this.binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
-        super.onViewCreated(view, savedInstanceState);
-
-        fillTableList();
-
-        RecyclerView recyclerView = binding.shopTable;
-        recyclerView.setAdapter(new GameAdapter(games, new GameAdapter.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(Game item)
-            {
-                Bundle args = new Bundle();
-                args.putString("gameTitle", item.getTitle());
-
-                NavHostFragment.findNavController(ShopFragment.this).navigate(R.id.action_nav_shop_to_gamePageFragment, args);
-            }
-        }));
     }
 
     @Override
@@ -70,16 +54,14 @@ public class ShopFragment extends Fragment
         binding = null;
     }
 
-    private void fillTableList()
+    private void fillGame(String gameTitle)
     {
-        games.clear();
-
-        Thread table = new Thread(new Runnable()
+        Thread game = new Thread(new Runnable()
         {
             public void run()
             {
                 Database database = new Database();
-                ResultSet resultSet = database.executeQuery("SELECT * FROM get_games", requireActivity());
+                ResultSet resultSet = database.executeQuery("SELECT * FROM get_game_by_title(?)", requireActivity(), gameTitle);
 
                 if (resultSet == null)
                 {
@@ -100,16 +82,12 @@ public class ShopFragment extends Fragment
                     {
                         if (resultSet.next())
                         {
-                            title = resultSet.getString("game");
-                            publisher = resultSet.getString("publisher");
+                            title = resultSet.getString("g_name");
+                            publisher = resultSet.getString("p_name");
                             genres = resultSet.getString("genres");
-                            image = resultSet.getString("image");
+                            description = resultSet.getString("g_description");
+                            image = resultSet.getString("image_base64");
                             price = resultSet.getFloat("price");
-
-                            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-                            games.add(new Game(title, publisher, genres, price, decodedByte));
                         }
                         else
                         {
@@ -130,15 +108,32 @@ public class ShopFragment extends Fragment
                     }
                 }
 
+                requireActivity().runOnUiThread(new Runnable()
+                {
+                    @SuppressLint("StringFormatMatches")
+                    public void run()
+                    {
+                        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                        binding.gamePageTitle.setText(title);
+                        binding.gamePageDescription.setText(description);
+                        binding.gamePagePublisher.setText(publisher);
+                        binding.gamePageGenres.setText(genres);
+                        binding.gamePageBuy.setText(String.format(getString(R.string.shop_item_game_buy), price));
+                        binding.gamePageImage.setImageBitmap(decodedByte);
+                    }
+                });
+
                 database.close();
             }
         });
 
-        table.start();
+        game.start();
 
         try
         {
-            table.join();
+            game.join();
         }
         catch (InterruptedException e)
         {

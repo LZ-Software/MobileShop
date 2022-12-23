@@ -9,12 +9,25 @@
         android:id="@+id/nav_shop"
         android:name="com.lz.mobileshop.ui.menu.shop.ShopFragment"
         android:label="@string/menu_shop"
-        tools:layout="@layout/fragment_shop" />
+        tools:layout="@layout/fragment_shop" >
+        <action
+            android:id="@+id/action_nav_shop_to_gamePageFragment"
+            app:destination="@id/gamePageFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.lz.mobileshop.ui.menu.profile.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/gamePageFragment"
+        android:name="com.lz.mobileshop.ui.menu.shop.GamePageFragment"
+        android:label="@string/game_page_fragment_label"
+        tools:layout="@layout/fragment_game_page" >
+        <action
+            android:id="@+id/action_gamePageFragment_to_nav_shop"
+            app:destination="@id/nav_shop" />
+    </fragment>
 
 </navigation>

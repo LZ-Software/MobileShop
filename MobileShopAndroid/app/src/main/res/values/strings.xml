@@ -4,6 +4,8 @@
 
     <string name="login_fragment_label">Authorization</string>
     <string name="register_fragment_label">Registration</string>
+    <string name="profile_fragment_label">Profile</string>
+    <string name="game_page_fragment_label">Game Page</string>
 
     <string name="user_id_value_name">userId</string>
     <string name="shared_preferences_name">appPref</string>
@@ -16,11 +18,13 @@
     <string name="last_name_title">Last Name</string>
     <string name="country_title">Country</string>
     <string name="city_title">City</string>
+    <string name="game_title">Game</string>
 
     <string name="error_not_all_fields_are_filled">Not all fields are filled</string>
     <string name="error_cant_get_countries">Can\'t get countries</string>
     <string name="error_cant_get_cities">Can\'t get cities</string>
     <string name="error_cant_get_games">Can\'t get games</string>
+    <string name="error_cant_get_game">Can\'t get game info</string>
     <string name="error_cant_register_user">Can\'t register user</string>
     <string name="error_cant_auth">Auth failed</string>
 
@@ -37,7 +41,9 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="shop_item_game_title">Game title</string>
+    <string name="shop_item_game_description">Game description</string>
     <string name="shop_item_game_genres">Game genres</string>
     <string name="shop_item_game_publisher">Game publisher</string>
     <string name="shop_item_game_price">Game price</string>
+    <string name="shop_item_game_buy">Buy for %.2f ₽</string>
 </resources>
