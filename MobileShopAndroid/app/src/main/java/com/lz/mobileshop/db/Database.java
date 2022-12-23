@@ -1,7 +1,11 @@
 package com.lz.mobileshop.db;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
+
+import com.lz.mobileshop.Environment;
+import com.lz.mobileshop.MainActivity;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,7 +17,7 @@ import java.sql.SQLException;
 public class Database
 {
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://194.87.146.57/mobile_shop";
+    static String DB_URL = "";
 
     static String USER = "";
     static String PASS = "";
@@ -25,8 +29,13 @@ public class Database
 
     private Activity activity = null;
 
-    public Database(String user, String pass)
+    public Database(Context context, String user, String pass)
     {
+        String host = Environment.getValue(context, "DB_HOST");
+        String port = Environment.getValue(context, "DB_PORT");
+        String database = Environment.getValue(context, "DB_DATABASE");
+
+        DB_URL = String.format("jdbc:postgresql://%s:%s/%s", host, port, database);
         USER = user;
         PASS = pass;
     }

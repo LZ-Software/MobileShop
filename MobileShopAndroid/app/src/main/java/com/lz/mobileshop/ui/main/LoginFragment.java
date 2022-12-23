@@ -24,6 +24,7 @@ import java.sql.SQLException;
 public class LoginFragment extends Fragment
 {
     private FragmentLoginBinding binding;
+
     volatile int userId = 0;
 
     @Override
@@ -55,7 +56,7 @@ public class LoginFragment extends Fragment
                     {
                         public void run()
                         {
-                            Database database = new Database(login, password);
+                            Database database = new Database(requireActivity(), login, password);
                             ResultSet resultSet = database.executeQuery("SELECT * FROM auth_user_get_id(?, ?)", getActivity(), login, password);
 
                             while (true)

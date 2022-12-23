@@ -1,5 +1,6 @@
 package com.lz.mobileshop.ui.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.lz.mobileshop.Environment;
 import com.lz.mobileshop.R;
 import com.lz.mobileshop.databinding.FragmentRegisterBinding;
 import com.lz.mobileshop.db.Database;
@@ -24,6 +26,9 @@ public class RegisterFragment extends Fragment
 {
     private FragmentRegisterBinding binding;
 
+    private String defaultUser;
+    private String defaultPassword;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -34,6 +39,9 @@ public class RegisterFragment extends Fragment
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+
+        defaultUser = Environment.getValue(requireActivity(), "DB_REGISTER_USER_NAME");
+        defaultPassword = Environment.getValue(requireActivity(), "DB_REGISTER_USER_PASSWORD");
 
         fillCountries();
 
@@ -76,7 +84,7 @@ public class RegisterFragment extends Fragment
                     {
                         public void run()
                         {
-                            Database database = new Database("reg_master", "reveerbtnbtrs123323d");
+                            Database database = new Database(requireActivity(), defaultUser, defaultPassword);
                             boolean result = database.callStatement("CALL create_user(?, ?, ?, ?, ?, ?)",
                                     getActivity(), username, password, firstName, lastName, country, city);
 
@@ -129,7 +137,7 @@ public class RegisterFragment extends Fragment
         {
             public void run()
             {
-                Database database = new Database("reg_master", "reveerbtnbtrs123323d");
+                Database database = new Database(requireActivity(), defaultUser, defaultPassword);
                 ResultSet resultSet = database.executeQuery("SELECT * FROM get_countries", getActivity());
 
                 if (resultSet == null)
@@ -206,7 +214,7 @@ public class RegisterFragment extends Fragment
         {
             public void run()
             {
-                Database database = new Database("reg_master", "reveerbtnbtrs123323d");
+                Database database = new Database(requireActivity(), defaultUser, defaultPassword);
                 ResultSet resultSet = database.executeQuery("SELECT * FROM get_cities_by_country(?)", getActivity(), country);
 
                 if (resultSet == null)
