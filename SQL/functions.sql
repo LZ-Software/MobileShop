@@ -146,10 +146,10 @@ DECLARE
     ret BOOLEAN;
 BEGIN
     IF(SELECT COUNT(*) FROM user_library WHERE user_id = user_login_id AND game_id= game_in_library_id) THEN
-        ret = false;
+        ret = true;
         RAISE EXCEPTION 'Такая игра уже есть у вас в библиотеке';
     ELSE
-        ret = true;
+        ret = false;
     END IF;
     RETURN ret;
 END
