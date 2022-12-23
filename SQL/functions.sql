@@ -127,3 +127,13 @@ BEGIN
     WHERE ul.id = %L', user_id);
 END
 $func$;
+
+CREATE OR REPLACE FUNCTION get_game_by_title(title VARCHAR)
+RETURNS TABLE(g_name VARCHAR, p_name VARCHAR, price FLOAT, genres STRING_AGG(genre, ',') , image_base64 TEXT)
+LANGUAGE plpgsql AS
+$func$
+DECLARE
+BEGIN
+    RETURN QUERY EXECUTE FORMAT('SELECT * FROM get_games WHERE game = %L', title);
+END
+$func$;
