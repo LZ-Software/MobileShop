@@ -124,8 +124,8 @@ namespace MobileShopDesktop
 
                     NpgsqlCommand cmd = new NpgsqlCommand();
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue(nameText.Text);
-                    cmd.Parameters.AddWithValue(descriptionText.Text);
+                    cmd.Parameters.AddWithValue(nameText.Text.Trim());
+                    cmd.Parameters.AddWithValue(descriptionText.Text.Trim());
                     cmd.Parameters.AddWithValue(float.Parse(priceText.Text, CultureInfo.InvariantCulture.NumberFormat));
                     cmd.Parameters.AddWithValue(publisherComboBox.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue(dateReleasePicker.SelectedText);
@@ -137,17 +137,13 @@ namespace MobileShopDesktop
 
                     NpgsqlBatch batch = new NpgsqlBatch(connection);
 
-                    List<string> genres = new List<string>();
-
-                    foreach(var genre in genreListBox.CheckedItems)
+                    for(int i = 0; i < genreListBox.CheckedItemsCount; i++)
                     {
-                        genres.Add(genre.ToString());
+                        NpgsqlBatchCommand batch_cmd = new NpgsqlBatchCommand($"INSERT INTO game_genre(game_id, genre_id) VALUES(get_game_id_by_title('{nameText.Text.Trim()}'), get_genre_id_by_title('{genreListBox.CheckedItems[i].ToString()}'));");
+                        batch_cmd.Parameters.Add(new NpgsqlParameter(genreListBox.CheckedItems[i].ToString(), i));
+                        batch.BatchCommands.Add(batch_cmd);
                     }
 
-                    NpgsqlBatchCommand batch_cmd = new NpgsqlBatchCommand();
-                    batch_cmd.Parameters.AddWithValue(genres);
-                    batch_cmd.CommandText = $"INSERT INTO game_genre(game_id, genre_id) VALUES(get_game_id_by_title('{nameText.Text}'), get_genre_id_by_title($1))";
-                    batch.BatchCommands.Add(batch_cmd);
                     batch.ExecuteNonQuery();
 
                     if (rowAffected != 0)
