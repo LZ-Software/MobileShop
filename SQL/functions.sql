@@ -129,7 +129,7 @@ END
 $func$;
 
 CREATE OR REPLACE FUNCTION get_game_by_title(title VARCHAR)
-RETURNS TABLE(g_name VARCHAR, p_name VARCHAR, price FLOAT, genres VARCHAR, image_base64 TEXT)
+RETURNS TABLE(g_name VARCHAR,g_description VARCHAR, p_name VARCHAR, price FLOAT, genres VARCHAR, image_base64 TEXT)
 LANGUAGE plpgsql AS
 $func$
 DECLARE
