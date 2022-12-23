@@ -21,26 +21,33 @@ namespace MobileShopDesktop
 
             cmd.CommandText = "SELECT * FROM get_countries;";
 
-            using (NpgsqlDataReader reader = cmd.ExecuteReader())
+            try
             {
-                if (reader.HasRows)
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        string name = reader.GetString(reader.GetOrdinal("name"));
-                        comboBox.Properties.Items.Add(name);
+                        while (reader.Read())
+                        {
+                            string name = reader.GetString(reader.GetOrdinal("name"));
+                            countryComboBox.Properties.Items.Add(name);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Отрыгнуло.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Отрыгнуло.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (NpgsqlException ex)
+            {
+                XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
             }
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            if(nameText.Text == "" || comboBox.SelectedItem == null)
+            if(String.IsNullOrEmpty(nameText.Text) || String.IsNullOrEmpty(loginText.Text) || String.IsNullOrEmpty(firstNameText.Text) || String.IsNullOrEmpty(lastNameText.Text) || String.IsNullOrEmpty(passwordText.Text) || countryComboBox.SelectedItem == null || cityComboBox.SelectedItem == null)
             {
                 XtraMessageBox.Show("Заполните пустые поля", "Внимание", MessageBoxButtons.OK);
             }
@@ -52,10 +59,15 @@ namespace MobileShopDesktop
 
                     NpgsqlCommand cmd = new NpgsqlCommand();
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue(nameText.Text);
-                    cmd.Parameters.AddWithValue(comboBox.SelectedItem);
+                    cmd.Parameters.AddWithValue(nameText.Text.Trim());
+                    cmd.Parameters.AddWithValue(countryComboBox.SelectedItem);
+                    cmd.Parameters.AddWithValue(loginText.Text.Trim());
+                    cmd.Parameters.AddWithValue(passwordText.Text.Trim());
+                    cmd.Parameters.AddWithValue(firstNameText.Text.Trim());
+                    cmd.Parameters.AddWithValue(lastNameText.Text.Trim());
+                    cmd.Parameters.AddWithValue(cityComboBox.SelectedItem);
 
-                    cmd.CommandText = "CALL create_publisher($1, $2);";
+                    cmd.CommandText = "CALL create_publisher($1, $2, $3, $4, $5, $6, $7);";
 
                     var rowAffected = cmd.ExecuteNonQuery();
                     if(rowAffected != 0)
@@ -69,6 +81,54 @@ namespace MobileShopDesktop
                 }
             }
 
+        }
+
+        private void passwordText_EditValueChanged(object sender, EventArgs e)
+        {
+            passwordText.Properties.PasswordChar = '\u25CF';
+            if (Control.IsKeyLocked(Keys.CapsLock))
+            {
+                MessageBox.Show("Зажат CAPS LOCK", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
+
+        private void countryComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            cityComboBox.Properties.Items.Clear();
+            cityComboBox.SelectedItem = null;
+
+            NpgsqlConnection connection = DBUtils.GetDBConnection();
+
+            NpgsqlCommand cmd = new NpgsqlCommand();
+            cmd.Connection = connection;
+
+            cmd.Parameters.AddWithValue(countryComboBox.SelectedItem);
+
+            cmd.CommandText = "SELECT * FROM get_cities_by_country($1);";
+
+
+            try
+            {
+                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            string name = reader.GetString(reader.GetOrdinal("name_city"));
+                            cityComboBox.Properties.Items.Add(name);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Отрыгнуло.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
+            }
         }
     }
 }

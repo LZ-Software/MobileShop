@@ -72,5 +72,17 @@ namespace MobileShopDesktop
             frmGame game = new frmGame();
             game.ShowDialog();
         }
+
+        private void addGenreButton_Click(object sender, EventArgs e)
+        {
+            frmGenre genre = new frmGenre();
+            genre.ShowDialog();
+        }
+
+        private void changePublisherButton_Click(object sender, EventArgs e)
+        {
+            frmEditPublisher editPublisher = new frmEditPublisher();
+            editPublisher.ShowDialog();
+        }
     }
 }

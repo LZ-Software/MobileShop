@@ -29,10 +29,10 @@ namespace MobileShopDesktop
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.TableLayout.ItemTemplateBase itemTemplateBase2 = new DevExpress.XtraEditors.TableLayout.ItemTemplateBase();
-            DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition2 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
-            DevExpress.XtraEditors.TableLayout.TemplatedItemElement templatedItemElement2 = new DevExpress.XtraEditors.TableLayout.TemplatedItemElement();
-            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition2 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
+            DevExpress.XtraEditors.TableLayout.ItemTemplateBase itemTemplateBase1 = new DevExpress.XtraEditors.TableLayout.ItemTemplateBase();
+            DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition1 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
+            DevExpress.XtraEditors.TableLayout.TemplatedItemElement templatedItemElement1 = new DevExpress.XtraEditors.TableLayout.TemplatedItemElement();
+            DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition1 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dateReleaseLabel = new DevExpress.XtraEditors.LabelControl();
             this.publisherLabel = new DevExpress.XtraEditors.LabelControl();
@@ -41,6 +41,7 @@ namespace MobileShopDesktop
             this.nameLabel = new DevExpress.XtraEditors.LabelControl();
             this.nameText = new DevExpress.XtraEditors.TextEdit();
             this.dateReleasePicker = new DevExpress.XtraEditors.DateEdit();
+            this.publisherComboBox = new DevExpress.XtraEditors.ComboBoxEdit();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox = new DevExpress.XtraEditors.PictureEdit();
             this.descriptionText = new System.Windows.Forms.TextBox();
@@ -57,12 +58,12 @@ namespace MobileShopDesktop
             this.panel5 = new System.Windows.Forms.Panel();
             this.genreLabel = new DevExpress.XtraEditors.LabelControl();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.publisherComboBox = new DevExpress.XtraEditors.ComboBoxEdit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.priceText.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nameText.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateReleasePicker.Properties.CalendarTimeProperties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateReleasePicker.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.publisherComboBox.Properties)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox.Properties)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -74,7 +75,6 @@ namespace MobileShopDesktop
             ((System.ComponentModel.ISupportInitialize)(this.genreSearch.Properties)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.publisherComboBox.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -192,6 +192,19 @@ namespace MobileShopDesktop
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateReleasePicker.Size = new System.Drawing.Size(219, 40);
             this.dateReleasePicker.TabIndex = 7;
+            // 
+            // publisherComboBox
+            // 
+            this.publisherComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.publisherComboBox.Location = new System.Drawing.Point(87, 95);
+            this.publisherComboBox.Name = "publisherComboBox";
+            this.publisherComboBox.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.publisherComboBox.Properties.Appearance.Options.UseFont = true;
+            this.publisherComboBox.Properties.AutoHeight = false;
+            this.publisherComboBox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.publisherComboBox.Size = new System.Drawing.Size(219, 40);
+            this.publisherComboBox.TabIndex = 8;
             // 
             // panel1
             // 
@@ -326,24 +339,24 @@ namespace MobileShopDesktop
             this.genreListBox.Name = "genreListBox";
             this.genreListBox.Size = new System.Drawing.Size(223, 83);
             this.genreListBox.TabIndex = 0;
-            itemTemplateBase2.Columns.Add(tableColumnDefinition2);
-            templatedItemElement2.Appearance.Hovered.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            templatedItemElement2.Appearance.Hovered.Options.UseFont = true;
-            templatedItemElement2.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            templatedItemElement2.Appearance.Normal.Options.UseFont = true;
-            templatedItemElement2.Appearance.Pressed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            templatedItemElement2.Appearance.Pressed.Options.UseFont = true;
-            templatedItemElement2.Appearance.Selected.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            templatedItemElement2.Appearance.Selected.Options.UseFont = true;
-            templatedItemElement2.FieldName = "DisplayMember";
-            templatedItemElement2.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            templatedItemElement2.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
-            templatedItemElement2.Text = "DisplayMember";
-            templatedItemElement2.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            itemTemplateBase2.Elements.Add(templatedItemElement2);
-            itemTemplateBase2.Name = "template1";
-            itemTemplateBase2.Rows.Add(tableRowDefinition2);
-            this.genreListBox.Templates.Add(itemTemplateBase2);
+            itemTemplateBase1.Columns.Add(tableColumnDefinition1);
+            templatedItemElement1.Appearance.Hovered.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            templatedItemElement1.Appearance.Hovered.Options.UseFont = true;
+            templatedItemElement1.Appearance.Normal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            templatedItemElement1.Appearance.Normal.Options.UseFont = true;
+            templatedItemElement1.Appearance.Pressed.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            templatedItemElement1.Appearance.Pressed.Options.UseFont = true;
+            templatedItemElement1.Appearance.Selected.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            templatedItemElement1.Appearance.Selected.Options.UseFont = true;
+            templatedItemElement1.FieldName = "DisplayMember";
+            templatedItemElement1.ImageOptions.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            templatedItemElement1.ImageOptions.ImageScaleMode = DevExpress.XtraEditors.TileItemImageScaleMode.ZoomInside;
+            templatedItemElement1.Text = "DisplayMember";
+            templatedItemElement1.TextAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            itemTemplateBase1.Elements.Add(templatedItemElement1);
+            itemTemplateBase1.Name = "template1";
+            itemTemplateBase1.Rows.Add(tableRowDefinition1);
+            this.genreListBox.Templates.Add(itemTemplateBase1);
             // 
             // genreSearch
             // 
@@ -389,19 +402,6 @@ namespace MobileShopDesktop
             this.panel6.Size = new System.Drawing.Size(223, 46);
             this.panel6.TabIndex = 10;
             // 
-            // publisherComboBox
-            // 
-            this.publisherComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.publisherComboBox.Location = new System.Drawing.Point(87, 95);
-            this.publisherComboBox.Name = "publisherComboBox";
-            this.publisherComboBox.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.publisherComboBox.Properties.Appearance.Options.UseFont = true;
-            this.publisherComboBox.Properties.AutoHeight = false;
-            this.publisherComboBox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.publisherComboBox.Size = new System.Drawing.Size(219, 40);
-            this.publisherComboBox.TabIndex = 8;
-            // 
             // frmGame
             // 
             this.Appearance.Options.UseFont = true;
@@ -420,6 +420,7 @@ namespace MobileShopDesktop
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmGame";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавление игры";
             this.Load += new System.EventHandler(this.frmGame_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -428,6 +429,7 @@ namespace MobileShopDesktop
             ((System.ComponentModel.ISupportInitialize)(this.nameText.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateReleasePicker.Properties.CalendarTimeProperties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dateReleasePicker.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.publisherComboBox.Properties)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox.Properties)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -441,7 +443,6 @@ namespace MobileShopDesktop
             ((System.ComponentModel.ISupportInitialize)(this.genreSearch.Properties)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.publisherComboBox.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

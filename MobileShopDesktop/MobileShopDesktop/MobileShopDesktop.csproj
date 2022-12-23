@@ -116,11 +116,23 @@
     <Compile Include="frmAuth.Designer.cs">
       <DependentUpon>frmAuth.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEditPublisher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditPublisher.Designer.cs">
+      <DependentUpon>frmEditPublisher.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmGame.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGame.Designer.cs">
       <DependentUpon>frmGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGenre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGenre.Designer.cs">
+      <DependentUpon>frmGenre.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -139,8 +151,14 @@
     <EmbeddedResource Include="frmAuth.resx">
       <DependentUpon>frmAuth.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmEditPublisher.resx">
+      <DependentUpon>frmEditPublisher.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmGame.resx">
       <DependentUpon>frmGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGenre.resx">
+      <DependentUpon>frmGenre.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>

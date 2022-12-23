@@ -99,6 +99,7 @@ namespace MobileShopDesktop
             this.changePublisherButton.Size = new System.Drawing.Size(203, 46);
             this.changePublisherButton.TabIndex = 5;
             this.changePublisherButton.Text = "Изменить издателя";
+            this.changePublisherButton.Click += new System.EventHandler(this.changePublisherButton_Click);
             // 
             // addGenreButton
             // 
@@ -109,6 +110,7 @@ namespace MobileShopDesktop
             this.addGenreButton.Size = new System.Drawing.Size(203, 46);
             this.addGenreButton.TabIndex = 6;
             this.addGenreButton.Text = "Добавить жанр";
+            this.addGenreButton.Click += new System.EventHandler(this.addGenreButton_Click);
             // 
             // frmMain
             // 

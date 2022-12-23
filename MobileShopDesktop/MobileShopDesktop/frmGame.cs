@@ -42,36 +42,42 @@ namespace MobileShopDesktop
             cmd_genres.CommandText = "SELECT * FROM get_genres;";
             cmd_publishers.CommandText = "SELECT * FROM get_publishers;";
 
-            using (NpgsqlDataReader reader = cmd_genres.ExecuteReader())
+            try
             {
-                if (reader.HasRows)
+                using (NpgsqlDataReader reader = cmd_genres.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        string name = reader.GetString(reader.GetOrdinal("name"));
-                        genreListBox.Items.Add(name);
+                        while (reader.Read())
+                        {
+                            string name = reader.GetString(reader.GetOrdinal("name"));
+                            genreListBox.Items.Add(name);
+                        }
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Отрыгнуло.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-            using (NpgsqlDataReader reader = cmd_publishers.ExecuteReader())
+            catch (NpgsqlException ex)
             {
-                if (reader.HasRows)
+                XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
+            }
+            try
+            {
+                using (NpgsqlDataReader reader = cmd_publishers.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        string name = reader.GetString(reader.GetOrdinal("name"));
-                        publisherComboBox.Properties.Items.Add(name);
+                        while (reader.Read())
+                        {
+                            string name = reader.GetString(reader.GetOrdinal("name"));
+                            publisherComboBox.Properties.Items.Add(name);
+                        }
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Отрыгнуло.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+            }
+            catch (NpgsqlException ex)
+            {
+                XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
             }
 
         }
@@ -131,14 +137,18 @@ namespace MobileShopDesktop
 
                     NpgsqlBatch batch = new NpgsqlBatch(connection);
 
+                    List<string> genres = new List<string>();
+
                     foreach(var genre in genreListBox.CheckedItems)
                     {
-                        NpgsqlBatchCommand batch_cmd = new NpgsqlBatchCommand();
-                        batch_cmd.Parameters.AddWithValue(genre.ToString());
-                        batch_cmd.CommandText = $"INSERT INTO game_genre(game_id, genre_id) VALUES(get_game_id_by_title('{nameText.Text}'), get_genre_id_by_title($1))";
-                        batch.BatchCommands.Add(batch_cmd);
-                        batch.ExecuteNonQuery();
+                        genres.Add(genre.ToString());
                     }
+
+                    NpgsqlBatchCommand batch_cmd = new NpgsqlBatchCommand();
+                    batch_cmd.Parameters.AddWithValue(genres);
+                    batch_cmd.CommandText = $"INSERT INTO game_genre(game_id, genre_id) VALUES(get_game_id_by_title('{nameText.Text}'), get_genre_id_by_title($1))";
+                    batch.BatchCommands.Add(batch_cmd);
+                    batch.ExecuteNonQuery();
 
                     if (rowAffected != 0)
                     {
