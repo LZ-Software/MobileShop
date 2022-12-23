@@ -76,7 +76,7 @@ public class RegisterFragment extends Fragment
                     {
                         public void run()
                         {
-                            Database database = new Database("postgres", "keker227");
+                            Database database = new Database("reg_master", "reveerbtnbtrs123323d");
                             boolean result = database.callStatement("CALL create_user(?, ?, ?, ?, ?, ?)",
                                     getActivity(), username, password, firstName, lastName, country, city);
 
@@ -129,7 +129,7 @@ public class RegisterFragment extends Fragment
         {
             public void run()
             {
-                Database database = new Database("postgres", "keker227");
+                Database database = new Database("reg_master", "reveerbtnbtrs123323d");
                 ResultSet resultSet = database.executeQuery("SELECT * FROM get_countries", getActivity());
 
                 if (resultSet == null)
@@ -206,7 +206,7 @@ public class RegisterFragment extends Fragment
         {
             public void run()
             {
-                Database database = new Database("postgres", "keker227");
+                Database database = new Database("reg_master", "reveerbtnbtrs123323d");
                 ResultSet resultSet = database.executeQuery("SELECT * FROM get_cities_by_country(?)", getActivity(), country);
 
                 if (resultSet == null)

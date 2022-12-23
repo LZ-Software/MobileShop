@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class Database
 {
     static final String JDBC_DRIVER = "org.postgresql.Driver";
-    static final String DB_URL = "jdbc:postgresql://10.0.2.2:5432/mobile_shop";
+    static final String DB_URL = "jdbc:postgresql://194.87.146.57/mobile_shop";
 
     static String USER = "";
     static String PASS = "";
