@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lz.mobileshop.R;
 import com.lz.mobileshop.databinding.FragmentShopBinding;
 import com.lz.mobileshop.db.Database;
-import com.lz.mobileshop.ui.main.LoginFragment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

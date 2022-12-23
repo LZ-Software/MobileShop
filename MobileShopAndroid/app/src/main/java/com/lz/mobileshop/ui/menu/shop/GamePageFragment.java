@@ -1,6 +1,9 @@
 package com.lz.mobileshop.ui.menu.shop;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,7 +15,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.lz.mobileshop.R;
 import com.lz.mobileshop.databinding.FragmentGamePageBinding;
 import com.lz.mobileshop.db.Database;
@@ -24,12 +29,15 @@ public class GamePageFragment extends Fragment
 {
     private FragmentGamePageBinding binding;
 
+    int gameId;
     String title;
     String description;
     String publisher;
     String genres;
     String image;
     float price;
+
+    boolean alreadyPurchased = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -43,6 +51,98 @@ public class GamePageFragment extends Fragment
         {
             Toast.makeText(requireActivity(), R.string.error_cant_get_game, Toast.LENGTH_LONG).show();
         }
+
+        binding.gamePageBuy.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                SharedPreferences shared = requireActivity().getSharedPreferences(getString(R.string.shared_preferences_name), MODE_PRIVATE);
+                int userId = shared.getInt(getString(R.string.user_id_value_name), 0);
+
+                Thread checkPurchase = new Thread(new Runnable()
+                {
+                    public void run()
+                    {
+                        Database database = new Database();
+                        ResultSet resultSet = database.executeQuery("SELECT * FROM check_game_in_user_library(?, ?)", requireActivity(), userId, gameId);
+
+                        if (resultSet == null)
+                        {
+                            requireActivity().runOnUiThread(new Runnable()
+                            {
+                                public void run()
+                                {
+                                    Toast.makeText(requireActivity(), R.string.error_cant_check_if_purchase_exists, Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                            return;
+                        }
+
+                        while (true)
+                        {
+                            try
+                            {
+                                if (resultSet.next())
+                                {
+                                    alreadyPurchased = resultSet.getBoolean("check_game_in_user_library");
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            catch (SQLException e)
+                            {
+                                requireActivity().runOnUiThread(new Runnable()
+                                {
+                                    public void run()
+                                    {
+                                        Toast.makeText(requireActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                                break;
+                            }
+                        }
+
+                        database.close();
+                    }
+                });
+
+                checkPurchase.start();
+
+                try
+                {
+                    checkPurchase.join();
+
+                    if (alreadyPurchased)
+                    {
+                        Snackbar.make(view, R.string.error_purchase_exists, Snackbar.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Bundle args = new Bundle();
+                        args.putInt("gameId", gameId);
+                        args.putString("gameTitle", title);
+                        args.putFloat("gamePrice", price);
+
+                        NavHostFragment.findNavController(GamePageFragment.this).navigate(R.id.action_gamePageFragment_to_gamePurchaseFragment, args);
+                    }
+                }
+                catch (InterruptedException e)
+                {
+                    requireActivity().runOnUiThread(new Runnable()
+                    {
+                        public void run()
+                        {
+                            Toast.makeText(requireActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        });
 
         return this.binding.getRoot();
     }
@@ -82,6 +182,7 @@ public class GamePageFragment extends Fragment
                     {
                         if (resultSet.next())
                         {
+                            gameId = resultSet.getInt("g_id");
                             title = resultSet.getString("g_name");
                             publisher = resultSet.getString("p_name");
                             genres = resultSet.getString("genres");
