@@ -1,7 +1,6 @@
 package com.lz.mobileshop.ui.menu.shop;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,55 +16,71 @@ import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder>
 {
-    private final LayoutInflater inflater;
-    private final List<Game> games;
-
-    GameAdapter(Context context, List<Game> games)
+    public interface OnItemClickListener
     {
-        this.games = games;
-        this.inflater = LayoutInflater.from(context);
+        void onItemClick(Game item);
+    }
+
+    private List<Game> items;
+    private OnItemClickListener listener;
+
+    public GameAdapter(List<Game> items, OnItemClickListener listener)
+    {
+        this.items = items;
+        this.listener = listener;
     }
 
     @NonNull
-    @Override
-    public GameAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = inflater.inflate(R.layout.game_list_item, parent, false);
-        return new ViewHolder(view);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_list_item, parent, false);
+        return new ViewHolder(v);
     }
 
-    @SuppressLint("DefaultLocale")
-    @Override
-    public void onBindViewHolder(GameAdapter.ViewHolder holder, int position)
+    @Override public void onBindViewHolder(ViewHolder holder, int position)
     {
-        Game game = games.get(position);
-        holder.imageView.setImageBitmap(game.getImage());
-        holder.titleView.setText(game.getTitle());
-        holder.genresView.setText(game.getGenres());
-        holder.publisherView.setText(game.getPublisher());
-        holder.priceView.setText(String.format("%.2f ₽", game.getPrice()));
+        holder.bind(items.get(position), listener);
     }
 
-    @Override
-    public int getItemCount()
+    @Override public int getItemCount()
     {
-        return games.size();
+        return items.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    static class ViewHolder extends RecyclerView.ViewHolder
     {
-        final ImageView imageView;
-        final TextView titleView, genresView, priceView, publisherView;
+        private TextView title;
+        private TextView genres;
+        private TextView publisher;
+        private TextView price;
+        private ImageView image;
 
-        ViewHolder(View view)
+        public ViewHolder(View itemView)
         {
-            super(view);
+            super(itemView);
+            title = (TextView) itemView.findViewById(R.id.shop_item_game_title);
+            genres = (TextView) itemView.findViewById(R.id.shop_item_game_genres);
+            publisher = (TextView) itemView.findViewById(R.id.shop_item_game_publisher);
+            price = (TextView) itemView.findViewById(R.id.shop_item_game_price);
+            image = (ImageView) itemView.findViewById(R.id.shop_item_game_image);
+        }
 
-            imageView = view.findViewById(R.id.shop_item_game_image);
-            titleView = view.findViewById(R.id.shop_item_game_title);
-            genresView = view.findViewById(R.id.shop_item_game_genres);
-            priceView = view.findViewById(R.id.shop_item_game_price);
-            publisherView = view.findViewById(R.id.shop_item_game_publisher);
+        @SuppressLint("DefaultLocale")
+        public void bind(final Game game, final OnItemClickListener listener)
+        {
+            image.setImageBitmap(game.getImage());
+            title.setText(game.getTitle());
+            genres.setText(game.getGenres());
+            publisher.setText(game.getPublisher());
+            price.setText(String.format("%.2f ₽", game.getPrice()));
+
+            itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override public void onClick(View v)
+                {
+                    listener.onItemClick(game);
+                }
+            });
         }
     }
 }
