@@ -29,6 +29,7 @@ GRANT SELECT ON genre TO "user";
 GRANT SELECT ON game_genre TO "user";
 GRANT SELECT ON country TO "user";
 GRANT SELECT ON city TO "user";
+GRANT SELECT ON user_library TO "user";
 
 GRANT USAGE ON SEQUENCE user_login_id_seq TO reg_master;
 GRANT USAGE ON SEQUENCE user_info_id_seq TO reg_master;
@@ -43,6 +44,10 @@ GRANT INSERT ON user_role TO reg_master;
 GRANT SELECT ON role TO reg_master;
 GRANT SELECT ON country TO reg_master;
 GRANT SELECT ON city TO reg_master;
+GRANT SELECT ON user_library TO reg_master;
+GRANT INSERT ON user_library TO reg_master;
+GRANT SELECT ON game_purchase TO reg_master;
+GRANT INSERT ON game_purchase TO reg_master;
 
 ALTER TABLE user_login ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_info ENABLE ROW LEVEL SECURITY;
@@ -56,6 +61,7 @@ ALTER TABLE game_genre ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_library ENABLE ROW LEVEL SECURITY;
 ALTER TABLE country ENABLE ROW LEVEL SECURITY;
 ALTER TABLE city ENABLE ROW LEVEL SECURITY;
+ALTER TABLE game_purchase ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY adminAll ON user_login FOR All TO admin
 USING (true);
@@ -91,6 +97,9 @@ CREATE POLICY adminAll ON country FOR ALL TO admin
 USING (true);
 
 CREATE POLICY adminAll ON city FOR ALL TO admin
+USING (true);
+
+CREATE POLICY adminAll ON game_purchase FOR ALL TO admin
 USING (true);
 
 CREATE POLICY select_id ON user_login FOR SELECT TO "user"
@@ -170,4 +179,16 @@ USING (true);
 
 CREATE POLICY select_user_role_reg_master ON user_role FOR SELECT TO reg_master
 USING (true);
+
+CREATE POLICY select_user_library_reg_master ON user_library FOR SELECT TO reg_master
+USING (true);
+
+CREATE POLICY insert_user_library_reg_master ON user_library FOR UPDATE TO reg_master
+WITH CHECK (true);
+
+CREATE POLICY select_game_purchase_reg_master ON user_library FOR SELECT TO reg_master
+USING (true);
+
+CREATE POLICY insert_game_purchase_reg_master ON user_library FOR UPDATE TO reg_master
+WITH CHECK (true);
 

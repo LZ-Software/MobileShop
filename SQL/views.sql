@@ -15,8 +15,8 @@ CREATE VIEW get_publisher_with_country AS
     JOIN country c on c.id = p.country_id;
 
 CREATE VIEW get_games AS
-    SELECT g.name AS game, g.description,p.name as publisher, g.price, string_agg(gn.name, ', ')::VARCHAR AS genres, i.image FROM game g
+    SELECT g.id AS id, g.name AS game, g.description,p.name as publisher, g.price, string_agg(gn.name, ', ')::VARCHAR AS genres, i.image FROM game g
     JOIN publisher p ON g.publisher_id = p.id
     JOIN game_genre gr ON g.id = gr.game_id
     JOIN genre gn ON gr.genre_id = gn.id
-    JOIN images i ON g.image_id = i.id GROUP BY g.name,g.description, p.name, g.price, i.image;
+    JOIN images i ON g.image_id = i.id GROUP BY g.id, g.name,g.description, p.name, g.price, i.image;
