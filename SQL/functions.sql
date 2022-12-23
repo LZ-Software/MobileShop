@@ -147,10 +147,53 @@ DECLARE
 BEGIN
     IF(SELECT COUNT(*) FROM user_library WHERE user_id = user_login_id AND game_id= game_in_library_id) THEN
         ret = true;
-        RAISE EXCEPTION 'Такая игра уже есть у вас в библиотеке';
     ELSE
         ret = false;
     END IF;
     RETURN ret;
 END
 $$;
+
+CREATE OR REPLACE FUNCTION get_publisher_by_title(title VARCHAR)
+RETURNS TABLE(p_name VARCHAR, c_name VARCHAR)
+LANGUAGE plpgsql AS
+$func$
+BEGIN
+    RETURN QUERY EXECUTE FORMAT('SELECT * FROM get_publishers WHERE p_name = %L', title);
+END
+$func$;
+
+CREATE OR REPLACE FUNCTION get_publisher_user_id_by_title(title VARCHAR)
+RETURNS INTEGER
+LANGUAGE plpgsql AS
+$func$
+DECLARE ret INTEGER;
+BEGIN
+    SELECT ul.id INTO ret FROM user_login ul
+    JOIN publisher p on ul.id = p.user_id
+    WHERE name = title;
+    RETURN ret;
+END
+$func$;
+
+CREATE OR REPLACE FUNCTION get_country_by_id(c_id INTEGER)
+RETURNS VARCHAR
+LANGUAGE plpgsql AS
+$func$
+DECLARE ret VARCHAR;
+BEGIN
+    SELECT name INTO ret FROM country WHERE id= c_id;
+    RETURN ret;
+END
+$func$;
+
+CREATE OR REPLACE FUNCTION get_city_by_id(c_id INTEGER)
+RETURNS VARCHAR
+LANGUAGE plpgsql AS
+$func$
+DECLARE ret VARCHAR;
+BEGIN
+    SELECT name INTO ret FROM city WHERE id= c_id;
+    RETURN ret;
+END
+$func$;
