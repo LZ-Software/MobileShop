@@ -1,11 +1,12 @@
 DROP ROLE IF EXISTS admin;
 DROP ROLE IF EXISTS publisher;
 DROP ROLE IF EXISTS "user";
-DROP ROLE IF EXISTS auth;
+DROP ROLE IF EXISTS reg_master;
 
-CREATE ROLE admin CREATEUSER;
+CREATE ROLE admin WITH CREATEUSER;
 CREATE ROLE publisher;
 CREATE ROLE "user";
+CREATE ROLE reg_master WITH CREATEROLE PASSWORD 'reveerbtnbtrs123323d';
 
 GRANT USAGE ON SCHEMA public to admin;
 GRANT ALL ON ALL TABLES IN SCHEMA public TO admin;
@@ -13,7 +14,7 @@ GRANT ALL ON ALL FUNCTIONS IN SCHEMA public TO admin;
 GRANT ALL ON ALL PROCEDURES IN SCHEMA public TO admin;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public to admin;
 
-
+GRANT USAGE ON SCHEMA public TO "user";
 GRANT SELECT ON user_login TO "user";
 GRANT SELECT ON user_info TO "user";
 GRANT UPDATE ON user_info TO "user";
@@ -28,6 +29,13 @@ GRANT SELECT ON genre TO "user";
 GRANT SELECT ON game_genre TO "user";
 GRANT SELECT ON country TO "user";
 GRANT SELECT ON city TO "user";
+
+GRANT USAGE ON SCHEMA public TO reg_master;
+GRANT SELECT ON user_login TO reg_master;
+GRANT INSERT ON user_login TO reg_master;
+GRANT INSERT ON user_info TO reg_master;
+GRANT INSERT ON user_role TO reg_master;
+GRANT SELECT ON role TO reg_master;
 
 ALTER TABLE user_login ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_info ENABLE ROW LEVEL SECURITY;
@@ -108,7 +116,7 @@ USING
   name = 'user'
 );
 
-CREATE POLICY insert_user_role ON user_role FOR INSERT TO "user"
+CREATE POLICY insert_user_role ON user_role FOR INSERT TO reg_master
 WITH CHECK (true);
 
 CREATE POLICY select_image ON images FOR SELECT TO "user"
@@ -134,3 +142,15 @@ USING (true);
 
 CREATE POLICY select_game_genre ON city FOR SELECT TO "user"
 USING (true);
+
+CREATE POLICY select_user_login ON user_login FOR SELECT TO reg_master
+USING (true);
+
+CREATE POLICY insert_user_login ON user_login FOR INSERT TO reg_master
+WITH CHECK (true);
+
+CREATE POLICY insert_user_info ON user_info FOR INSERT TO reg_master
+WITH CHECK (true);
+
+CREATE POLICY
+

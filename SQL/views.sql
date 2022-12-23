@@ -1,6 +1,9 @@
 CREATE VIEW get_countries AS
     SELECT name FROM country;
 
+CREATE VIEW get_cities AS
+    SELECT name FROM city;
+
 CREATE VIEW get_genres AS
     SELECT name FROM genre;
 
