@@ -187,7 +187,7 @@ USING (true);
 CREATE POLICY select_user_library_reg_master ON user_library FOR SELECT TO reg_master
 USING (true);
 
-CREATE POLICY insert_user_library_reg_master ON user_library FOR UPDATE TO reg_master
+CREATE POLICY insert_user_library_reg_master ON user_library FOR INSERT TO reg_master
 WITH CHECK (true);
 
 CREATE POLICY select_game_purchase_reg_master ON game_purchase FOR SELECT TO reg_master

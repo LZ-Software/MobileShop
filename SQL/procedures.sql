@@ -83,7 +83,7 @@ BEGIN
 END
 $$LANGUAGE plpgsql;
 
-CREATE OR REPLACE PROCEDURE game_purchase(u_id INTEGER, g_id INTEGER)
+CREATE OR REPLACE PROCEDURE game_purchase_procedure(u_id INTEGER, g_id INTEGER)
 AS $$
 DECLARE
     id_p INTEGER;
