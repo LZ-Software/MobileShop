@@ -124,8 +124,7 @@ public class LoginFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                NavHostFragment.findNavController(LoginFragment.this)
-                        .navigate(R.id.action_LoginFragment_to_RegisterFragment);
+                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_LoginFragment_to_RegisterFragment);
             }
         });
     }

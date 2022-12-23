@@ -5,7 +5,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.lz.mobileshop.Environment;
-import com.lz.mobileshop.MainActivity;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -23,8 +22,10 @@ public class Database
     static String PASS = "";
 
     private Connection connection = null;
+
     private PreparedStatement preparedStatement = null;
     private CallableStatement callableStatement = null;
+
     private ResultSet resultSet = null;
 
     private Activity activity = null;
@@ -40,12 +41,9 @@ public class Database
         PASS = pass;
     }
 
-    public Database()
-    {
+    public Database() {}
 
-    }
-
-    public ResultSet executeQuery(String query, Activity act, String... parameters)
+    public ResultSet executeQuery(String query, Activity act, Object... parameters)
     {
         activity = act;
         int i = 1;
@@ -56,9 +54,28 @@ public class Database
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             preparedStatement = connection.prepareStatement(query);
 
-            for (String parameter : parameters)
+            for (Object parameter : parameters)
             {
-                preparedStatement.setString(i++, parameter);
+                if (parameter instanceof String)
+                {
+                    preparedStatement.setString(i++, (String) parameter);
+                }
+                else if (parameter instanceof Integer)
+                {
+                    preparedStatement.setInt(i++, (int) parameter);
+                }
+                else if (parameter instanceof Float)
+                {
+                    preparedStatement.setFloat(i++, (float) parameter);
+                }
+                else if (parameter instanceof Double)
+                {
+                    preparedStatement.setDouble(i++, (double) parameter);
+                }
+                else if (parameter instanceof Boolean)
+                {
+                    preparedStatement.setBoolean(i++, (boolean) parameter);
+                }
             }
 
             resultSet = preparedStatement.executeQuery();
@@ -77,54 +94,7 @@ public class Database
         return resultSet;
     }
 
-    public ResultSet executeQuery(String query, Activity act, Object parameter)
-    {
-        activity = act;
-
-        try
-        {
-            Class.forName(JDBC_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
-            preparedStatement = connection.prepareStatement(query);
-
-            if (parameter instanceof String)
-            {
-                preparedStatement.setString(1, (String) parameter);
-            }
-            else if (parameter instanceof Integer)
-            {
-                preparedStatement.setInt(1, (int) parameter);
-            }
-            else if (parameter instanceof Float)
-            {
-                preparedStatement.setFloat(1, (float) parameter);
-            }
-            else if (parameter instanceof Double)
-            {
-                preparedStatement.setDouble(1, (double) parameter);
-            }
-            else if (parameter instanceof Boolean)
-            {
-                preparedStatement.setBoolean(1, (boolean) parameter);
-            }
-
-            resultSet = preparedStatement.executeQuery();
-        }
-        catch (SQLException | ClassNotFoundException e)
-        {
-            activity.runOnUiThread(new Runnable()
-            {
-                public void run()
-                {
-                    Toast.makeText(activity.getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-        }
-
-        return resultSet;
-    }
-
-    public boolean callStatement(String query, Activity act, String... parameters)
+    public boolean callStatement(String query, Activity act, Object... parameters)
     {
         activity = act;
 
@@ -136,9 +106,28 @@ public class Database
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
             callableStatement = connection.prepareCall(query);
 
-            for (String param : parameters)
+            for (Object parameter : parameters)
             {
-                callableStatement.setString(i++, param);
+                if (parameter instanceof String)
+                {
+                    callableStatement.setString(i++, (String) parameter);
+                }
+                else if (parameter instanceof Integer)
+                {
+                    callableStatement.setInt(i++, (int) parameter);
+                }
+                else if (parameter instanceof Float)
+                {
+                    callableStatement.setFloat(i++, (float) parameter);
+                }
+                else if (parameter instanceof Double)
+                {
+                    callableStatement.setDouble(i++, (double) parameter);
+                }
+                else if (parameter instanceof Boolean)
+                {
+                    callableStatement.setBoolean(i++, (boolean) parameter);
+                }
             }
 
             return callableStatement.execute();

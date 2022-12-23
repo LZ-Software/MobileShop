@@ -6,6 +6,7 @@
     <string name="register_fragment_label">Registration</string>
     <string name="profile_fragment_label">Profile</string>
     <string name="game_page_fragment_label">Game Page</string>
+    <string name="game_purchase_fragment_label">Purchase</string>
 
     <string name="user_id_value_name">userId</string>
     <string name="shared_preferences_name">appPref</string>
@@ -26,9 +27,14 @@
     <string name="error_cant_get_games">Can\'t get games</string>
     <string name="error_cant_get_game">Can\'t get game info</string>
     <string name="error_cant_register_user">Can\'t register user</string>
+    <string name="error_cant_load_purchase_page">Can\'t load purchase page</string>
     <string name="error_cant_auth">Auth failed</string>
+    <string name="error_cant_check_if_purchase_exists">Can\'t check if purchase already exists</string>
+    <string name="error_purchase_exists">Game already purchased</string>
+    <string name="error_purchase_fail">Purchase failed\nTry again</string>
 
     <string name="success_register_user">User successfully registered</string>
+    <string name="success_purchased">Game successfully purchased</string>
 
     <string name="title_activity_menu">MenuActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -38,7 +44,6 @@
 
     <string name="menu_shop">Shop</string>
     <string name="menu_profile">Profile</string>
-    <string name="menu_slideshow">Slideshow</string>
 
     <string name="shop_item_game_title">Game title</string>
     <string name="shop_item_game_description">Game description</string>
@@ -46,4 +51,9 @@
     <string name="shop_item_game_publisher">Game publisher</string>
     <string name="shop_item_game_price">Game price</string>
     <string name="shop_item_game_buy">Buy for %.2f ₽</string>
+
+    <string name="game_purchase_card_mask">1111222233334444</string>
+    <string name="game_purchase_date_mask">01/01</string>
+    <string name="game_purchase_cvv_mask">123</string>
+    <string name="game_purchase_button">PAY %.2f ₽</string>
 </resources>

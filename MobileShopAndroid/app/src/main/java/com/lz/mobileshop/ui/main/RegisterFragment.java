@@ -68,8 +68,7 @@ public class RegisterFragment extends Fragment
             {
                 if (!areAllInputFilled())
                 {
-                    Toast toast = Toast.makeText(getContext(), R.string.error_not_all_fields_are_filled, Toast.LENGTH_LONG);
-                    toast.show();
+                    Toast.makeText(getContext(), R.string.error_not_all_fields_are_filled, Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -116,8 +115,7 @@ public class RegisterFragment extends Fragment
                     }
                     catch (InterruptedException e)
                     {
-                        Toast toast = Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG);
-                        toast.show();
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             }

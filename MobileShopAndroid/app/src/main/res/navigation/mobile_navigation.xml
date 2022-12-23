@@ -28,6 +28,21 @@
         <action
             android:id="@+id/action_gamePageFragment_to_nav_shop"
             app:destination="@id/nav_shop" />
+        <action
+            android:id="@+id/action_gamePageFragment_to_gamePurchaseFragment"
+            app:destination="@id/gamePurchaseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gamePurchaseFragment"
+        android:name="com.lz.mobileshop.ui.menu.shop.GamePurchaseFragment"
+        android:label="@string/game_purchase_fragment_label"
+        tools:layout="@layout/fragment_game_purchase" >
+        <action
+            android:id="@+id/action_gamePurchaseFragment_to_gamePageFragment"
+            app:destination="@id/gamePageFragment" />
+        <action
+            android:id="@+id/action_gamePurchaseFragment_to_nav_shop"
+            app:destination="@id/nav_shop" />
     </fragment>
 
 </navigation>
