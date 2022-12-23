@@ -90,7 +90,9 @@ DECLARE
 BEGIN
     INSERT INTO game_purchase(game_id, user_id, timestamp) VALUES (g_id, u_id, now()) RETURNING id INTO id_p;
     IF (id_p IS NULL) THEN
-        RAISE EXCEPTION 'Что-то пошло не так';
+        RAISE EXCEPTION 'Покупка не прошла';
+    ELSE
+        INSERT INTO user_library(user_id, game_id) VALUES (u_id, g_id);
     END IF;
 END
 $$LANGUAGE plpgsql;
