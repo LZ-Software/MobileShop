@@ -73,12 +73,12 @@ public class RegisterFragment extends Fragment
                 }
                 else
                 {
-                    String username = binding.registerUsernameInput.getText().toString();
-                    String password = binding.registerPasswordInput.getText().toString();
-                    String firstName = binding.registerFirstNameInput.getText().toString();
-                    String lastName = binding.registerLastNameInput.getText().toString();
-                    String country = binding.registerCountrySpinner.getSelectedItem().toString();
-                    String city = binding.registerCitySpinner.getSelectedItem().toString();
+                    String username = binding.registerUsernameInput.getText().toString().trim();
+                    String password = binding.registerPasswordInput.getText().toString().trim();
+                    String firstName = binding.registerFirstNameInput.getText().toString().trim();
+                    String lastName = binding.registerLastNameInput.getText().toString().trim();
+                    String country = binding.registerCountrySpinner.getSelectedItem().toString().trim();
+                    String city = binding.registerCitySpinner.getSelectedItem().toString().trim();
 
                     Thread auth = new Thread(new Runnable()
                     {
@@ -293,11 +293,11 @@ public class RegisterFragment extends Fragment
 
     private boolean areAllInputFilled()
     {
-        return this.binding.registerUsernameInput.getText().toString().length() != 0
-                && this.binding.registerPasswordInput.getText().toString().length() != 0
-                && this.binding.registerFirstNameInput.getText().toString().length() != 0
-                && this.binding.registerLastNameInput.getText().toString().length() != 0
-                && this.binding.registerCountrySpinner.getSelectedItem().toString().length() != 0
-                && this.binding.registerCitySpinner.getSelectedItem().toString().length() != 0;
+        return this.binding.registerUsernameInput.getText().toString().trim().length() != 0
+                && this.binding.registerPasswordInput.getText().toString().trim().length() != 0
+                && this.binding.registerFirstNameInput.getText().toString().trim().length() != 0
+                && this.binding.registerLastNameInput.getText().toString().trim().length() != 0
+                && this.binding.registerCountrySpinner.getSelectedItem().toString().trim().length() != 0
+                && this.binding.registerCitySpinner.getSelectedItem().toString().trim().length() != 0;
     }
 }
