@@ -212,3 +212,12 @@ BEGIN
                                 JOIN images i on g.image_id = i.id WHERE ul.user_id = %L GROUP BY ul.id, g.name, g.description, p.name, g.price, i.image;', u_id);
 END
 $func$;
+
+CREATE OR REPLACE FUNCTION get_user_info_by_user_id(u_id INTEGER)
+RETURNS TABLE(ul_id INTEGER,username VARCHAR, name VARCHAR, last_name VARCHAR, country VARCHAR, city VARCHAR, image TEXT)
+LANGUAGE plpgsql AS
+$func$
+BEGIN
+    RETURN QUERY EXECUTE FORMAT('SELECT * FROM get_user_info WHERE id = %L', u_id);
+END
+$func$;
