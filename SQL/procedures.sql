@@ -117,7 +117,7 @@ BEGIN
 END
 $$LANGUAGE plpgsql;
 
-CREATE OR REPLACE PROCEDURE update_publisher(u_id INTEGER,login_text VARCHAR, password_text VARCHAR, first_name_text VARCHAR, last_name_text VARCHAR, country_text VARCHAR, city_text VARCHAR)
+CREATE OR REPLACE PROCEDURE update_user(u_id INTEGER,login_text VARCHAR, password_text VARCHAR, first_name_text VARCHAR, last_name_text VARCHAR, country_text VARCHAR, city_text VARCHAR)
 AS $$
 DECLARE
     count INTEGER;
