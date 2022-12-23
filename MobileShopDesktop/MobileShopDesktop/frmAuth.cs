@@ -56,5 +56,14 @@ namespace MobileShopDesktop
                 XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
             }
         }
+
+        private void passwordText_EditValueChanged(object sender, EventArgs e)
+        {
+            passwordText.Properties.PasswordChar = '\u25CF';
+            if (Control.IsKeyLocked(Keys.CapsLock))
+            {
+                MessageBox.Show("Зажат CAPS LOCK", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+            }
+        }
     }
 }

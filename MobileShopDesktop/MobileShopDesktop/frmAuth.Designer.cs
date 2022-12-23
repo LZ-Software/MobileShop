@@ -42,9 +42,9 @@ namespace MobileShopDesktop
             this.authButton.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.authButton.Appearance.Options.UseFont = true;
             this.authButton.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
-            this.authButton.Location = new System.Drawing.Point(119, 304);
+            this.authButton.Location = new System.Drawing.Point(119, 285);
             this.authButton.Name = "authButton";
-            this.authButton.Size = new System.Drawing.Size(211, 23);
+            this.authButton.Size = new System.Drawing.Size(211, 46);
             this.authButton.TabIndex = 7;
             this.authButton.Text = "Авторизация";
             this.authButton.Click += new System.EventHandler(this.authButton_Click);
@@ -52,28 +52,30 @@ namespace MobileShopDesktop
             // passwordText
             // 
             this.passwordText.EditValue = "";
-            this.passwordText.Location = new System.Drawing.Point(119, 258);
+            this.passwordText.Location = new System.Drawing.Point(119, 233);
             this.passwordText.Name = "passwordText";
+            this.passwordText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.passwordText.Properties.Appearance.Options.UseFont = true;
             this.passwordText.Properties.AutoHeight = false;
             this.passwordText.Properties.NullValuePrompt = "Пароль";
             this.passwordText.Properties.NullValuePromptShowForEmptyValue = true;
-            this.passwordText.Properties.PasswordChar = '*';
             this.passwordText.Properties.ShowNullValuePromptWhenFocused = true;
-            this.passwordText.Size = new System.Drawing.Size(211, 25);
+            this.passwordText.Size = new System.Drawing.Size(211, 46);
             this.passwordText.TabIndex = 6;
+            this.passwordText.EditValueChanged += new System.EventHandler(this.passwordText_EditValueChanged);
             // 
             // loginText
             // 
             this.loginText.EditValue = "";
-            this.loginText.Location = new System.Drawing.Point(119, 214);
+            this.loginText.Location = new System.Drawing.Point(119, 181);
             this.loginText.Name = "loginText";
-            this.loginText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.loginText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.loginText.Properties.Appearance.Options.UseFont = true;
             this.loginText.Properties.AutoHeight = false;
             this.loginText.Properties.NullValuePrompt = "Логин";
             this.loginText.Properties.NullValuePromptShowForEmptyValue = true;
             this.loginText.Properties.ShowNullValuePromptWhenFocused = true;
-            this.loginText.Size = new System.Drawing.Size(211, 25);
+            this.loginText.Size = new System.Drawing.Size(211, 46);
             this.loginText.TabIndex = 5;
             // 
             // labelControl1
