@@ -116,3 +116,29 @@ BEGIN
     END IF;
 END
 $$LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE update_publisher(u_id INTEGER,login_text VARCHAR, password_text VARCHAR, first_name_text VARCHAR, last_name_text VARCHAR, country_text VARCHAR, city_text VARCHAR)
+AS $$
+DECLARE
+    count INTEGER;
+BEGIN
+    IF (SELECT COUNT(*) FROM user_login WHERE username = login_text) THEN
+        RAISE EXCEPTION 'Такой логин занят';
+    ELSE
+        UPDATE user_login
+        SET username = login_text,
+            password = password_text
+        WHERE username = login_text;
+        UPDATE user_info
+        SET first_name = first_name_text,
+            last_name = last_name_text,
+            country_id = get_county_id(country_text),
+            city_id = get_city_id(city_text)
+        WHERE user_id = u_id;
+        GET DIAGNOSTICS count = row_count;
+        IF(count = 0) THEN
+            RAISE EXCEPTION 'Что-то пошло не так';
+        END IF;
+    END IF;
+END
+$$LANGUAGE plpgsql;

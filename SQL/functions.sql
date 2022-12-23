@@ -129,7 +129,7 @@ END
 $func$;
 
 CREATE OR REPLACE FUNCTION get_game_by_title(title VARCHAR)
-RETURNS TABLE(g_id INTEGER, g_name VARCHAR, g_description VARCHAR, p_name VARCHAR, price FLOAT, genres VARCHAR, image_base64 TEXT)
+RETURNS TABLE(g_id INTEGER, g_name VARCHAR, g_description VARCHAR, p_name VARCHAR, price FLOAT, release_date TIMESTAMP, genres VARCHAR, image_base64 TEXT)
 LANGUAGE plpgsql AS
 $func$
 DECLARE
@@ -214,7 +214,7 @@ END
 $func$;
 
 CREATE OR REPLACE FUNCTION get_user_info_by_user_id(u_id INTEGER)
-RETURNS TABLE(ul_id INTEGER,username VARCHAR, name VARCHAR, last_name VARCHAR, country VARCHAR, city VARCHAR, image TEXT)
+RETURNS TABLE(ul_id INTEGER,username VARCHAR, first_name VARCHAR, last_name VARCHAR, country VARCHAR, city VARCHAR, image TEXT)
 LANGUAGE plpgsql AS
 $func$
 BEGIN
