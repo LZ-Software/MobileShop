@@ -8,5 +8,5 @@ $$BEGIN
         RETURN NEW;
     ELSE RAISE EXCEPTION 'Такой жанр уже есть в базе данных';
     END IF;
-END;
-$$ LANGUAGE plpgsql
+END
+$$ LANGUAGE plpgsql;

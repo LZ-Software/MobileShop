@@ -137,3 +137,20 @@ BEGIN
     RETURN QUERY EXECUTE FORMAT('SELECT * FROM get_games WHERE game = %L', title);
 END
 $func$;
+
+CREATE OR REPLACE FUNCTION check_game_in_user_library(user_login_id INTEGER, game_in_library_id INTEGER)
+RETURNS BOOLEAN
+LANGUAGE plpgsql AS
+$$
+DECLARE
+    ret BOOLEAN;
+BEGIN
+    IF(SELECT COUNT(*) FROM user_library WHERE user_id = user_login_id AND game_id= game_in_library_id) THEN
+        ret = false;
+        RAISE EXCEPTION 'Такая игра уже есть у вас в библиотеке';
+    ELSE
+        ret = true;
+    END IF;
+    RETURN ret;
+END
+$$;

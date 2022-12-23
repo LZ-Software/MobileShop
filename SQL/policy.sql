@@ -6,7 +6,7 @@ DROP ROLE IF EXISTS reg_master;
 CREATE ROLE admin WITH CREATEROLE ;
 CREATE ROLE publisher;
 CREATE ROLE "user";
-CREATE ROLE reg_master WITH CREATEROLE LOGIN PASSWORD 'reveerbtnbtrs123323d';
+CREATE ROLE reg_master WITH CREATEROLE LOGIN PASSWORD 'tbhrbjevkerpo112vervcwqcwce';
 
 GRANT USAGE ON SCHEMA public to admin;
 GRANT ALL ON ALL TABLES IN SCHEMA public TO admin;
