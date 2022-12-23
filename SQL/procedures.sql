@@ -83,3 +83,14 @@ BEGIN
 END
 $$LANGUAGE plpgsql;
 
+CREATE OR REPLACE PROCEDURE game_purchase(g_id INTEGER, u_id INTEGER)
+AS $$
+DECLARE
+    id_p INTEGER;
+BEGIN
+    INSERT INTO game_purchase(game_id, user_id, timestamp) VALUES (g_id, u_id, now()) RETURNING id INTO id_p;
+    IF (id_p IS NULL) THEN
+        RAISE EXCEPTION 'Что-то пошло не так';
+    END IF;
+END
+$$LANGUAGE plpgsql;
