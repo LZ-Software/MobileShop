@@ -197,3 +197,18 @@ BEGIN
     RETURN ret;
 END
 $func$;
+
+CREATE OR REPLACE FUNCTION get_games_by_user_id(u_id INTEGER)
+RETURNS TABLE(g_id INTEGER, g_name VARCHAR, g_description VARCHAR, p_name VARCHAR, price FLOAT, genres VARCHAR, image_base64 TEXT)
+LANGUAGE plpgsql AS
+$func$
+DECLARE
+BEGIN
+    RETURN QUERY EXECUTE FORMAT('SELECT ul.id, g.name, g.description, p.name, g.price, string_agg(g2.name, '', '')::VARCHAR, i.image FROM user_library ul
+                                JOIN game g on g.id = ul.game_id
+                                JOIN publisher p on g.publisher_id = p.id
+                                JOIN game_genre gg on g.id = gg.game_id
+                                JOIN genre g2 on gg.genre_id = g2.id
+                                JOIN images i on g.image_id = i.id WHERE ul.user_id = %L GROUP BY ul.id, g.name, g.description, p.name, g.price, i.image;', u_id);
+END
+$func$;
