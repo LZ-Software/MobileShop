@@ -30,7 +30,7 @@ GRANT SELECT ON game_genre TO "user";
 GRANT SELECT ON country TO "user";
 GRANT SELECT ON city TO "user";
 
-GRANT USAGE ON SCHEMA public TO reg_master;
+GRANT ALL PRIVILEGES ON get_games TO "user";
 GRANT SELECT ON user_login TO reg_master;
 GRANT INSERT ON user_login TO reg_master;
 GRANT INSERT ON user_info TO reg_master;
