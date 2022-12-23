@@ -14,7 +14,7 @@ GRANT ALL ON ALL FUNCTIONS IN SCHEMA public TO admin;
 GRANT ALL ON ALL PROCEDURES IN SCHEMA public TO admin;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA public to admin;
 
-GRANT USAGE ON SCHEMA public TO "user";
+GRANT SELECT ON get_games TO "user";
 GRANT SELECT ON user_login TO "user";
 GRANT SELECT ON user_info TO "user";
 GRANT UPDATE ON user_info TO "user";
@@ -30,7 +30,6 @@ GRANT SELECT ON game_genre TO "user";
 GRANT SELECT ON country TO "user";
 GRANT SELECT ON city TO "user";
 
-GRANT ALL PRIVILEGES ON get_games TO "user";
 GRANT SELECT ON user_login TO reg_master;
 GRANT INSERT ON user_login TO reg_master;
 GRANT INSERT ON user_info TO reg_master;
@@ -152,5 +151,9 @@ WITH CHECK (true);
 CREATE POLICY insert_user_info ON user_info FOR INSERT TO reg_master
 WITH CHECK (true);
 
-CREATE POLICY
+CREATE POLICY select_role_reg_master ON role FOR SELECT TO reg_master
+USING
+(
+  name = 'user'
+);
 
