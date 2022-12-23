@@ -127,7 +127,7 @@ BEGIN
     ELSE
         UPDATE user_login
         SET username = login_text,
-            password = password_text
+            password = crypt(password_text, gen_salt('md5'))
         WHERE username = login_text;
         UPDATE user_info
         SET first_name = first_name_text,
