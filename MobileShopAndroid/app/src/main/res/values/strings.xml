@@ -56,4 +56,6 @@
     <string name="game_purchase_date_mask">01/01</string>
     <string name="game_purchase_cvv_mask">123</string>
     <string name="game_purchase_button">PAY %.2f ₽</string>
+
+    <string name="profile_full_name">%s %s</string>
 </resources>

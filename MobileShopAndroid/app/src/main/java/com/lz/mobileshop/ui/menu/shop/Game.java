@@ -4,11 +4,11 @@ import android.graphics.Bitmap;
 
 public class Game
 {
-    private String title;
-    private String publisher;
-    private String genres;
-    private float price;
-    private Bitmap image;
+    private String title = "";
+    private String publisher = "";
+    private String genres = "";
+    private float price = 0f;
+    private Bitmap image = null;
 
     public Game(String title, String publisher, String genres, float price, Bitmap image)
     {
@@ -16,6 +16,12 @@ public class Game
         this.publisher = publisher;
         this.genres = genres;
         this.price = price;
+        this.image = image;
+    }
+
+    public Game(String title, Bitmap image)
+    {
+        this.title = title;
         this.image = image;
     }
 
