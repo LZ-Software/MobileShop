@@ -44,7 +44,6 @@ GRANT INSERT ON game_purchase TO "user";
 GRANT USAGE ON SEQUENCE user_login_id_seq TO reg_master;
 GRANT USAGE ON SEQUENCE user_info_id_seq TO reg_master;
 GRANT usage ON SEQUENCE  user_role_id_seq TO reg_master;
-GRANT SELECT ON get_games TO reg_master;
 GRANT SELECT ON get_countries TO reg_master;
 GRANT SELECT ON user_login TO reg_master;
 GRANT INSERT ON user_login TO reg_master;
