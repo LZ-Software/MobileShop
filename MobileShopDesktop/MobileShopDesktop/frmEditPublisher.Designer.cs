@@ -71,11 +71,12 @@ namespace MobileShopDesktop
             this.editButton.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.editButton.Appearance.Options.UseFont = true;
             this.editButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.editButton.Location = new System.Drawing.Point(3, 93);
+            this.editButton.Location = new System.Drawing.Point(3, 95);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(194, 46);
+            this.editButton.Size = new System.Drawing.Size(194, 43);
             this.editButton.TabIndex = 0;
             this.editButton.Text = "Изменить";
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // nameText
             // 
@@ -85,20 +86,20 @@ namespace MobileShopDesktop
             this.nameText.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.nameText.Properties.Appearance.Options.UseFont = true;
             this.nameText.Properties.AutoHeight = false;
-            this.nameText.Size = new System.Drawing.Size(194, 46);
+            this.nameText.Size = new System.Drawing.Size(194, 40);
             this.nameText.TabIndex = 1;
             // 
             // comboBox
             // 
             this.comboBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox.Location = new System.Drawing.Point(3, 48);
+            this.comboBox.Location = new System.Drawing.Point(3, 49);
             this.comboBox.Name = "comboBox";
             this.comboBox.Properties.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox.Properties.Appearance.Options.UseFont = true;
             this.comboBox.Properties.AutoHeight = false;
             this.comboBox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBox.Size = new System.Drawing.Size(194, 46);
+            this.comboBox.Size = new System.Drawing.Size(194, 40);
             this.comboBox.TabIndex = 2;
             // 
             // panel6
@@ -128,7 +129,7 @@ namespace MobileShopDesktop
             this.panel4.Controls.Add(this.publisherListBox);
             this.panel4.Location = new System.Drawing.Point(41, 93);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(223, 92);
+            this.panel4.Size = new System.Drawing.Size(223, 90);
             this.panel4.TabIndex = 11;
             // 
             // publisherListBox
@@ -141,7 +142,7 @@ namespace MobileShopDesktop
             this.publisherListBox.Location = new System.Drawing.Point(0, 0);
             this.publisherListBox.MinimumSize = new System.Drawing.Size(223, 83);
             this.publisherListBox.Name = "publisherListBox";
-            this.publisherListBox.Size = new System.Drawing.Size(223, 92);
+            this.publisherListBox.Size = new System.Drawing.Size(223, 90);
             this.publisherListBox.TabIndex = 1;
             itemTemplateBase1.Columns.Add(tableColumnDefinition1);
             templatedItemElement1.Appearance.Hovered.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -161,7 +162,7 @@ namespace MobileShopDesktop
             itemTemplateBase1.Name = "template1";
             itemTemplateBase1.Rows.Add(tableRowDefinition1);
             this.publisherListBox.Templates.Add(itemTemplateBase1);
-            this.publisherListBox.ItemCheck += new DevExpress.XtraEditors.Controls.ItemCheckEventHandler(this.publisherListBox_ItemCheck);
+            this.publisherListBox.SelectedValueChanged += new System.EventHandler(this.publisherListBox_SelectedValueChanged);
             // 
             // frmEditPublisher
             // 

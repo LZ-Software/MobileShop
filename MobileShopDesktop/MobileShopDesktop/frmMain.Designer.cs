@@ -73,7 +73,7 @@ namespace MobileShopDesktop
             // 
             this.publisherButton.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.publisherButton.Appearance.Options.UseFont = true;
-            this.publisherButton.Location = new System.Drawing.Point(43, 228);
+            this.publisherButton.Location = new System.Drawing.Point(43, 280);
             this.publisherButton.Name = "publisherButton";
             this.publisherButton.Size = new System.Drawing.Size(203, 46);
             this.publisherButton.TabIndex = 1;
@@ -89,12 +89,13 @@ namespace MobileShopDesktop
             this.changeGameButton.Size = new System.Drawing.Size(203, 46);
             this.changeGameButton.TabIndex = 4;
             this.changeGameButton.Text = "Изменить игру";
+            this.changeGameButton.Click += new System.EventHandler(this.changeGameButton_Click);
             // 
             // changePublisherButton
             // 
             this.changePublisherButton.Appearance.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.changePublisherButton.Appearance.Options.UseFont = true;
-            this.changePublisherButton.Location = new System.Drawing.Point(43, 280);
+            this.changePublisherButton.Location = new System.Drawing.Point(43, 228);
             this.changePublisherButton.Name = "changePublisherButton";
             this.changePublisherButton.Size = new System.Drawing.Size(203, 46);
             this.changePublisherButton.TabIndex = 5;

@@ -116,6 +116,12 @@
     <Compile Include="frmAuth.Designer.cs">
       <DependentUpon>frmAuth.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEditGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditGame.Designer.cs">
+      <DependentUpon>frmEditGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEditPublisher.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,10 +152,14 @@
     <Compile Include="frmPublisher.Designer.cs">
       <DependentUpon>frmPublisher.cs</DependentUpon>
     </Compile>
+    <Compile Include="imageConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAuth.resx">
       <DependentUpon>frmAuth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEditGame.resx">
+      <DependentUpon>frmEditGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEditPublisher.resx">
       <DependentUpon>frmEditPublisher.cs</DependentUpon>

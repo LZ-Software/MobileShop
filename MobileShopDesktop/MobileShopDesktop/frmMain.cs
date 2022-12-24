@@ -54,6 +54,15 @@ namespace MobileShopDesktop
             {
                 XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
             }
+            if(roleLabel.Text == "publisher")
+            {
+                gameButton.Enabled = false;
+                gameButton.Hide();
+                publisherButton.Enabled = false;
+                publisherButton.Hide();
+                addGenreButton.Enabled = false;
+                addGenreButton.Hide();
+            }
         }
 
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -83,6 +92,12 @@ namespace MobileShopDesktop
         {
             frmEditPublisher editPublisher = new frmEditPublisher();
             editPublisher.ShowDialog();
+        }
+
+        private void changeGameButton_Click(object sender, EventArgs e)
+        {
+            frmEditGame editGame = new frmEditGame();
+            editGame.ShowDialog();
         }
     }
 }

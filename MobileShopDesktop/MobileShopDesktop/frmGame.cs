@@ -68,7 +68,7 @@ namespace MobileShopDesktop
                     {
                         while (reader.Read())
                         {
-                            string name = reader.GetString(reader.GetOrdinal("name"));
+                            string name = reader.GetString(reader.GetOrdinal("p_name"));
                             publisherComboBox.Properties.Items.Add(name);
                         }
                     }
@@ -79,22 +79,12 @@ namespace MobileShopDesktop
             {
                 XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
             }
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             var numberOfLines = SendMessage(descriptionText.Handle.ToInt32(), EM_GETLINECOUNT, 0, 0);
             this.descriptionText.Height = (descriptionText.Font.Height + 2) * numberOfLines;
-        }
-
-        private string ImageToBase64String(Bitmap img)
-        {
-            using (var ms = new MemoryStream())
-            {
-                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                return Convert.ToBase64String(ms.ToArray());
-            }
         }
 
         private void imageButton_Click(object sender, EventArgs e)
@@ -109,7 +99,7 @@ namespace MobileShopDesktop
                     Bitmap image = new Bitmap(dlg.FileName);
                     pictureBox.Image = image;
 
-                    base64Image = ImageToBase64String(image);
+                    base64Image = imageConverter.ImageToBase64String(image);
                 }
             }
         }
