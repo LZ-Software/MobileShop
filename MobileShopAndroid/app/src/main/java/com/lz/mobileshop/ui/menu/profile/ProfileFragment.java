@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,6 +62,15 @@ public class ProfileFragment extends Fragment
         ProfileGameAdapter adapter = new ProfileGameAdapter(requireActivity(), games);
         recyclerView.setAdapter(null);
         recyclerView.setAdapter(adapter);
+
+        binding.profileEditButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                NavHostFragment.findNavController(ProfileFragment.this).navigate(R.id.action_nav_profile_to_profileEditFragment2);
+            }
+        });
     }
 
     @Override

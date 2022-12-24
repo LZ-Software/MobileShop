@@ -1,5 +1,6 @@
 package com.lz.mobileshop;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -7,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,8 +16,11 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -23,9 +28,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.lz.mobileshop.databinding.ActivityMenuBinding;
 import com.lz.mobileshop.db.Database;
+import com.lz.mobileshop.ui.main.RegisterFragment;
+import com.lz.mobileshop.ui.menu.profile.ProfileEditFragment;
+import com.lz.mobileshop.ui.menu.profile.ProfileFragment;
+import com.lz.mobileshop.ui.menu.shop.GamePageFragment;
+import com.lz.mobileshop.ui.menu.shop.GamePurchaseFragment;
+import com.lz.mobileshop.ui.menu.shop.ShopFragment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class MenuActivity extends AppCompatActivity
 {
@@ -77,6 +89,28 @@ public class MenuActivity extends AppCompatActivity
     {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+    }
+
+    @SuppressLint({"NonConstantResourceId", "ResourceType"})
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int selectedItem = item.getItemId();
+
+        if (selectedItem == R.id.action_logout)
+        {
+            setResult(RESULT_OK);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        setResult(RESULT_CANCELED);
     }
 
     private void fillUserInfo()
