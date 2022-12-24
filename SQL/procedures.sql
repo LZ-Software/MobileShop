@@ -70,14 +70,11 @@ AS $$
 DECLARE
     genre_id_ret INTEGER;
 BEGIN
-    IF (SELECT COUNT(*) FROM genre WHERE name = title) THEN
-        RAISE EXCEPTION 'Такая игра уже существует';
-    ELSE
-        INSERT INTO genre(name) VALUES (title) RETURNING id INTO genre_id_ret;
-        IF(genre_id_ret IS NULL) THEN
-            RAISE EXCEPTION 'Что-то пошло не так';
-        END IF;
+    INSERT INTO genre(name) VALUES (title) RETURNING id INTO genre_id_ret;
+    IF(genre_id_ret IS NULL) THEN
+        RAISE EXCEPTION 'Что-то пошло не так';
     END IF;
+
 END
 $$LANGUAGE plpgsql;
 
