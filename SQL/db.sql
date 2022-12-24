@@ -101,3 +101,6 @@ CREATE TABLE IF NOT EXISTS user_library
 );
 
 CREATE EXTENSION pgcrypto;
+
+CREATE UNIQUE INDEX country_name ON country(name);
+CREATE UNIQUE INDEX city_name ON city(name);
