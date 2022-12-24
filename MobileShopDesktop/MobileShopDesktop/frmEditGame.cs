@@ -192,29 +192,38 @@ namespace MobileShopDesktop
                 NpgsqlConnection connection = DBUtils.GetDBConnection();
                 NpgsqlTransaction transaction = connection.BeginTransaction();
 
-                NpgsqlCommand cmd = new NpgsqlCommand(
-                    "UPDATE images" +
-                    "SET image = $1" +
-                    "WHERE image = $1" +
-                    "UPDATE game" +
-                    "SET name = $2," +
-                        "description = $3," +
-                        "price = $4," +
-                        "publisher_id = get_publisher_id_by_title($5)," +
-                        "dt_release = $6::DATE," +
-                        "image_id = get_image_id($1);", connection, transaction);
+                // -------------------------------------------------------
 
-                cmd.Parameters.AddWithValue(base64Image);
-                cmd.Parameters.AddWithValue(nameText.Text.Trim());
-                cmd.Parameters.AddWithValue(descriptionText.Text.Trim());
-                cmd.Parameters.AddWithValue(float.Parse(priceText.Text, CultureInfo.InvariantCulture.NumberFormat));
-                cmd.Parameters.AddWithValue(publisherComboBox.SelectedItem.ToString());
-                cmd.Parameters.AddWithValue(dateReleasePicker.SelectedText);
+                NpgsqlCommand cmd1 = new NpgsqlCommand("INSERT INTO images(image) VALUES($1) RETURNUNG id", connection, transaction);
 
+                cmd1.Parameters.AddWithValue(base64Image);
+
+                int image_id = (int) cmd1.ExecuteScalar();
+
+                // -------------------------------------------------------
+
+                NpgsqlCommand cmd2 = new NpgsqlCommand(
+                    "UPDATE game " +
+                    "SET name = $1," +
+                        "description = $2," +
+                        "price = $3," +
+                        "publisher_id = get_publisher_id_by_title($4)," +
+                        "dt_release = $5::DATE," +
+                        "image_id = $6 WHERE id = $7", connection, transaction);
+
+                cmd2.Parameters.AddWithValue(nameText.Text.Trim());
+                cmd2.Parameters.AddWithValue(descriptionText.Text.Trim());
+                cmd2.Parameters.AddWithValue(float.Parse(priceText.Text, CultureInfo.InvariantCulture.NumberFormat));
+                cmd2.Parameters.AddWithValue(publisherComboBox.SelectedItem.ToString());
+                cmd2.Parameters.AddWithValue(dateReleasePicker.SelectedText);
+                cmd2.Parameters.AddWithValue(image_id);
+                cmd2.Parameters.AddWithValue(g_id);
+
+                // -------------------------------------------------------
 
                 try
                 {
-                    if (cmd.ExecuteNonQuery() != -1)
+                    if (cmd2.ExecuteNonQuery() != -1)
                     {
                         transaction.Commit();
                     }
