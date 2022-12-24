@@ -15,10 +15,8 @@ BEGIN
         EXECUTE format('CREATE USER %I WITH ENCRYPTED PASSWORD %L', LOWER(login), password_text::VARCHAR);
         EXECUTE format('GRANT "user" to %I', LOWER(login));
         IF (id_info IS NULL OR id_login IS NULL OR id_role IS NULL) THEN
-            ROLLBACK;
             RAISE EXCEPTION 'Что-то пошло не так, попробуйте снова';
         ELSE
-           COMMIT;
         END IF;
     END IF;
 END
