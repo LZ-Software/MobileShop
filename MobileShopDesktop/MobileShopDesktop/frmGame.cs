@@ -26,6 +26,8 @@ namespace MobileShopDesktop
         public frmGame()
         {
             InitializeComponent();
+
+            this.Icon = Properties.Resources.appIcon;
         }
 
         private void frmGame_Load(object sender, EventArgs e)

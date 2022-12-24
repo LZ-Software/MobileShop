@@ -10,6 +10,8 @@ namespace MobileShopDesktop
         public frmPublisher()
         {
             InitializeComponent();
+
+            this.Icon = Properties.Resources.appIcon;
         }
 
         private void frmPublisher_Load(object sender, EventArgs e)

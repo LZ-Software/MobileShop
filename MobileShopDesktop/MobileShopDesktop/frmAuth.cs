@@ -17,6 +17,8 @@ namespace MobileShopDesktop
         public frmAuth()
         {
             InitializeComponent();
+
+            this.Icon = Properties.Resources.appIcon;
         }
 
         private void authButton_Click(object sender, EventArgs e)
@@ -41,19 +43,26 @@ namespace MobileShopDesktop
 
             try
             {
-                using (NpgsqlDataReader reader = cmd.ExecuteReader())
+                try
                 {
-                    if (reader.HasRows)
+                    using (NpgsqlDataReader reader = cmd.ExecuteReader())
                     {
-                        frmMain main = new frmMain(login);
-                        main.Show();
-                        this.Hide();
+                        if (reader.HasRows)
+                        {
+                            frmMain main = new frmMain(login);
+                            main.Show();
+                            this.Hide();
+                        }
                     }
                 }
+                catch (NpgsqlException ex)
+                {
+                    XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
+                }
             }
-            catch (NpgsqlException ex)
+            catch(InvalidOperationException exp)
             {
-                XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
+                XtraMessageBox.Show($"{exp.Message}", "Внимание", MessageBoxButtons.OK);
             }
         }
 

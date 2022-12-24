@@ -20,6 +20,7 @@ namespace MobileShopDesktop
             InitializeComponent();
 
             this.login = login;
+            this.Icon = Properties.Resources.appIcon;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -54,10 +55,14 @@ namespace MobileShopDesktop
             {
                 XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
             }
-            if(roleLabel.Text == "publisher")
+            if(roleLabel.Text == "publisher" || roleLabel.Text == "user")
             {
                 gameButton.Enabled = false;
                 gameButton.Hide();
+                changeGameButton.Enabled = false;
+                changeGameButton.Hide();
+                publisherButton.Enabled = false;
+                publisherButton.Hide();
                 publisherButton.Enabled = false;
                 publisherButton.Hide();
                 addGenreButton.Enabled = false;

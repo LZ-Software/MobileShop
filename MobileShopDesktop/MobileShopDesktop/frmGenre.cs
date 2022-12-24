@@ -17,6 +17,8 @@ namespace MobileShopDesktop
         public frmGenre()
         {
             InitializeComponent();
+
+            this.Icon = Properties.Resources.appIcon;
         }
 
         private void addButton_Click(object sender, EventArgs e)

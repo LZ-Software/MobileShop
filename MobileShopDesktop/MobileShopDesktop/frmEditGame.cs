@@ -23,6 +23,9 @@ namespace MobileShopDesktop
         public frmEditGame()
         {
             InitializeComponent();
+
+            this.Icon = Properties.Resources.appIcon;
+
         }
 
         private void frmEditGame_Load(object sender, EventArgs e)
