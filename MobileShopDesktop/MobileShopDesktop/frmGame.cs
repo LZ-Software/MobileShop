@@ -108,43 +108,63 @@ namespace MobileShopDesktop
         {
             if (!String.IsNullOrEmpty(base64Image) && !String.IsNullOrEmpty(nameText.Text) && !String.IsNullOrEmpty(priceText.Text) && publisherComboBox.SelectedItem != null && dateReleasePicker.SelectedText != null && !String.IsNullOrEmpty(descriptionText.Text) && genreListBox.CheckedItemsCount != 0)
             {
+
+                NpgsqlConnection connection = DBUtils.GetDBConnection();
+                NpgsqlTransaction transaction = connection.BeginTransaction();
+
+                // -------------------------------------------------------
+
+                NpgsqlCommand cmd1 = new NpgsqlCommand("CALL create_game($1, $2, $3, $4, $5::DATE, $6);", connection,transaction);
+
+                cmd1.Connection = connection;
+                cmd1.Parameters.AddWithValue(nameText.Text.Trim());
+                cmd1.Parameters.AddWithValue(descriptionText.Text.Trim());
+                cmd1.Parameters.AddWithValue(float.Parse(priceText.Text, CultureInfo.InvariantCulture.NumberFormat));
+                cmd1.Parameters.AddWithValue(publisherComboBox.SelectedItem.ToString());
+                cmd1.Parameters.AddWithValue(dateReleasePicker.SelectedText);
+                cmd1.Parameters.AddWithValue(base64Image);
+
                 try
                 {
-                    NpgsqlConnection connection = DBUtils.GetDBConnection();
-
-                    NpgsqlCommand cmd = new NpgsqlCommand();
-                    cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue(nameText.Text.Trim());
-                    cmd.Parameters.AddWithValue(descriptionText.Text.Trim());
-                    cmd.Parameters.AddWithValue(float.Parse(priceText.Text, CultureInfo.InvariantCulture.NumberFormat));
-                    cmd.Parameters.AddWithValue(publisherComboBox.SelectedItem.ToString());
-                    cmd.Parameters.AddWithValue(dateReleasePicker.SelectedText);
-                    cmd.Parameters.AddWithValue(base64Image);
-
-                    cmd.CommandText = "CALL create_game($1, $2, $3, $4, $5::DATE, $6);";
-
-                    var rowAffected = cmd.ExecuteNonQuery();
-
-                    NpgsqlBatch batch = new NpgsqlBatch(connection);
-
-                    for(int i = 0; i < genreListBox.CheckedItemsCount; i++)
-                    {
-                        NpgsqlBatchCommand batch_cmd = new NpgsqlBatchCommand($"INSERT INTO game_genre(game_id, genre_id) VALUES(get_game_id_by_title('{nameText.Text.Trim()}'), get_genre_id_by_title('{genreListBox.CheckedItems[i].ToString()}'));");
-                        batch_cmd.Parameters.Add(new NpgsqlParameter(genreListBox.CheckedItems[i].ToString(), i));
-                        batch.BatchCommands.Add(batch_cmd);
-                    }
-
-                    batch.ExecuteNonQuery();
-
-                    if (rowAffected != 0)
-                    {
-                        XtraMessageBox.Show("Игра добавлена", "Успех", MessageBoxButtons.OK);
-                    }
+                    cmd1.ExecuteNonQuery();
                 }
                 catch (NpgsqlException ex)
                 {
                     XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
                 }
+
+                // -------------------------------------------------------
+
+                for (int i = 0; i < genreListBox.CheckedItemsCount; i++)
+                {
+                    NpgsqlCommand cmd2 = new NpgsqlCommand($"INSERT INTO game_genre(game_id, genre_id) " +
+                                                           $"VALUES" +
+                                                           $"(get_game_id_by_title($1), get_genre_id_by_title($2));", connection, transaction);
+                    
+                    cmd2.Parameters.AddWithValue(nameText.Text.Trim());
+                    cmd2.Parameters.AddWithValue(genreListBox.CheckedItems[i].ToString());
+
+                    try
+                    {
+                        if (cmd2.ExecuteNonQuery() != -1)
+                        {
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            transaction.Dispose();
+                            return;
+                        }
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
+                        transaction.Rollback();
+                        transaction.Dispose();
+                    }
+                }
+                transaction.Commit();
+                // -------------------------------------------------------
             }
         }
     }

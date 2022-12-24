@@ -17,7 +17,6 @@ namespace MobileShopDesktop
 {
     public partial class frmEditGame : DevExpress.XtraEditors.XtraForm
     {
-        private string base64ImageOriginal;
         private string base64Image;
         int g_id;
 
@@ -227,12 +226,9 @@ namespace MobileShopDesktop
                 {
                     if (cmd2.ExecuteNonQuery() != -1)
                     {
-                        transaction.Commit();
                     }
                     else
                     {
-                        transaction.Rollback();
-                        transaction.Dispose();
                         return;
                     }
                 }
@@ -242,6 +238,62 @@ namespace MobileShopDesktop
                     transaction.Rollback();
                     transaction.Dispose();
                 }
+
+                // -------------------------------------------------------
+
+                NpgsqlCommand cmd3 = new NpgsqlCommand("DELETE FROM game_genre WHERE game_id = $1", connection, transaction);
+                
+                cmd3.Parameters.AddWithValue(g_id);
+
+                try
+                {
+                    if (cmd3.ExecuteNonQuery() != -1)
+                    {
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                catch (NpgsqlException ex)
+                {
+                    XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
+                    transaction.Rollback();
+                    transaction.Dispose();
+                }
+
+                // -------------------------------------------------------
+
+                for (int i = 0; i < genreListBox.CheckedItemsCount; i++)
+                {
+                    NpgsqlCommand cmd4 = new NpgsqlCommand($"INSERT INTO game_genre(game_id, genre_id) VALUES ($1, get_genre_id_by_title($2))", connection, transaction);
+
+                    cmd4.Parameters.AddWithValue(g_id);
+                    cmd4.Parameters.AddWithValue(genreListBox.CheckedItems[i].ToString());
+
+                    try
+                    {
+                        if (cmd4.ExecuteNonQuery() != -1)
+                        {
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            transaction.Dispose();
+                            return;
+                        }
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        XtraMessageBox.Show($"{ex.Message}", "Внимание", MessageBoxButtons.OK);
+                        transaction.Rollback();
+                        transaction.Dispose();
+                    }
+                }
+
+                transaction.Commit();
+
+                // -------------------------------------------------------
             }
         }
     }
