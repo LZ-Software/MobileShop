@@ -138,14 +138,14 @@ $$LANGUAGE plpgsql;
 CREATE OR REPLACE PROCEDURE update_image(user_id_in INTEGER, image_base64 TEXT)
 AS $$
 DECLARE
+    new_id INTEGER;
     count INTEGER;
 BEGIN
-    UPDATE images
-    SET image = image_base64
-    WHERE id = (SELECT i.id FROM user_login ul
-                       JOIN user_info ui ON ul.id = ui.user_id
-                       JOIN images i ON i.id = ui.image_id
-                       WHERE ul.id = user_id_in);
+    INSERT INTO images(image)
+    VALUES (image_base64) RETURNING id INTO new_id;
+    UPDATE user_info
+    SET image_id = new_id
+    WHERE id = (SELECT ui.id FROM user_login ul JOIN user_info ui ON ul.id = ui.user_id WHERE ul.id = user_id_in);
     GET DIAGNOSTICS count = row_count;
     IF (count = 0) THEN
         RAISE EXCEPTION 'Что-то пошло не так';
