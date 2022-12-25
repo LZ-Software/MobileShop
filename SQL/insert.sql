@@ -16,29 +16,7 @@ VALUES ('Москва', get_county_id('Россия')),
        ('Вашингтон', get_county_id('США')),
        ('Нью-Йорк', get_county_id('США'));
 
-INSERT INTO user_login(username, password)
-VALUES ('Xboct', crypt('123456q', gen_salt('md5')));
-
-INSERT INTO user_info(user_id, first_name, last_name, country_id, city_id, image_id)
-VALUES (get_user_id_by_login('Xboct'), 'Sasha', 'Dashkevich', get_county_id('Россия'), get_city_id('Москва'), 1);
-
-INSERT INTO user_role(person_id, role_id)
-VALUES (get_user_id_by_login('Xboct'), get_role_id('user'));
-
-INSERT INTO publisher(name, country_id)
-VALUES ('Valve', get_county_id('США'));
-
 INSERT INTO genre(name)
 VALUES ('Приключения'),
        ('Экшн'),
        ('Ужасы');
-
-INSERT INTO game(name, description, price, publisher_id, dt_release, image_id)
-VALUES('Dota 2', 'Cool game', 1000.000, get_publisher_id_by_title('valve'), '12.05.2015', 1);
-
-INSERT INTO game_genre(game_id, genre_id)
-VALUES (get_game_id_by_title('dota 2'), get_genre_id_by_title('Приключения')),
-       (get_game_id_by_title('dota 2'), get_genre_id_by_title('Ужасы'));
-
-INSERT INTO user_library(user_id, game_id)
-VALUES (get_user_id_by_login('Xboct'), get_game_id_by_title('dota 2'));
