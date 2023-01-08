@@ -1,13 +1,13 @@
 from django.db import models
 
 
-class Image(models.Model):
+class ImageModel(models.Model):
     """ Country of user"""
 
     id = models.AutoField(
         primary_key=True
     )
-    image = models.TextField(
+    image_base64 = models.TextField(
         null=False
     )
 
