@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Country(models.Model):
-    """ Country of user"""
 
     id = models.AutoField(
         primary_key=True
@@ -14,7 +13,6 @@ class Country(models.Model):
     )
 
     class Meta:
-        """ Additional meta information on model """
         db_table = 'country'
 
     def __str__(self):
@@ -22,7 +20,6 @@ class Country(models.Model):
 
 
 class City(models.Model):
-    """ City of user"""
 
     id = models.AutoField(
         primary_key=True
@@ -32,7 +29,7 @@ class City(models.Model):
         null=False,
         unique=True
     )
-    user = models.ForeignKey(
+    country = models.ForeignKey(
         to=Country,
         related_name='cities',
         related_query_name='city',
