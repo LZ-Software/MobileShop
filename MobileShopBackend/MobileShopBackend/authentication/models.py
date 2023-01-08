@@ -3,6 +3,8 @@ from django.db import models
 from rolepermissions import checkers as rolepermissions_checkers
 
 from MobileShopBackend.authentication import roles
+from MobileShopBackend.locality import models as locality_models
+from MobileShopBackend.images import models as image_models
 
 
 class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
@@ -50,33 +52,6 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
             roles.permissions.ADMIN_ACCESS,
         )
 
-    def get_full_name(self) -> str:
-        """
-        Get users full name
-
-        :return: Full name
-        """
-
-        profile = self.profiles.actual()
-
-        if profile:
-            return f'{profile.first_name} {profile.last_name}'
-
-        return self.username
-
-    def get_short_name(self) -> str:
-        """
-        Get users short name
-
-        :return: Short name
-        """
-        profile = self.profiles.actual()
-
-        if profile:
-            return f'{profile.last_name} {profile.first_name[:1].upper()}.'
-
-        return self.username
-
     def get_role_name(self) -> str:
         """
         :return: Name(s) of the role(s) assigned to user
@@ -109,6 +84,18 @@ class Profile(auth_models.AbstractBaseUser):
     last_name = models.CharField(
         max_length=128,
         null=True
+    )
+    city = models.ForeignKey(
+        to=locality_models.City,
+        related_name='cities',
+        related_query_name='city',
+        on_delete=models.DO_NOTHING,
+    )
+    image = models.ForeignKey(
+        to=image_models.Image,
+        related_name='images',
+        related_query_name='image',
+        on_delete=models.DO_NOTHING,
     )
 
     EXCLUDE_FIELDS = ['pk']

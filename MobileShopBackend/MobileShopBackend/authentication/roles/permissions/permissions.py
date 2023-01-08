@@ -123,7 +123,6 @@ USER_GAME_PURCHASE_ACCESS = 'user_game_purchase_access'
 USER_GAME_PURCHASE_CREATE = 'user_game_purchase_create'
 USER_GAME_PURCHASE_READ = 'user_game_purchase_read'
 
-
 PUBLISHER_ACCESS = 'publisher_access'
 PUBLISHER_AUTHENTICATION_ACCESS = 'publisher_authentication_access'
 PUBLISHER_IMAGES_CREATE = 'publisher_images_create'

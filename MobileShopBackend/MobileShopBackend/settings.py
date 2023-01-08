@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'MobileShopBackend.authentication'
+    'MobileShopBackend.authentication',
+    'MobileShopBackend.locality',
+    'MobileShopBackend.images',
 ]
 
 MIDDLEWARE = [
