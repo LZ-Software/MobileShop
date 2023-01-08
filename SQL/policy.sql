@@ -36,7 +36,6 @@ GRANT SELECT ON genre TO "user";
 GRANT SELECT ON game_genre TO "user";
 GRANT SELECT ON country TO "user";
 GRANT SELECT ON city TO "user";
-GRANT SELECT ON user_library TO "user";
 GRANT INSERT ON user_library TO "user";
 GRANT SELECT ON game_purchase TO "user";
 GRANT INSERT ON game_purchase TO "user";
