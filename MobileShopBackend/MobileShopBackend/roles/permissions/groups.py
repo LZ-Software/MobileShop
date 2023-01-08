@@ -1,0 +1,3 @@
+"""
+Information about permission groups
+"""
