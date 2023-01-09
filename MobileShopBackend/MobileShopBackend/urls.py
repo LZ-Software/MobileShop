@@ -23,4 +23,5 @@ urlpatterns = [
     path('image/', include('MobileShopBackend.images.urls')),
     path('genre/', include('MobileShopBackend.genre.urls')),
     path('locality/', include('MobileShopBackend.locality.urls')),
+    path('publisher/', include('MobileShopBackend.publisher.urls')),
 ]
