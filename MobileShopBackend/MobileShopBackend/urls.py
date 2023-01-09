@@ -20,6 +20,6 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('MobileShopBackend.authentication.urls')),
+    path('image/', include('MobileShopBackend.images.urls')),
     # path('locality/', include('MobileShopBackend.locality.urls', namespace='locality')),
-    # path('images/', include('MobileShopBackend.images.urls', namespace='images')),
 ]
