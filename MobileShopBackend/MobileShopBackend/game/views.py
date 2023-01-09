@@ -124,7 +124,6 @@ class EditGame(views.APIView):
 
     @staticmethod
     def post(request: rest_request.Request) -> rest_response.Response:
-
         serializer = serializers.GameEditSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
@@ -137,3 +136,45 @@ class EditGame(views.APIView):
             },
             status=rest_status.HTTP_200_OK,
         )
+
+
+class GetGame(views.APIView):
+
+    http_method_names = ['get']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.USER_GAME_READ
+
+    @staticmethod
+    def get(request: rest_request.Request) -> rest_response.Response:
+
+        serializer = serializers.GameDeleteSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        game = models.Game.objects.get(id=data['id'])
+        image = game.image.image_base64
+        publisher = game.publisher.name
+        genres = models.GameGenre.objects.filter(game=game)
+
+        genre_ret = []
+
+        for genre in genres:
+            genre_ret.append(genre.genre)
+
+        game_ret = [{
+            'id': game.pk,
+            'name': game.name,
+            'description': game.description,
+            'price': game.price,
+            'publisher': publisher,
+            'dt_release': game.dt_release,
+            'image': image,
+            'genres': genre_ret
+        }]
+
+        return rest_response.Response(
+            game_ret,
+            status=rest_status.HTTP_200_OK,
+        )
+        
