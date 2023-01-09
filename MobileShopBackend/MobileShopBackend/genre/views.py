@@ -28,7 +28,7 @@ class CreateGenre(views.APIView):
 
         return rest_response.Response(
             data={
-                'image': genre.pk,
+                'genre': genre.pk,
             },
             status=rest_status.HTTP_200_OK,
         )
