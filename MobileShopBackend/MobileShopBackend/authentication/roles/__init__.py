@@ -14,5 +14,4 @@ from . import permissions
 from . import common
 
 from .administrator import *
-from .publisher import *
 from .user import *

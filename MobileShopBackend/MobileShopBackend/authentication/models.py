@@ -25,7 +25,7 @@ class UserQuerySet(models.QuerySet):
 
     def employees(self):
         """remain only employees"""
-        return self.filter(groups__name__in=['administrator', 'publisher'])
+        return self.filter(groups__name__in=['administrator'])
 
 
 class SelfUserManager(auth_models.BaseUserManager):

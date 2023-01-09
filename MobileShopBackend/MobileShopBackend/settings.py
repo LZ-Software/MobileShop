@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'MobileShopBackend.authentication',
     'MobileShopBackend.locality',
     'MobileShopBackend.images',
+    'MobileShopBackend.genre',
+    'MobileShopBackend.game',
+    'MobileShopBackend.publisher',
 ]
 
 MIDDLEWARE = [
