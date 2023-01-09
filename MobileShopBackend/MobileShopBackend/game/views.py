@@ -17,7 +17,7 @@ def create_game(
         name: typing.Optional[str],
         description: typing.Optional[str],
         price: typing.Optional[float],
-        publisher: typing.Optional[str],
+        publisher: typing.Optional[int],
         dt_release: datetime,
         image_base64: typing.Optional[str],
         genres: typing.Optional[list]):
@@ -29,16 +29,45 @@ def create_game(
                                       price=price,
                                       publisher=publisher,
                                       dt_release=dt_release,
-                                      image_id=image.pk)
+                                      image=image)
     game.save()
 
     for genre in genres:
-
-        game_genre = models.GameGenre.objects.create(game_id=game.pk,
+        game_genre = models.GameGenre.objects.create(game=game,
                                                      genre_id=genre)
         game_genre.save()
 
     return game
+
+
+@transaction.atomic
+def edit_game(
+        game_id: typing.Optional[int],
+        name: typing.Optional[str],
+        description: typing.Optional[str],
+        price: typing.Optional[float],
+        publisher: typing.Optional[int],
+        dt_release: datetime,
+        image_base64: typing.Optional[str],
+        genres: typing.Optional[list]):
+    image = models.ImageModel.objects.create(image_base64=image_base64)
+    image.save()
+
+    game = models.Game.objects.get(id=game_id)
+    game.name = name
+    game.description = description
+    game.price = price
+    game.publisher = publisher
+    game.dt_release = dt_release
+    game.image = image
+    game.save()
+
+    models.GameGenre.objects.get(game_id=game_id).delete()
+
+    for genre in genres:
+        game_genre = models.GameGenre.objects.create(game=game,
+                                                     genre_id=genre)
+        game_genre.save()
 
 
 class CreateGame(views.APIView):
@@ -64,7 +93,6 @@ class CreateGame(views.APIView):
 
 
 class DeleteGame(views.APIView):
-
     http_method_names = ['post']
 
     permission_classes = [has_permission.HasPermission]
@@ -72,13 +100,36 @@ class DeleteGame(views.APIView):
 
     @staticmethod
     def post(request: rest_request.Request) -> rest_response.Response:
-
         serializer = serializers.GameDeleteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
         game = models.Game.objects.get(id=data['id'])
         game.delete()
+
+        return rest_response.Response(
+            data={
+                'success': True,
+            },
+            status=rest_status.HTTP_200_OK,
+        )
+
+
+class EditGame(views.APIView):
+
+    http_method_names = ['post']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.ADMIN_GENRE_UPDATE
+
+    @staticmethod
+    def post(request: rest_request.Request) -> rest_response.Response:
+
+        serializer = serializers.GameEditSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        edit_game(**data)
 
         return rest_response.Response(
             data={
