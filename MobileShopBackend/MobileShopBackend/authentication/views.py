@@ -7,11 +7,14 @@ from rest_framework import status as rest_status
 from rest_framework.authtoken import models as authtoken_models
 
 from . import models as auth_models
-from . import serializers
+from . import serializers as user_serializers
 from .roles import permissions
 from .roles.permissions import has_permission
 
 from MobileShopBackend.locality import models as locality_models
+from MobileShopBackend.images import models as image_models
+
+from MobileShopBackend.images import serializers as image_serializers
 
 USER = auth.get_user_model()
 
@@ -23,7 +26,7 @@ class RegisterUser(views.APIView):
     @staticmethod
     def post(request: rest_request.Request) -> rest_response.Response:
 
-        serializer = serializers.UserCreateSerializer(data=request.data)
+        serializer = user_serializers.UserCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
@@ -50,7 +53,7 @@ class EditUser(views.APIView):
     @staticmethod
     def post(request: rest_request.Request) -> rest_response.Response:
 
-        serializer = serializers.UserEditSerializer(data=request.data)
+        serializer = user_serializers.UserEditSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
@@ -61,6 +64,34 @@ class EditUser(views.APIView):
         profile.first_name = data['first_name']
         profile.last_name = data['last_name']
         profile.city = data['city']
+        profile.save()
+
+        return rest_response.Response(
+            data={
+                'success': True,
+            },
+            status=rest_status.HTTP_200_OK,
+        )
+
+
+class EditUserImage(views.APIView):
+
+    http_method_names = ['post']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.USER_USER_INFO_UPDATE
+
+    @staticmethod
+    def post(request: rest_request.Request) -> rest_response.Response:
+
+        serializer = image_serializers.ImageSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        image = image_models.ImageModel.objects.create(image_base64=data['image'])
+
+        profile = auth_models.Profile.objects.get(user=request.user)
+        profile.image = image
         profile.save()
 
         return rest_response.Response(
