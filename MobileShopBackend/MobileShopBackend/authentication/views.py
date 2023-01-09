@@ -19,6 +19,56 @@ from MobileShopBackend.images import serializers as image_serializers
 USER = auth.get_user_model()
 
 
+class AuthorizeUser(views.APIView):
+
+    http_method_names = ['post']
+
+    @staticmethod
+    def post(request: rest_request.Request) -> rest_response.Response:
+
+        serializer = user_serializers.UserAuthorizeSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        user = auth.authenticate(
+            request=request._request,
+            username=data['login'],
+            password=data['password'],
+        )
+
+        if user is None:
+            return rest_response.Response(
+                data={'success': False},
+                status=rest_status.HTTP_400_BAD_REQUEST,
+            )
+
+        authtoken_models.Token.objects.filter(user=user).delete()
+        token = authtoken_models.Token.objects.create(user=user)
+
+        return rest_response.Response(
+            data={'token': token.key},
+            status=rest_status.HTTP_200_OK,
+        )
+
+
+class GetUserProfile(views.APIView):
+
+    http_method_names = ['post']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.USER_USER_INFO_READ
+
+    @staticmethod
+    def post(request: rest_request.Request) -> rest_response.Response:
+
+        profile = auth_models.Profile.objects.get(user=request.user)
+
+        return rest_response.Response(
+            profile.as_dict(),
+            status=rest_status.HTTP_200_OK,
+        )
+
+
 class RegisterUser(views.APIView):
 
     http_method_names = ['post']

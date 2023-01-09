@@ -178,5 +178,14 @@ class Profile(auth_models.AbstractBaseUser):
     EXCLUDE_FIELDS = ['pk']
     FILTER_FIELDS = ['user_id']
 
+    def as_dict(self):
+        return {
+            'id': self.user_id,
+            'username': self.user.username,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'image': self.image.image_base64,
+        }
+
     class Meta:
         db_table = 'user_info'
