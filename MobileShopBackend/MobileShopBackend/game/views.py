@@ -21,6 +21,7 @@ def create_game(
         dt_release: datetime,
         image_base64: typing.Optional[str],
         genres: typing.Optional[list]):
+
     image = models.ImageModel.objects.create(image_base64=image_base64)
     image.save()
 
@@ -33,8 +34,7 @@ def create_game(
     game.save()
 
     for genre in genres:
-        game_genre = models.GameGenre.objects.create(game=game,
-                                                     genre_id=genre)
+        game_genre = models.GameGenre.objects.create(game=game, genre=genre)
         game_genre.save()
 
     return game
@@ -50,6 +50,7 @@ def edit_game(
         dt_release: datetime,
         image_base64: typing.Optional[str],
         genres: typing.Optional[list]):
+
     image = models.ImageModel.objects.create(image_base64=image_base64)
     image.save()
 
@@ -65,12 +66,12 @@ def edit_game(
     models.GameGenre.objects.get(game_id=game_id).delete()
 
     for genre in genres:
-        game_genre = models.GameGenre.objects.create(game=game,
-                                                     genre_id=genre)
+        game_genre = models.GameGenre.objects.create(game=game, genre=genre)
         game_genre.save()
 
 
 class CreateGame(views.APIView):
+
     http_method_names = ['post']
 
     permission_classes = [has_permission.HasPermission]
@@ -93,6 +94,7 @@ class CreateGame(views.APIView):
 
 
 class DeleteGame(views.APIView):
+
     http_method_names = ['post']
 
     permission_classes = [has_permission.HasPermission]
