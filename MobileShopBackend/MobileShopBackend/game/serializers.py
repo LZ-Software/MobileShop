@@ -18,7 +18,6 @@ class GameCreateSerializer(serializers.Serializer):
     )
 
     publisher = serializers.IntegerField(
-        max_length=128,
         required=True
     )
 
@@ -65,7 +64,6 @@ class GameEditSerializer(serializers.Serializer):
     )
 
     publisher = serializers.IntegerField(
-        max_length=128,
         required=True
     )
 
