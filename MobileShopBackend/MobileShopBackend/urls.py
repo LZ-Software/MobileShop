@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user/', include('MobileShopBackend.authentication.urls')),
+    # path('locality/', include('MobileShopBackend.locality.urls', namespace='locality')),
+    # path('images/', include('MobileShopBackend.images.urls', namespace='images')),
 ]

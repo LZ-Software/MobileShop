@@ -3,9 +3,9 @@ from abc import ABC
 from rest_framework import serializers
 
 
-class RegisterUserSerializer(serializers.Serializer, ABC):
+class RegisterUserSerializer(serializers.Serializer):
 
-    login = serializers.CharField(
+    username = serializers.CharField(
         max_length=128,
         required=True
     )
@@ -20,10 +20,6 @@ class RegisterUserSerializer(serializers.Serializer, ABC):
     last_name = serializers.CharField(
         max_length=128,
         required=False
-    )
-    country = serializers.CharField(
-        max_length=128,
-        required=True
     )
     city = serializers.CharField(
         max_length=128,

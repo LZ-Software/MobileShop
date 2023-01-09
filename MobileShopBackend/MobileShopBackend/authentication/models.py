@@ -97,7 +97,7 @@ class SelfUserManager(auth_models.BaseUserManager):
         return self.get_queryset().employees()
 
 
-class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
+class User(auth_models.AbstractUser, auth_models.PermissionsMixin):
 
     id = models.AutoField(
         primary_key=True
