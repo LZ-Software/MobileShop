@@ -7,6 +7,7 @@ from MobileShopBackend.publisher.models import Publisher
 
 
 class Game(models.Model):
+
     id = models.AutoField(
         primary_key=True
     )

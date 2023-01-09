@@ -49,7 +49,7 @@ class CreateGame(views.APIView):
 
     @staticmethod
     def post(request: rest_request.Request) -> rest_response.Response:
-        serializer = serializers.CreateGameSerializer(data=request.data)
+        serializer = serializers.GameCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
@@ -58,6 +58,31 @@ class CreateGame(views.APIView):
         return rest_response.Response(
             data={
                 'game': game.pk,
+            },
+            status=rest_status.HTTP_200_OK,
+        )
+
+
+class DeleteGame(views.APIView):
+
+    http_method_names = ['post']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.ADMIN_GAME_DELETE
+
+    @staticmethod
+    def post(request: rest_request.Request) -> rest_response.Response:
+
+        serializer = serializers.GameDeleteSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        game = models.Game.objects.get(id=data['id'])
+        game.delete()
+
+        return rest_response.Response(
+            data={
+                'success': True,
             },
             status=rest_status.HTTP_200_OK,
         )

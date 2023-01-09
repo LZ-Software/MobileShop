@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-class CreateGameSerializer(serializers.Serializer):
+class GameCreateSerializer(serializers.Serializer):
 
     name = serializers.CharField(
         max_length=128,
@@ -34,4 +34,11 @@ class CreateGameSerializer(serializers.Serializer):
         child=serializers.IntegerField(
             required=True,
         )
+    )
+
+
+class GameDeleteSerializer(serializers.Serializer):
+
+    id = serializers.IntegerField(
+        required=True
     )
