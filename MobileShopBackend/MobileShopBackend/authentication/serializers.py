@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 class RegisterUserSerializer(serializers.Serializer):
 
-    username = serializers.CharField(
+    login = serializers.CharField(
         max_length=128,
         required=True
     )

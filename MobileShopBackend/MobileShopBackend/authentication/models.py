@@ -38,7 +38,7 @@ class SelfUserManager(auth_models.BaseUserManager):
     @transaction.atomic
     def create_user(
             self,
-            username: typing.Optional[str],
+            login: typing.Optional[str],
             password: typing.Optional[str],
             first_name: typing.Optional[str],
             last_name: typing.Optional[str],
@@ -49,7 +49,7 @@ class SelfUserManager(auth_models.BaseUserManager):
 
         user = self.model()
 
-        user.username = username
+        user.login = login
 
         if password is not None:
             user.set_password(raw_password=password)
@@ -66,7 +66,7 @@ class SelfUserManager(auth_models.BaseUserManager):
 
         city = locality_models.City.objects.get(name=city)
 
-        profile = Profile.objects.create(user_id=user.pk,
+        profile = Profile.objects.create(user=user,
                                          first_name=first_name,
                                          last_name=last_name,
                                          city_id=city.pk,
@@ -102,7 +102,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     id = models.AutoField(
         primary_key=True
     )
-    username = models.CharField(
+    login = models.CharField(
         max_length=128,
         null=False,
         unique=True
@@ -112,7 +112,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         null=False
     )
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'login'
 
     objects = SelfUserManager()
 
