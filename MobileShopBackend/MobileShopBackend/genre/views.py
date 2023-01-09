@@ -44,7 +44,7 @@ class EditGenre(views.APIView):
     @staticmethod
     def post(request: rest_request.Request) -> rest_response.Response:
 
-        serializer = serializers.GenreSerializer(data=request.data)
+        serializer = serializers.GenreEditSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
@@ -61,6 +61,7 @@ class EditGenre(views.APIView):
 
 
 class DeleteGenre(views.APIView):
+
     http_method_names = ['post']
 
     permission_classes = [has_permission.HasPermission]
@@ -93,8 +94,6 @@ class GetGenres(views.APIView):
 
     @staticmethod
     def get(request: rest_request.Request) -> rest_response.Response:
-
-        genres = genre_models.Genre.objects.all()
 
         return rest_response.Response(
             genre_models.Genre.objects.values(),

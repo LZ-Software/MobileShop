@@ -9,12 +9,11 @@ class GenreCreateSerializer(serializers.Serializer):
     )
 
 
-class GenreSerializer(serializers.Serializer):
+class GenreEditSerializer(serializers.Serializer):
 
     id = serializers.IntegerField(
         required=True
     )
-
     name = serializers.CharField(
         max_length=128,
         required=True
