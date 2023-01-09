@@ -19,7 +19,7 @@ class CreateGenre(views.APIView):
     @staticmethod
     def post(request: rest_request.Request) -> rest_response.Response:
 
-        serializer = serializers.GenreSerializer(data=request.data)
+        serializer = serializers.GenreCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
@@ -30,5 +30,73 @@ class CreateGenre(views.APIView):
             data={
                 'genre': genre.pk,
             },
+            status=rest_status.HTTP_200_OK,
+        )
+
+
+class EditGenre(views.APIView):
+
+    http_method_names = ['post']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.ADMIN_GENRE_UPDATE
+
+    @staticmethod
+    def post(request: rest_request.Request) -> rest_response.Response:
+
+        serializer = serializers.GenreSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        genre = genre_models.Genre.objects.get(id=data['id'])
+        genre.name = data['name']
+        genre.save()
+
+        return rest_response.Response(
+            data={
+                'success': True,
+            },
+            status=rest_status.HTTP_200_OK,
+        )
+
+
+class DeleteGenre(views.APIView):
+    http_method_names = ['post']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.ADMIN_GENRE_DELETE
+
+    @staticmethod
+    def post(request: rest_request.Request) -> rest_response.Response:
+
+        serializer = serializers.GenreDeleteSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        genre = genre_models.Genre.objects.get(id=data['id'])
+        genre.delete()
+
+        return rest_response.Response(
+            data={
+                'success': True,
+            },
+            status=rest_status.HTTP_200_OK,
+        )
+
+
+class GetGenres(views.APIView):
+
+    http_method_names = ['get']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.USER_GENRE_READ
+
+    @staticmethod
+    def get(request: rest_request.Request) -> rest_response.Response:
+
+        genres = genre_models.Genre.objects.all()
+
+        return rest_response.Response(
+            genre_models.Genre.objects.values(),
             status=rest_status.HTTP_200_OK,
         )
