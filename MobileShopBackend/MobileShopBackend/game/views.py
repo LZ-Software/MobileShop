@@ -18,7 +18,7 @@ def create_game(
         description: typing.Optional[str],
         price: typing.Optional[float],
         publisher: typing.Optional[str],
-        dt_release: typing.Optional[datetime],
+        dt_release: datetime,
         image_base64: typing.Optional[str],
         genres: typing.Optional[list]):
     image = models.ImageModel.objects.create(image_base64=image_base64)
