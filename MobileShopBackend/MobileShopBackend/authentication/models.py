@@ -97,7 +97,7 @@ class SelfUserManager(auth_models.BaseUserManager):
         return self.get_queryset().employees()
 
 
-class User(auth_models.AbstractUser, auth_models.PermissionsMixin):
+class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     id = models.AutoField(
         primary_key=True
@@ -124,10 +124,6 @@ class User(auth_models.AbstractUser, auth_models.PermissionsMixin):
 
     @property
     def is_superuser(self) -> bool:
-        """
-        :return: Is user a superuser
-        """
-
         return any(
             role.is_superuser
             for role in roles.get_user_roles(self)
@@ -135,20 +131,12 @@ class User(auth_models.AbstractUser, auth_models.PermissionsMixin):
 
     @property
     def is_staff(self) -> bool:
-        """
-        :return: Is user allowed to enter to administrator site
-        """
-
         return rolepermissions_checkers.has_permission(
             self,
             roles.permissions.ADMIN_ACCESS,
         )
 
     def get_role_name(self) -> str:
-        """
-        :return: Name(s) of the role(s) assigned to user
-        """
-
         return ', '.join(
             str(role.verbose_name)
             for role in roles.get_user_roles(self)
