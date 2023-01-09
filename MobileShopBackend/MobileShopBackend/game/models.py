@@ -29,8 +29,8 @@ class Game(models.Model):
     publisher = models.ForeignKey(
         null=False,
         to=Publisher,
-        related_name='publishers',
-        related_query_name='publisher',
+        related_name='games',
+        related_query_name='game',
         on_delete=models.CASCADE
     )
     dt_release = models.DateTimeField(
@@ -39,8 +39,8 @@ class Game(models.Model):
 
     image = models.ForeignKey(
         to=ImageModel,
-        related_name='images',
-        related_query_name='image',
+        related_name='games',
+        related_query_name='game',
         on_delete=models.DO_NOTHING
     )
 
@@ -59,15 +59,15 @@ class GameGenre(models.Model):
 
     game = models.ForeignKey(
         to=Game,
-        related_name='games',
-        related_query_name='game',
+        related_name='game_genres',
+        related_query_name='game_genre',
         on_delete=models.CASCADE
     )
 
     genre = models.ForeignKey(
         to=Genre,
-        related_name='genres',
-        related_query_name='genre',
+        related_name='game_genres',
+        related_query_name='game_genre',
         on_delete=models.CASCADE
     )
 
@@ -86,15 +86,15 @@ class GamePurchase(models.Model):
 
     game = models.ForeignKey(
         to=Game,
-        related_name='games',
-        related_query_name='game',
+        related_name='purchases',
+        related_query_name='purchase',
         on_delete=models.DO_NOTHING
     )
 
     user = models.ForeignKey(
         to=User,
-        related_name='users',
-        related_query_name='user',
+        related_name='purchases',
+        related_query_name='purchase',
         on_delete=models.DO_NOTHING
     )
 
@@ -117,15 +117,15 @@ class Library(models.Model):
 
     user = models.ForeignKey(
         to=User,
-        related_name='users',
-        related_query_name='user',
+        related_name='libraries',
+        related_query_name='library',
         on_delete=models.CASCADE
     )
 
     game = models.ForeignKey(
         to=Game,
-        related_name='games',
-        related_query_name='game',
+        related_name='libraries',
+        related_query_name='library',
         on_delete=models.CASCADE
     )
 

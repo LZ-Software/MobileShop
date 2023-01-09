@@ -16,14 +16,14 @@ class Publisher(models.Model):
     )
     country = models.ForeignKey(
         to=Country,
-        related_name='countries',
-        related_query_name='country',
+        related_name='publishers',
+        related_query_name='publisher',
         on_delete=models.DO_NOTHING
     )
     user = models.ForeignKey(
         to=User,
-        related_name='users',
-        related_query_name='user',
+        related_name='publishers',
+        related_query_name='publisher',
         on_delete=models.DO_NOTHING
     )
 

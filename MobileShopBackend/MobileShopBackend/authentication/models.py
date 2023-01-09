@@ -182,8 +182,8 @@ class Profile(auth_models.AbstractBaseUser):
     )
     image = models.ForeignKey(
         to=image_models.ImageModel,
-        related_name='images',
-        related_query_name='image',
+        related_name='profiles',
+        related_query_name='profile',
         on_delete=models.DO_NOTHING,
     )
 
