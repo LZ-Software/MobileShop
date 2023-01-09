@@ -13,6 +13,7 @@ from .roles.permissions import has_permission
 
 from MobileShopBackend.locality import models as locality_models
 from MobileShopBackend.images import models as image_models
+from MobileShopBackend.game import models as game_models
 
 from MobileShopBackend.images import serializers as image_serializers
 
@@ -148,5 +149,31 @@ class EditUserImage(views.APIView):
             data={
                 'success': True,
             },
+            status=rest_status.HTTP_200_OK,
+        )
+
+
+class GetUserLibrary(views.APIView):
+
+    http_method_names = ['get']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.USER_USER_LIBRARY_ACCESS
+
+    @staticmethod
+    def get(request: rest_request.Request) -> rest_response.Response:
+
+        user_games = game_models.Library.objects.filter(user=request.user)
+
+        games = []
+        for user_game in user_games:
+            games.append({
+                'id': user_game.game.pk,
+                'name': user_game.game.name,
+                'image': user_game.game.image.image_base64,
+            })
+
+        return rest_response.Response(
+            games,
             status=rest_status.HTTP_200_OK,
         )

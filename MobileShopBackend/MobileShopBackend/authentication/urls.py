@@ -8,4 +8,5 @@ urlpatterns = [
     urls.url(r'^get$', views.GetUserProfile.as_view(), name='get-user'),
     urls.url(r'^edit$', views.EditUser.as_view(), name='edit-user'),
     urls.url(r'^edit/image$', views.EditUserImage.as_view(), name='edit-user-image'),
+    urls.url(r'^library$', views.GetUserLibrary.as_view(), name='edit-user-image'),
 ]
