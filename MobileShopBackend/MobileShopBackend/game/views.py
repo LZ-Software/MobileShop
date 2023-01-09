@@ -35,7 +35,7 @@ def create_game(
     for genre in genres:
 
         game_genre = models.GameGenre.objects.create(game_id=game.pk,
-                                                     genre_id=genre.pk)
+                                                     genre_id=genre)
         game_genre.save()
 
     return game

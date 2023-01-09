@@ -31,8 +31,7 @@ class CreateGameSerializer(serializers.Serializer):
     )
 
     genres = serializers.ListField(
-        genre=serializers.CharField(
-            max_length=128,
+        genre=serializers.IntegerField(
             required=True,
         )
     )
