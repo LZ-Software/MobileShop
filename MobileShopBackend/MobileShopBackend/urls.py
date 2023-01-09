@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('MobileShopBackend.authentication.urls')),
     path('image/', include('MobileShopBackend.images.urls')),
+    path('genre/', include('MobileShopBackend.genre.urls')),
     # path('locality/', include('MobileShopBackend.locality.urls', namespace='locality')),
 ]
