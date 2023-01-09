@@ -49,7 +49,7 @@ class SelfUserManager(auth_models.BaseUserManager):
 
         user = self.model()
 
-        user.login = login
+        user.username = login
 
         if password is not None:
             user.set_password(raw_password=password)
@@ -102,7 +102,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     id = models.AutoField(
         primary_key=True
     )
-    login = models.CharField(
+    username = models.CharField(
         max_length=128,
         null=False,
         unique=True
@@ -112,7 +112,7 @@ class User(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         null=False
     )
 
-    USERNAME_FIELD = 'login'
+    USERNAME_FIELD = 'username'
 
     objects = SelfUserManager()
 
