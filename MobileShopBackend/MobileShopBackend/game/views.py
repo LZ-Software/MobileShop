@@ -179,4 +179,44 @@ class GetGame(views.APIView):
             game_ret,
             status=rest_status.HTTP_200_OK,
         )
+
+
+class GetGames(views.APIView):
+
+    http_method_names = ['get']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.USER_GAME_READ
+
+    @staticmethod
+    def get(request: rest_request.Request) -> rest_response.Response:
+
+        games = models.Game.objects.values()
+
+        games_ret = []
+        for game in games:
+            image = game.image.image_base64
+            publisher = game.publisher.name
+            genres = models.GameGenre.objects.filter(game=game)
+
+            genre_ret = []
+            for genre in genres:
+                genre_ret.append(genre.genre)
+
+            game_ret = {
+                'id': game.pk,
+                'name': game.name,
+                'description': game.description,
+                'price': game.price,
+                'publisher': publisher,
+                'dt_release': game.dt_release,
+                'image': image,
+                'genres': genre_ret
+            }
+            games_ret.append(game_ret)
+
+        return rest_response.Response(
+            games_ret,
+            status=rest_status.HTTP_200_OK,
+        )
         
