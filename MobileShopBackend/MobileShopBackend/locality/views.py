@@ -93,9 +93,6 @@ class GetCountries(views.APIView):
 
     http_method_names = ['get']
 
-    permission_classes = [has_permission.HasPermission]
-    permission = permissions.USER_COUNTRY_READ
-
     @staticmethod
     def get(request: rest_request.Request) -> rest_response.Response:
 
@@ -184,9 +181,6 @@ class DeleteCity(views.APIView):
 class GetCities(views.APIView):
 
     http_method_names = ['get']
-
-    permission_classes = [has_permission.HasPermission]
-    permission = permissions.USER_CITY_READ
 
     @staticmethod
     def get(request: rest_request.Request) -> rest_response.Response:
