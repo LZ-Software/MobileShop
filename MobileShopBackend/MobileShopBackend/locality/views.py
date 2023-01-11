@@ -97,7 +97,9 @@ class GetCountries(views.APIView):
     def get(request: rest_request.Request) -> rest_response.Response:
 
         return rest_response.Response(
-            locality_models.Country.objects.values(),
+            data={
+                'countries': locality_models.Country.objects.values()
+            },
             status=rest_status.HTTP_200_OK,
         )
 
