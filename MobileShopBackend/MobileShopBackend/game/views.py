@@ -1,6 +1,9 @@
 import datetime
 import typing
+import random
+
 from django.db import transaction
+
 from rest_framework import views
 from rest_framework import request as rest_request
 from rest_framework import response as rest_response
@@ -219,4 +222,31 @@ class GetGames(views.APIView):
             games_ret,
             status=rest_status.HTTP_200_OK,
         )
-        
+
+
+class Purchase(views.APIView):
+
+    http_method_names = ['post']
+
+    permission_classes = [has_permission.HasPermission]
+    permission = permissions.USER_GAME_PURCHASE_CREATE
+
+    @staticmethod
+    def post(request: rest_request.Request) -> rest_response.Response:
+
+        serializer = serializers.GamePurchaseSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        if status := random.choice([True, False]):
+            purchase = models.GamePurchase.objects.create(user=request.user, game_id=data['game_id'])
+            purchase.save()
+            game_library = models.Library.objects.create(user=request.user, game_id=data['game_id'])
+            game_library.save()
+
+        return rest_response.Response(
+            data={
+                'success': status
+            },
+            status=rest_status.HTTP_200_OK,
+        )
