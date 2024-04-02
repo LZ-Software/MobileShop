@@ -31,10 +31,6 @@ class UserCreateSerializer(serializers.Serializer):
         max_length=128,
         required=False
     )
-    city = serializers.CharField(
-        max_length=128,
-        required=True
-    )
 
 
 class UserEditSerializer(serializers.Serializer):
@@ -46,8 +42,4 @@ class UserEditSerializer(serializers.Serializer):
     last_name = serializers.CharField(
         max_length=128,
         required=False
-    )
-    city = serializers.CharField(
-        max_length=128,
-        required=True
     )

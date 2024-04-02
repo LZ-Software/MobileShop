@@ -22,7 +22,6 @@ urlpatterns = [
     path('user/', include('MobileShopBackend.authentication.urls')),
     path('image/', include('MobileShopBackend.images.urls')),
     path('genre/', include('MobileShopBackend.genre.urls')),
-    path('locality/', include('MobileShopBackend.locality.urls')),
     path('publisher/', include('MobileShopBackend.publisher.urls')),
     path('game/', include('MobileShopBackend.game.urls')),
 ]

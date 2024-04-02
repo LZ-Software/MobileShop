@@ -9,6 +9,7 @@ Django = "~=2.2.17"
 django-environ = "~=0.4.5"
 djangorestframework = "~=3.12.2"
 django-role-permissions = "~=3.1.1"
+django-redis = "*"
 
 [dev-packages]
 

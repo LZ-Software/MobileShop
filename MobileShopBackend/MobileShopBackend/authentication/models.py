@@ -4,7 +4,6 @@ from django.db import models, transaction
 from rolepermissions import checkers as rolepermissions_checkers
 
 from MobileShopBackend.authentication import roles
-from MobileShopBackend.locality import models as locality_models
 from MobileShopBackend.images import models as image_models
 
 import typing
@@ -42,7 +41,6 @@ class SelfUserManager(auth_models.BaseUserManager):
             password: typing.Optional[str],
             first_name: typing.Optional[str],
             last_name: typing.Optional[str],
-            city: typing.Optional[str],
             image_base64: typing.Optional[str] = None,
             role: typing.Optional[typing.Union[typing.Type[roles.AbstractUserRole], str]] = roles.User,
     ) -> 'User':
@@ -64,12 +62,9 @@ class SelfUserManager(auth_models.BaseUserManager):
         else:
             image = image_models.ImageModel.objects.create(image_base64=image_base64)
 
-        city = locality_models.City.objects.get(name=city)
-
         profile = Profile.objects.create(user=user,
                                          first_name=first_name,
                                          last_name=last_name,
-                                         city_id=city.pk,
                                          image_id=image.pk)
         profile.save()
 
@@ -82,12 +77,11 @@ class SelfUserManager(auth_models.BaseUserManager):
     ) -> 'User':
 
         result = self.create_user(
-            username=username,
+            login=username,
             password=password,
             role=roles.Administrator,
             first_name='admin',
             last_name='admin',
-            city='Moscow',
         )
 
         return result
@@ -161,12 +155,6 @@ class Profile(auth_models.AbstractBaseUser):
     last_name = models.CharField(
         max_length=128,
         null=True
-    )
-    city = models.ForeignKey(
-        to=locality_models.City,
-        related_name='cities',
-        related_query_name='city',
-        on_delete=models.DO_NOTHING,
     )
     image = models.ForeignKey(
         to=image_models.ImageModel,

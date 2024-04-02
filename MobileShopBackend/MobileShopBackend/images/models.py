@@ -4,7 +4,7 @@ DEFAULT_IMAGE = 'iVBORw0KGgoAAAANSUhEUgAAA5gAAAOLAgMAAABI5MQbAAAADFBMVEXm5ub////
 
 
 class ImageModel(models.Model):
-    """ Country of user"""
+    """ Image """
 
     id = models.AutoField(
         primary_key=True

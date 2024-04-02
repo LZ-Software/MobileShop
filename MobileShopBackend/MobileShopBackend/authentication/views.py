@@ -11,7 +11,6 @@ from . import serializers as user_serializers
 from .roles import permissions
 from .roles.permissions import has_permission
 
-from MobileShopBackend.locality import models as locality_models
 from MobileShopBackend.images import models as image_models
 from MobileShopBackend.game import models as game_models
 
@@ -54,13 +53,13 @@ class AuthorizeUser(views.APIView):
 
 class GetUserProfile(views.APIView):
 
-    http_method_names = ['post']
+    http_method_names = ['get']
 
     permission_classes = [has_permission.HasPermission]
     permission = permissions.USER_USER_INFO_READ
 
     @staticmethod
-    def post(request: rest_request.Request) -> rest_response.Response:
+    def get(request: rest_request.Request) -> rest_response.Response:
 
         profile = auth_models.Profile.objects.get(user=request.user)
 
@@ -108,13 +107,9 @@ class EditUser(views.APIView):
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
-        city = locality_models.City.objects.get(name=data.pop('city'))
-        data['city'] = city
-
         profile = auth_models.Profile.objects.get(user=request.user)
         profile.first_name = data['first_name']
         profile.last_name = data['last_name']
-        profile.city = data['city']
         profile.save()
 
         return rest_response.Response(

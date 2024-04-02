@@ -12,7 +12,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('images', '0001_initial'),
         ('auth', '0011_update_proxy_permissions'),
-        ('locality', '0001_initial'),
     ]
 
     operations = [
@@ -38,7 +37,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('first_name', models.CharField(max_length=128)),
                 ('last_name', models.CharField(max_length=128, null=True)),
-                ('city', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='cities', related_query_name='city', to='locality.City')),
                 ('image', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='profiles', related_query_name='profile', to='images.ImageModel')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='profiles', related_query_name='profile', to=settings.AUTH_USER_MODEL)),
             ],
