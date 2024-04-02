@@ -91,6 +91,20 @@ REST_FRAMEWORK = {
 WSGI_APPLICATION = 'MobileShopBackend.wsgi.application'
 
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': env.str('REDIS_STRING'),
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_CACHE_ALIAS = 'default'
+
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 

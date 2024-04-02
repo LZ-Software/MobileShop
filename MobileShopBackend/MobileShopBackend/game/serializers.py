@@ -67,10 +67,3 @@ class GameEditSerializer(serializers.Serializer):
             required=True,
         )
     )
-
-
-class GamePurchaseSerializer(serializers.Serializer):
-
-    game_id = serializers.IntegerField(
-        required=True
-    )

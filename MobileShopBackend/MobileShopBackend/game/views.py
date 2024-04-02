@@ -194,17 +194,17 @@ class GetGames(views.APIView):
     @staticmethod
     def get(request: rest_request.Request) -> rest_response.Response:
 
-        games = models.Game.objects.values()
+        games = models.Game.objects.all()
 
         games_ret = []
         for game in games:
-            image = game.image.image_base64
+            # image = game.image.image_base64
             publisher = game.publisher.name
             genres = models.GameGenre.objects.filter(game=game)
 
             genre_ret = []
             for genre in genres:
-                genre_ret.append(genre.genre)
+                genre_ret.append(genre.genre.name)
 
             game_ret = {
                 'id': game.pk,
@@ -213,40 +213,12 @@ class GetGames(views.APIView):
                 'price': game.price,
                 'publisher': publisher,
                 'dt_release': game.dt_release,
-                'image': image,
+                # 'image': image,
                 'genres': genre_ret
             }
             games_ret.append(game_ret)
 
         return rest_response.Response(
             games_ret,
-            status=rest_status.HTTP_200_OK,
-        )
-
-
-class Purchase(views.APIView):
-
-    http_method_names = ['post']
-
-    permission_classes = [has_permission.HasPermission]
-    permission = permissions.USER_GAME_PURCHASE_CREATE
-
-    @staticmethod
-    def post(request: rest_request.Request) -> rest_response.Response:
-
-        serializer = serializers.GamePurchaseSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        data = serializer.validated_data
-
-        if status := random.choice([True, False]):
-            purchase = models.GamePurchase.objects.create(user=request.user, game_id=data['game_id'])
-            purchase.save()
-            game_library = models.Library.objects.create(user=request.user, game_id=data['game_id'])
-            game_library.save()
-
-        return rest_response.Response(
-            data={
-                'success': status
-            },
             status=rest_status.HTTP_200_OK,
         )

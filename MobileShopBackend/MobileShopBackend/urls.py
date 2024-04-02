@@ -24,4 +24,5 @@ urlpatterns = [
     path('genre/', include('MobileShopBackend.genre.urls')),
     path('publisher/', include('MobileShopBackend.publisher.urls')),
     path('game/', include('MobileShopBackend.game.urls')),
+    path('shopping_cart/', include('MobileShopBackend.shopping_cart.urls')),
 ]
