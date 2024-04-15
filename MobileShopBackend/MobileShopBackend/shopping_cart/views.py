@@ -83,7 +83,7 @@ class PopFromShoppingCart(views.APIView):
     http_method_names = ['delete']
 
     permission_classes = [has_permission.HasPermission]
-    permission = permissions.ADMIN_SHOPPING_CART_DELETE_ITEM
+    permission = permissions.USER_SHOPPING_CART_DELETE_ITEM
 
     @staticmethod
     def delete(request: rest_request.Request) -> rest_response.Response:
