@@ -31,13 +31,13 @@ def create_game(
     game = models.Game.objects.create(name=name,
                                       description=description,
                                       price=price,
-                                      publisher=publisher,
+                                      publisher_id=publisher,
                                       dt_release=dt_release,
                                       image=image)
     game.save()
 
     for genre in genres:
-        game_genre = models.GameGenre.objects.create(game=game, genre=genre)
+        game_genre = models.GameGenre.objects.create(game=game, genre_id=genre)
         game_genre.save()
 
     return game
@@ -69,7 +69,7 @@ def edit_game(
     models.GameGenre.objects.get(game_id=game_id).delete()
 
     for genre in genres:
-        game_genre = models.GameGenre.objects.create(game=game, genre=genre)
+        game_genre = models.GameGenre.objects.create(game=game, genre_id=genre)
         game_genre.save()
 
 
@@ -158,7 +158,7 @@ class GetGame(views.APIView):
         data = serializer.validated_data
 
         game = models.Game.objects.get(id=data['id'])
-        image = game.image.image_base64
+        # image = game.image.image_base64
         publisher = game.publisher.name
         genres = models.GameGenre.objects.filter(game=game)
 
@@ -174,7 +174,7 @@ class GetGame(views.APIView):
             'price': game.price,
             'publisher': publisher,
             'dt_release': game.dt_release,
-            'image': image,
+            # 'image': image,
             'genres': genre_ret
         }]
 
