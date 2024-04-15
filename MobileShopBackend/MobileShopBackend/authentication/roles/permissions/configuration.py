@@ -94,4 +94,8 @@ USER_PERMISSIONS = {
     permissions.USER_GAME_PURCHASE_ACCESS: True,
     permissions.USER_GAME_PURCHASE_CREATE: True,
     permissions.USER_GAME_PURCHASE_READ: True,
+    permissions.USER_SHOPPING_CART_ACCESS: True,
+    permissions.USER_SHOPPING_CART_READ: True,
+    permissions.USER_SHOPPING_CART_CREATE_ITEM: True,
+    permissions.USER_SHOPPING_CART_DELETE_ITEM: True,
 }
