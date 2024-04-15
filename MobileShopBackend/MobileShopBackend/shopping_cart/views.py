@@ -22,7 +22,7 @@ class GetShoppingCart(views.APIView):
     @staticmethod
     def get(request: rest_request.Request) -> rest_response.Response:
 
-        shopping_cart = list(request.session.get('shopping_cart', []))
+        shopping_cart = list(request.session.get(f'shopping_cart_{request.user.id}', []))
 
         return rest_response.Response(
             data=shopping_cart,
@@ -57,7 +57,7 @@ class AddToShoppingCart(views.APIView):
         except game_models.Library.DoesNotExist:
             pass
 
-        shopping_cart = list(request.session.get('shopping_cart', []))
+        shopping_cart = list(request.session.get(f'shopping_cart_{request.user.id}', []))
 
         if new_id in shopping_cart:
             return rest_response.Response(
@@ -68,7 +68,7 @@ class AddToShoppingCart(views.APIView):
             )
 
         shopping_cart.append(new_id)
-        request.session['shopping_cart'] = shopping_cart
+        request.session[f'shopping_cart_{request.user.id}'] = shopping_cart
 
         return rest_response.Response(
             data={
@@ -94,7 +94,7 @@ class PopFromShoppingCart(views.APIView):
 
         game_id = data['id']
 
-        shopping_cart = list(request.session.get('shopping_cart', []))
+        shopping_cart = list(request.session.get(f'shopping_cart_{request.user.id}', []))
 
         if game_id not in shopping_cart:
             return rest_response.Response(
@@ -104,10 +104,10 @@ class PopFromShoppingCart(views.APIView):
                 status=rest_status.HTTP_400_BAD_REQUEST,
             )
 
-        shopping_cart = list(request.session.get('shopping_cart', []))
+        shopping_cart = list(request.session.get(f'shopping_cart_{request.user.id}', []))
         shopping_cart.remove(game_id)
 
-        request.session['shopping_cart'] = shopping_cart
+        request.session[f'shopping_cart_{request.user.id}'] = shopping_cart
 
         return rest_response.Response(
             data={
@@ -127,7 +127,7 @@ class Purchase(views.APIView):
     @staticmethod
     def post(request: rest_request.Request) -> rest_response.Response:
 
-        shopping_cart = list(request.session.get('shopping_cart', []))
+        shopping_cart = list(request.session.get(f'shopping_cart_{request.user.id}', []))
 
         if len(shopping_cart) == 0:
             return rest_response.Response(
@@ -144,7 +144,7 @@ class Purchase(views.APIView):
                 game_library = game_models.Library.objects.create(user=request.user, game_id=game_id)
                 game_library.save()
             shopping_cart.clear()
-            request.session['shopping_cart'] = shopping_cart
+            request.session[f'shopping_cart_{request.user.id}'] = shopping_cart
 
         return rest_response.Response(
             data={
