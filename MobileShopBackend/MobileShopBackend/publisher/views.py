@@ -23,7 +23,10 @@ class CreatePublisher(views.APIView):
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
 
-        publisher = publisher_models.Publisher.objects.create(**data)
+        publisher = publisher_models.Publisher.objects.create(
+            user_id=data.get('user'),
+            name=data.get('name')
+        )
         publisher.save()
 
         return rest_response.Response(
@@ -36,13 +39,13 @@ class CreatePublisher(views.APIView):
 
 class EditPublisher(views.APIView):
 
-    http_method_names = ['post']
+    http_method_names = ['put']
 
     permission_classes = [has_permission.HasPermission]
     permission = permissions.ADMIN_PUBLISHER_UPDATE
 
     @staticmethod
-    def post(request: rest_request.Request) -> rest_response.Response:
+    def put(request: rest_request.Request) -> rest_response.Response:
 
         serializer = serializers.PublisherEditSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -63,13 +66,13 @@ class EditPublisher(views.APIView):
 
 
 class DeletePublisher(views.APIView):
-    http_method_names = ['post']
+    http_method_names = ['delete']
 
     permission_classes = [has_permission.HasPermission]
     permission = permissions.ADMIN_PUBLISHER_DELETE
 
     @staticmethod
-    def post(request: rest_request.Request) -> rest_response.Response:
+    def delete(request: rest_request.Request) -> rest_response.Response:
 
         serializer = serializers.PublisherDeleteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

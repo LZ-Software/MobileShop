@@ -98,13 +98,13 @@ class CreateGame(views.APIView):
 
 class DeleteGame(views.APIView):
 
-    http_method_names = ['post']
+    http_method_names = ['delete']
 
     permission_classes = [has_permission.HasPermission]
     permission = permissions.ADMIN_GAME_DELETE
 
     @staticmethod
-    def post(request: rest_request.Request) -> rest_response.Response:
+    def delete(request: rest_request.Request) -> rest_response.Response:
         serializer = serializers.GameDeleteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
@@ -122,13 +122,13 @@ class DeleteGame(views.APIView):
 
 class EditGame(views.APIView):
 
-    http_method_names = ['post']
+    http_method_names = ['put']
 
     permission_classes = [has_permission.HasPermission]
     permission = permissions.ADMIN_GENRE_UPDATE
 
     @staticmethod
-    def post(request: rest_request.Request) -> rest_response.Response:
+    def put(request: rest_request.Request) -> rest_response.Response:
         serializer = serializers.GameEditSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data

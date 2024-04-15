@@ -36,13 +36,13 @@ class CreateGenre(views.APIView):
 
 class EditGenre(views.APIView):
 
-    http_method_names = ['post']
+    http_method_names = ['put']
 
     permission_classes = [has_permission.HasPermission]
     permission = permissions.ADMIN_GENRE_UPDATE
 
     @staticmethod
-    def post(request: rest_request.Request) -> rest_response.Response:
+    def put(request: rest_request.Request) -> rest_response.Response:
 
         serializer = serializers.GenreEditSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -62,13 +62,13 @@ class EditGenre(views.APIView):
 
 class DeleteGenre(views.APIView):
 
-    http_method_names = ['post']
+    http_method_names = ['delete']
 
     permission_classes = [has_permission.HasPermission]
     permission = permissions.ADMIN_GENRE_DELETE
 
     @staticmethod
-    def post(request: rest_request.Request) -> rest_response.Response:
+    def delete(request: rest_request.Request) -> rest_response.Response:
 
         serializer = serializers.GenreDeleteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
