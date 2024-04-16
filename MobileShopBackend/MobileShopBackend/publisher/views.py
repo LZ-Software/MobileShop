@@ -52,8 +52,8 @@ class EditPublisher(views.APIView):
         data = serializer.validated_data
 
         publisher = publisher_models.Publisher.objects.get(id=data['id'])
-        publisher.name = data['name']
-        publisher.user = data['user']
+        publisher.name = data.get('name')
+        publisher.user_id = data.get('user')
         publisher.save()
 
         return rest_response.Response(
