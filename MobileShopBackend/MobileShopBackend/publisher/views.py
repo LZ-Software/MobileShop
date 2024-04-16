@@ -53,7 +53,6 @@ class EditPublisher(views.APIView):
 
         publisher = publisher_models.Publisher.objects.get(id=data['id'])
         publisher.name = data['name']
-        publisher.country = data['country']
         publisher.user = data['user']
         publisher.save()
 
